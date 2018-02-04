@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 NY (nyssance@icloud.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <!-- layout -->
+    <item name="container_for_add" type="id" />
+    <item name="drawer_layout" type="id" />
+    <!-- NavigationView & BottomNavigationView -->
+    <item name="navigation" type="id" />
+    <item name="pager" type="id" />
+    <item name="swipe_refresh" type="id" />
+    <!-- AppBar -->
+    <item name="collapsing_toolbar" type="id" />
+    <item name="navigation_bar" type="id" />
+    <item name="toolbar" type="id" />
+    <!-- Fab -->
+    <item name="fab" type="id" />
+    <!-- android.R.id.list用于表示list和通用指代, grid用于ListView和GridView能切换的场景 -->
+    <item name="badge" type="id" />
+    <item name="section_header" type="id" />
+    <item name="header_title" type="id" />
+    <item name="list_divider" type="id" />
+    <item name="subtitle" type="id" />
+
+    <!-- navigation -->
+    <item name="navigation_home" type="id" />
+    <item name="navigation_discover" type="id" />
+    <item name="navigation_me" type="id" />
+
+    <!-- action -->
+    <!-- Item -->
+    <item name="action_item_open" type="id" />
+    <!-- View -->
+    <item name="action_view_refresh" type="id" />
+    <!-- Others -->
+    <item name="action_play_store" type="id" />
+    <item name="action_search" type="id" />
+    <item name="action_settings" type="id" />
+    <item name="action_help" type="id" />
+    <item name="action_quit" type="id" />
+</resources>
