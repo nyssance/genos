@@ -5,7 +5,7 @@ Genos
 Genos makes it easier to build better Android apps more quickly and with less code.
 For more information please see [the website][1].
 
-Show your the code
+Show you the code
 ------------------
 __Step 0 (between  10 minutes to 1 day):__
 
