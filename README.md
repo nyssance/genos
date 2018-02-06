@@ -24,7 +24,7 @@ Genos integrate google architerture. just use. if your need learn more info abou
 
 2. How to use
 
-Create a list, override three methods, 20 lines code, that's all you need to do.
+Create a list fragment, override three methods, 20 lines code, that's all you need to do.
 ```java
 public class UserList extends TableList<User, SubtitleHolder> {
     @Override
@@ -47,7 +47,7 @@ public class UserList extends TableList<User, SubtitleHolder> {
 }
 ```
 
-Create a bottom navigaiton with three buttons, 10 lines
+Create a bottom navigation with three buttons, 10 lines
 ```java
 publc class MainActivity extends TabBarActivity { // If you need a drawer navigation, just use DrawerActivity
     @Override
