@@ -1,118 +1,55 @@
-Genos
-=====
+# Genos
 [ ![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg) ](https://bintray.com/nyssance/maven/genos/_latestVersion)
 
-Genos makes it easier to build better Android apps more quickly and with less code.
+Genos makes it very easy to build better Android apps more quickly and with less code.
 For more information please see [the website][1].
 
-Show you the code
-------------------
-__Step 0 (between  10 minutes to 1 day):__
-
-Install Java8 & [Android Studio 3.0.1](https://developer.android.com/studio/index.html).
-
-__Step 1 (need 2 minutes ):__
-
-Start a new project. [official guide][10]
-
-Screen | Configure
------- | ---------
-Target Android Devices | Phone and Tablet : API 17
-Add an Activity to Mobile | Empty Activity
-
-Config _Gradle Scripts: build.gradle (Module: app)_.
+### Download
+Gradle:
 ```gradle
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    // Replace default by Genos
-    // implementation 'com.android.support:appcompat-v7:26.1.0'
-    // implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.nyssance.genos:genos:+'
-    ...
+implementation 'com.nyssance.genos:genos:+'
 ```
+### Featured
+Genos integrate google architerture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
 
-__Step 2 (5 minutes):__
+1. Rules
 
-Create 4 classes: _User_, _APIService_, _AppManager_, _UserList_
+- Activity just as an container, include app bar and drawer/bottom navigation, and one fragment or more.
+- Fragment have two type: list and detail.
+  - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `mListView`, `mAdapter`
+  - detail for REST detail api, like https://www.yourdomain,com/api/v1/users/{:user_id}/
+  - mCall in fragment is a call of it, it's a [Retrofit](http://square.github.io/retrofit/) call 
+- Repository is for load data.
+- ViewModel is for bind data and view.
 
-_User_
+2. How to use
 
+Create a list, override three methods, 20 lines code, that's all you need to do.
 ```java
-import com.google.gson.annotations.SerializedName;
-
-public class User {
-    @SerializedName("login")
-    public String login;
-    @SerializedName("id")
-    public long id;
-    @SerializedName("avatar_url")
-    public String avatarUrl;
-}
-```
-
-_APIService_
-```java
-public interface APIService {
-    @GET("api/v1/users/")
-    Call<List<User>> userList(@Query("page") int page);
-
-    @GET("api/v1/users/{id}/")
-    Call<User> userDetail(@Path("id") int id);
-}
-```
-
-_AppManager_
-```java
-import genos.BaseAppManager;
-
-public class AppManager extends BaseAppManager {
-    public static APIService API;
-
-    @Override
-    public void settings() {
-        BASE_URL = "https://api.github.com";
-        // Create retrofit
-        API = onCreateRetrofit().create(APIService.class);
-    }
-    ...
-
-```
-
-_UserList_
-```java
-import genos.ui.fragment.TableList;
-import genos.ui.viewholder.SubtitleHolder;
-
 public class UserList extends TableList<User, SubtitleHolder> {
-
     @Override
     protected void onPrepare() {
-        mCall = API.userList(mPage);
-        mTileId = R.layout.list_item_subtitle;
+        mCall = API.userList(mPage);  // a retrofit call of this fragment.
+        mTileId = R.layout.list_item_subtitle;  // the layour res id of list item
     }
 
     @Override
     protected void onDisplayItem(User item, SubtitleHolder holder, int viewType) {
-        holder.title.setText(item.login);
+        holder.title.setText(item.name);
         holder.subtitle.setText("id: " + item.id);
         holder.setImage(holder.icon, item.avatarUrl);
     }
 
     @Override
     protected void onOpenItem(User item) {
-        Snackbar.make(mListView, "Replace with your own action", Snackbar.LENGTH_SHORT).show();
+        // startActivity or do anything when click item
     }
 }
 ```
 
-__Step 3(1 minutes)__
-
-Modify _MainActivity_, _AndroidManifest.xml_
+Create a bottom navigaiton with three buttons, 10 lines
 ```java
-import genos.ui.TabBarActivity
-
-publc class MainActivity extends TabBarActivity {
-
+publc class MainActivity extends TabBarActivity { // If you need a drawer navigation, just use DrawerActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,41 +61,53 @@ publc class MainActivity extends TabBarActivity {
 }
 ```
 
-_AndroidManifest.xml_
-```xml
-    <uses-permission android:name="android.permission.INTERNET" />
+### Tutorial
+[Develop an app in 10 minutes][1].
 
-    <application
-        ...
-        android:theme="@style/Theme.Genos">
-        ...
-    </application>
-
-</manifest>
+### Architecture
+```
+genos
+├── BaseAppManager.java                 extends it for config your app.
+├── libs
+│   └── MessageEvent.java               util for EventBus.
+├── repository
+│   └── HttpRepository.java             Default Http repository.
+└─── ui
+    ├── BaseAdapter.java                Default Adapter for list fragment.
+    ├── BaseViewModel.java              Default ViewModel for list and detail fragment.
+    ├── activity
+    │   ├── AppBarActivity.java         Activity with an app bar.
+    │   ├── CollapsingActivity.java     Activity with a collapsing app bar.
+    │   ├── DrawerActivity.java         Activity with drawer.
+    │   ├── TabBarActivity.java         Activity with bottom navigation.
+    │   └── base                        (design your activity by extends activities in base.)
+    ├── fragment
+    │   ├── CollectionList.java         Fragment with a StaggeredGrid layout, use for waterfall list.
+    │   ├── DetailFragment.java         Fragment for detail.
+    │   ├── GridList.java               Fragment with a grid layout, user for grid list.
+    │   ├── PagerFragment.java          Fragment with a pager.
+    │   ├── TableList.java              Fragment with a Linear layout, use for stand list, one item per line.
+    │   └── base                        (design your fragemnt by extends fragments in base.)
+    └── viewholder
+        ├── BaseHolder.java             Base holder.
+        ├── DefaultHolder.java          A holder with icon / title
+        └── SubtitleHolder.java         A holder with icon / title / subtitle
 ```
 
-__Step 4__
-
-Run it
-#### Congratulations!  your are an Android expert~~
-
-Vendor
-------
+### Vendor
 * Android
- * [Support Library](https://developer.android.com/topic/libraries/support-library/index.html)
- * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
- * [ATSL](https://developer.android.com/topic/libraries/testing-support-library/index.html)
+  * [Support Library](https://developer.android.com/topic/libraries/support-library/index.html)
+  * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
+  * [ATSL](https://developer.android.com/topic/libraries/testing-support-library/index.html)
 * Others
- * [Retrofit](https://square.github.io/retrofit/)
- * [Glide](https://github.com/bumptech/glide)
- * [EventBus](https://github.com/greenrobot/EventBus)
- * [Logger](https://github.com/orhanobut/logger)
+  * [Retrofit](https://square.github.io/retrofit/)
+  * [Glide](https://github.com/bumptech/glide)
+  * [EventBus](https://github.com/greenrobot/EventBus)
+  * [Logger](https://github.com/orhanobut/logger)
 
 Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
 
-License
-=======
-
+### License
     Copyright 2018 NY (nyssance@icloud.com)
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -173,7 +122,6 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
-
- [1]: https://github.com/nyssance/genos
- [2]: https://search.maven.org/remote_content?g=com.nyssance.genos&a=genos&v=LATEST
- [10]: https://developer.android.com/studio/projects/create-project.html
+[1]: https://nyssance.github.io/genos
+[2]: https://search.maven.org/remote_content?g=com.nyssance.genos&a=genos&v=LATEST
+[10]: https://developer.android.com/studio/projects/create-project.html
