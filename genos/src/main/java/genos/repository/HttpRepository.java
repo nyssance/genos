@@ -41,7 +41,7 @@ public class HttpRepository<D> implements IRepository {
                 Request request = call.request();
                 String scheme = request.url().scheme();
                 String log = String.format("%s %s %s %s",
-                        request.method(), Uri.decode(request.url().toString()), response.code(), response.message());
+                        request.method(), getUrlString(request), response.code(), response.message());
                 if (BuildConfig.DEBUG) {
                     // log = String.format("%s\n\n▼ Response Headers\n%s\n▼ Request Headers\n%s", log, response.headers(), request.headers());
                 }
@@ -59,7 +59,12 @@ public class HttpRepository<D> implements IRepository {
 
             @Override
             public void onFailure(Call<D> call, Throwable t) {
-                Logger.t(call.request().url().scheme()).e(t, "Throwable");
+                Request request = call.request();
+                Logger.t(request.url().scheme()).e(t, String.format("❌ %s\n", getUrlString(request)));
+            }
+
+            private String getUrlString(Request request) {
+                return Uri.decode(request.url().toString());
             }
         });
         return data;

@@ -26,6 +26,7 @@ import static genos.BaseAppManager.LIST_START_PAGE;
 
 public abstract class ListFragment<D, T, VH extends RecyclerView.ViewHolder> extends RecyclerViewFragment<D, T, VH> {
     protected int mPage = LIST_START_PAGE;
+    protected boolean mCanLoadMore = true;
 
     @NonNull
     protected abstract List<T> TransformListFromData(@NonNull D data);
@@ -63,7 +64,7 @@ public abstract class ListFragment<D, T, VH extends RecyclerView.ViewHolder> ext
         super.refresh();
     }
 
-    protected final void loadMore(int size, int position) {
+    protected void loadMore(int size, int position) {
         if ((mRefreshControlMode != RefreshControlMode.none && mSwipeRefresh != null && mSwipeRefresh.isRefreshing()) || mIsLoading) {
             return;
         }

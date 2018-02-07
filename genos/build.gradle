@@ -54,11 +54,10 @@ ext {
     lifecycleVersion = '1.1.0'              // https://developer.android.google.cn/topic/libraries/architecture/adding-components.html
     roomVersion = '1.1.0-alpha1'
     pagingVersion = '1.0.0-alpha5'
-    archLifecycleVersion = '1.0.0-rc1'
 
     loggerVersion = '2.1.1'                 // https://github.com/orhanobut/logger
     retrofitVersion = '2.3.0'               // https://square.github.io/retrofit/
-    glideVersion = '4.5.0'                  // https://github.com/bumptech/glide
+    glideVersion = '4.6.1'                  // https://github.com/bumptech/glide
     eventbusVersion = '3.1.1'               // https://github.com/greenrobot/EventBus 
 }
 
@@ -69,6 +68,7 @@ dependencies {
     api "com.android.support.constraint:constraint-layout:$constraintVersion"
     // ViewModel and LiveData
     api "android.arch.lifecycle:extensions:$lifecycleVersion"
+    // Java8 support for Lifecycles
     api "android.arch.lifecycle:common-java8:$lifecycleVersion"
     // Room
     api "android.arch.persistence.room:runtime:$roomVersion"
@@ -96,7 +96,7 @@ publish {
     userOrg = 'nyssance'
     groupId = 'com.nyssance.genos'
     artifactId = 'genos'
-    publishVersion = '1.0.0-rc1'
+    publishVersion = '1.0.0-rc2'
     desc = 'The BEST high-level framework for Android by NY.'
     website = 'https://github.com/nyssance/genos'
 }
