@@ -10,7 +10,7 @@ Gradle:
 implementation 'com.nyssance.genos:genos:1.0.0-rc2'
 ```
 ### Featured
-Genos integrate google architerture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
+Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
 
 1. Rules
 
@@ -49,7 +49,7 @@ public class UserList extends TableList<User, SubtitleHolder> {
 
 Create a bottom navigation with three buttons, 10 lines
 ```java
-publc class MainActivity extends TabBarActivity { // If you need a drawer navigation, just use DrawerActivity
+public class MainActivity extends TabBarActivity { // If you need a drawer navigation, just use DrawerActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

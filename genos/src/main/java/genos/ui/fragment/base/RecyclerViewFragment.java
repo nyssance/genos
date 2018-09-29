@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,12 +18,11 @@ package genos.ui.fragment.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +40,9 @@ import genos.widget.recycler.RecyclerItemClickListener;
 import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE_MODAL;
 
 public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHolder> extends LoaderFragment<D> {
-    protected BaseAdapter<T, VH> mAdapter;
     protected RecyclerView mListView;
     protected RecyclerView.LayoutManager mLayoutManager;
+    protected BaseAdapter<T, VH> mAdapter;
     @LayoutRes
     protected int mTileId = R.layout.list_item_default;
 
@@ -57,17 +56,18 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
     public final void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mListView = view.findViewById(android.R.id.list);
-        mLayoutManager = onCreateLayoutManager(getContext());
+        mLayoutManager = onCreateLayoutManager(requireContext());
         mListView.setLayoutManager(mLayoutManager);
         mListView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new BaseAdapter<T, VH>() {
+            @NonNull
             @Override
-            public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+            public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 return RecyclerViewFragment.this.onCreateViewHolder(parent, viewType);
             }
 
             @Override
-            public void onBindViewHolder(VH holder, int position) {
+            public void onBindViewHolder(@NonNull VH holder, int position) {
                 onDisplayItem(getItem(position), holder, getItemViewType(position));
             }
 
@@ -77,7 +77,7 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
             }
         };
         mListView.setAdapter(mAdapter);
-        mListView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mListView, new RecyclerItemClickListener.OnItemClickListener() {
+        mListView.addOnItemTouchListener(new RecyclerItemClickListener(requireContext(), mListView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if (mListView instanceof AbsRecyclerView) {
@@ -99,9 +99,8 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
             public void onItemLongClick(View view, int position) {
                 if (mListView instanceof AbsRecyclerView) {
                     AbsRecyclerView absRecyclerView = (AbsRecyclerView) mListView;
-                    FragmentActivity activity = getActivity();
-                    if (absRecyclerView.getChoiceMode() == CHOICE_MODE_MULTIPLE_MODAL && activity != null) {
-                        activity.startActionMode(absRecyclerView.getMultiChoiceModeListener());
+                    if (absRecyclerView.getChoiceMode() == CHOICE_MODE_MULTIPLE_MODAL) {
+                        requireActivity().startActionMode(absRecyclerView.getMultiChoiceModeListener());
                         absRecyclerView.performLongPress(position);
                     }
                 }
@@ -156,18 +155,18 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
         return false;
     }
 
+    protected abstract void onDisplayItem(T item, VH holder, int viewType);
+
+    protected int onGetItemViewType(int position) {
+        return 0;
+    }
+
     /**
      * Call on click list item
      *
      * @param item
      */
     protected abstract void onOpenItem(T item);
-
-    protected abstract void onDisplayItem(T item, VH holder, int viewType);
-
-    protected int onGetItemViewType(int position) {
-        return 0;
-    }
 
     // TODO:
     protected void setSelection(int position, int offset) {

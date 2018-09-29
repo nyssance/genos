@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,12 +16,12 @@
 
 package genos.ui.fragment.base;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
@@ -31,11 +31,11 @@ import genos.ui.BaseViewModel;
 import retrofit2.Call;
 
 enum RefreshMode {
-    none, didLoad, willAppear, didAppear
+    didLoad, willAppear, didAppear, never
 }
 
 enum RefreshControlMode {
-    none, once, always
+    always, never
 }
 
 abstract class LoaderFragment<D> extends BaseFragment {
@@ -51,7 +51,7 @@ abstract class LoaderFragment<D> extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // 下拉刷新
-        if (mRefreshControlMode != RefreshControlMode.none) {
+        if (mRefreshControlMode == RefreshControlMode.always) {
             mSwipeRefresh = view.findViewById(R.id.swipe_refresh);
             if (mSwipeRefresh != null) {
                 mSwipeRefresh.setColorSchemeResources(R.color.app_color);
@@ -69,8 +69,9 @@ abstract class LoaderFragment<D> extends BaseFragment {
         mViewModel = onCreateViewModel();
         onViewModelCreated();
         ((BaseViewModel<D>) mViewModel).data.observe(this, this::onDataChanged);
-        if (mCall == null) {  // 如果call为空, 刷新模式自动为none
-            mRefreshMode = RefreshMode.none;
+        if (mCall == null) { // 如果call为空, 刷新模式自动为never
+            mRefreshMode = RefreshMode.never;
+            mRefreshControlMode = RefreshControlMode.never;
         }
         if (mRefreshMode == RefreshMode.didLoad) {
             refresh();
@@ -86,7 +87,7 @@ abstract class LoaderFragment<D> extends BaseFragment {
 
     protected void onDataChanged(D data) {
         mIsLoading = false;
-        if (mRefreshControlMode != RefreshControlMode.none) { // TODO: 不处理布局文件遗漏下拉刷新的情况
+        if (mRefreshControlMode == RefreshControlMode.always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
             if (mSwipeRefresh != null) {
                 mSwipeRefresh.setRefreshing(false);
             }
@@ -94,7 +95,7 @@ abstract class LoaderFragment<D> extends BaseFragment {
         if (data != null) {
             onLoadSuccess(data);
         } else {
-            onLoadFailure(233, "loader data 为 null");
+            onLoadFailure(666, "loader data 为 null");
         }
     }
 
@@ -104,8 +105,12 @@ abstract class LoaderFragment<D> extends BaseFragment {
         Logger.t("base").w(message);
     }
 
+    // MARK: - 💛 Action
+
     protected void refresh() {
-        mIsLoading = true;
-        ((BaseViewModel<D>) mViewModel).loadData(mCall);
+        if (mCall != null) {
+            mIsLoading = true;
+            ((BaseViewModel<D>) mViewModel).loadData(mCall);
+        }
     }
 }

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2018 NY (nyssance@icloud.com)
+  ~ Copyright 2018 NY <nyssance@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,6 +16,6 @@
 
 <resources>
     <string name="app_name">Genos Sample</string>
-    <string name="user_list">Users</string>
-    <string name="user_detail">User</string>
+    <string name="user">User</string>
+    <string name="users">Users</string>
 </resources>

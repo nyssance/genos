@@ -1,3 +1,4 @@
+# __Android__
 # Built application files
 *.apk
 *.ap_
@@ -38,11 +39,13 @@ captures/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
+.idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+.idea/caches
 
 # Keystore files
-.jks
+*.jks
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -62,7 +65,7 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
-# macOS
+# __macOS__
 # General
 .DS_Store
 .AppleDouble
@@ -89,6 +92,9 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# __Fabric__
+*.py[cod]
 
 # Jekyll
 _site
