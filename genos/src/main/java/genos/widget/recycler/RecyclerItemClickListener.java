@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,16 +17,16 @@
 package genos.widget.recycler;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     // 参考比较综合后选择Paolo Rotolo的方案
-    // SO: http://stackoverflow.com/questions/24471109/recyclerview-onclick/26826692#26826692
+    // SO: https://stackoverflow.com/questions/24471109/recyclerview-onclick#26826692
     //  - Paolo Rotolo关于click effect需要加onRequestDisallowInterceptTouchEvent的说法不对, 只需要
-    //  - http://stackoverflow.com/questions/26961147/touch-feedback-with-recyclerview-and-cardview#comment46351183_26975714
+    //  - SO: https://stackoverflow.com/questions/26961147/touch-feedback-with-recyclerview-and-cardview#comment46351183_26975714
     // http://blog.devwiki.net/index.php/2016/07/24/three-ways-click-recyclerview-item.html, 第三种方法可调子view但暂时用不到
 
     private OnItemClickListener mListener;

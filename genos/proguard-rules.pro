@@ -1,9 +1,11 @@
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
 #
 # For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+#   https://developer.android.com/guide/developing/tools/proguard.html
 
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
@@ -41,7 +43,7 @@
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
-# [EventBus](http://greenrobot.org/eventbus/documentation/proguard)
+# [EventBus](https://greenrobot.org/eventbus/documentation/proguard)
 -keepattributes *Annotation*
 -keepclassmembers class ** {
     @org.greenrobot.eventbus.Subscribe <methods>;

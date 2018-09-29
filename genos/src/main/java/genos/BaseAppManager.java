@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,8 @@
 
 package genos;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,22 +43,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseAppManager {
     //
+    public static int LIST_START_PAGE = 1;
+    //
+    @NonNull
     protected static String DOMAIN_NAME = "必填";
-    protected static String API_VERSION = "api/v1";
-    protected static String BASE_URL = "http://www." + DOMAIN_NAME;
+    @NonNull
+    protected static String BASE_URL = "https://www." + DOMAIN_NAME;
+    @NonNull
     protected static String MEDIA_URL = "http://media." + DOMAIN_NAME;
     // Headers
     @NonNull
-    protected static String APP_ID;
+    protected static String APP_ID = "必填";
+    @NonNull
     protected static String APP_SCHEME = "local";
+    @NonNull
     protected static String APP_VERSION = "";
+    @NonNull
     protected static String AUTH_HEADER = "Authorization";
+    @NonNull
     protected static String AUTH_PREFIX = "JWT"; // Bearer
+    @NonNull
     protected static String TOKEN = "";
-
-    public static String PLACE_CODE = "";
-    //
-    public static int LIST_START_PAGE = 1;
 
     public BaseAppManager() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
@@ -85,7 +90,7 @@ public abstract class BaseAppManager {
         // Cache cache = new Cache(new File("/data/user/0/com.nyssance.android/cache", "http"), SIZE_OF_CACHE);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 // OkHttp自动增加了Content-Length和Content-Type
                 Request.Builder builder = chain.request().newBuilder()
                         .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
@@ -127,7 +132,7 @@ public abstract class BaseAppManager {
                     }
 
                     @Override
-                    public void writeTo(BufferedSink sink) throws IOException {
+                    public void writeTo(@NonNull BufferedSink sink) throws IOException {
                         BufferedSink gzipSink = Okio.buffer(new GzipSink(sink));
                         body.writeTo(gzipSink);
                         gzipSink.close();

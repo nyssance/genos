@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,13 +19,13 @@ package genos.ui.fragment.base;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -128,20 +128,15 @@ public abstract class BaseFragment extends Fragment implements BaseActivity.OnBa
     }
 
     public final void setTitle(CharSequence title) {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            ActionBar actionBar = activity.getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setTitle(title);
-            } else {
-                Logger.t("base").w("No action bar!");
-            }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
         } else {
-            Logger.t("base").w("getActivity() is null");
+            Logger.t("base").w("No action bar!");
         }
     }
 
     public final void postError(CharSequence text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show();
     }
 }

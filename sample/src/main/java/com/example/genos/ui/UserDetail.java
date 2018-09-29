@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class UserDetail extends DetailFragment<User> {
 
     @Override
     protected void onPrepare() {
-        mCall = API.userDetail(getActivity().getIntent().getStringExtra("login"));
+        mCall = API.userDetail(requireActivity().getIntent().getStringExtra("login"));
     }
 
     @Override

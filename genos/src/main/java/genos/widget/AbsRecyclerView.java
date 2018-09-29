@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,8 +17,8 @@
 package genos.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.LongSparseArray;
 import android.util.SparseBooleanArray;
@@ -33,6 +33,7 @@ import static android.widget.AbsListView.CHOICE_MODE_NONE;
 import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 import static android.widget.AdapterView.INVALID_POSITION;
 
+@SuppressWarnings("all")
 public class AbsRecyclerView extends RecyclerView {
     int mChoiceMode = CHOICE_MODE_NONE;
     ActionMode mChoiceActionMode;

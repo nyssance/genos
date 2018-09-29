@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,11 +21,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import com.orhanobut.logger.Logger;
@@ -78,7 +78,7 @@ public class Helper {
     }
 
     // Drawable
-    // SO:http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
+    // SO: https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
     public static Drawable getDrawable(Context context, @DrawableRes int id) {
         return ContextCompat.getDrawable(context, id);
         // return ResourcesCompat.getDrawable(context.getResources(), id,

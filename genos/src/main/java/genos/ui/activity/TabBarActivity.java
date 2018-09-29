@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,10 +18,10 @@ package genos.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.reflect.Field;
 
@@ -47,10 +47,11 @@ public abstract class TabBarActivity extends NavigationActivity {
         BottomNavigationMenuView menu = (BottomNavigationMenuView) navigation.getChildAt(0);
         int count = menu.getChildCount();
         if (count > 3) {
-            setField(menu.getClass(), menu, "mShiftingMode", mShiftingMode);
+//            setField(menu.getClass(), menu, "mShiftingMode", mShiftingMode);
             for (int i = 0; i < count; i++) {
                 BottomNavigationItemView item = (BottomNavigationItemView) menu.getChildAt(i);
-                item.setShiftingMode(mShiftingMode);
+//                item.setShiftingMode(mShiftingMode);
+                item.setShifting(true);
                 item.setChecked(true);
             }
         }

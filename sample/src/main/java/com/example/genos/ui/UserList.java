@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class UserList extends TableList<User, SubtitleHolder> {
     protected void onOpenItem(User item) {
         Intent intent = new Intent();
         intent.putExtra("login", item.login);
-        intent.setClass(getContext(), UserDetailActivity.class);
+        intent.setClass(requireContext(), UserDetailActivity.class);
         startActivitySafely(intent);
     }
 }

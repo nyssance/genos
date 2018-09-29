@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY (nyssance@icloud.com)
+ * Copyright 2018 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,14 +16,15 @@
 
 package genos.widget.recycler;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import genos.ui.viewholder.BaseHolder;
 
-public class HeaderAndFooterWrapper<VH> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int BASE_ITEM_TYPE_HEADER = 100000;
     private static final int BASE_ITEM_TYPE_FOOTER = 200000;
 
@@ -36,8 +37,9 @@ public class HeaderAndFooterWrapper<VH> extends RecyclerView.Adapter<RecyclerVie
         mWrapped = adapter;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (mHeaderViews.get(viewType) != null) {
             return new BaseHolder(mHeaderViews.get(viewType));
         } else if (mFootViews.get(viewType) != null) {
@@ -47,7 +49,7 @@ public class HeaderAndFooterWrapper<VH> extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (isHeaderView(position)) {
             return;
         }
@@ -73,7 +75,7 @@ public class HeaderAndFooterWrapper<VH> extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         WrapperUtils.onAttachedToRecyclerView(mWrapped, recyclerView, (layoutManager, oldLookup, position) -> {
             int viewType = getItemViewType(position);
             if (mHeaderViews.get(viewType) != null) {
@@ -89,7 +91,7 @@ public class HeaderAndFooterWrapper<VH> extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         mWrapped.onViewAttachedToWindow(holder);
         int position = holder.getLayoutPosition();
         if (isHeaderView(position) || isFooterView(position)) {
