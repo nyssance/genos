@@ -16,10 +16,11 @@
 
 package genos.widget.recycler;
 
+import android.view.ViewGroup;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.view.ViewGroup;
 
 public class WrapperUtils {
 

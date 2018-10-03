@@ -17,8 +17,6 @@
 package genos.widget;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.LongSparseArray;
 import android.util.SparseBooleanArray;
@@ -26,6 +24,9 @@ import android.view.ActionMode;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE;
 import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE_MODAL;

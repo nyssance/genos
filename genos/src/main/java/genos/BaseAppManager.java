@@ -46,24 +46,15 @@ public abstract class BaseAppManager {
     public static int LIST_START_PAGE = 1;
     //
     @NonNull
-    protected static String DOMAIN_NAME = "必填";
+    protected static String BASE_URL = "https://www.必填.com";
     @NonNull
-    protected static String BASE_URL = "https://www." + DOMAIN_NAME;
-    @NonNull
-    protected static String MEDIA_URL = "http://media." + DOMAIN_NAME;
-    // Headers
-    @NonNull
-    protected static String APP_ID = "必填";
-    @NonNull
-    protected static String APP_SCHEME = "local";
-    @NonNull
-    protected static String APP_VERSION = "";
+    protected static String APP_SCHEME = "genos";
     @NonNull
     protected static String AUTH_HEADER = "Authorization";
     @NonNull
-    protected static String AUTH_PREFIX = "JWT"; // Bearer
+    protected static String AUTH_PREFIX = "JWT"; // JWT / Bearer
     @NonNull
-    protected static String TOKEN = "";
+    protected static String AUTH_TOKEN = "";
 
     public BaseAppManager() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
@@ -95,8 +86,8 @@ public abstract class BaseAppManager {
                 Request.Builder builder = chain.request().newBuilder()
                         .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
                         .header("App-Scheme", APP_SCHEME);
-                if (!TOKEN.isEmpty()) {
-                    builder.header(AUTH_HEADER, String.format("%s %s", AUTH_PREFIX, TOKEN));
+                if (!AUTH_TOKEN.isEmpty()) {
+                    builder.header(AUTH_HEADER, String.format("%s %s", AUTH_PREFIX, AUTH_TOKEN));
                 }
                 Request request = builder.build();
                 // 发送数据的时候GZip压缩 https://github.com/square/okhttp/wiki/Interceptors

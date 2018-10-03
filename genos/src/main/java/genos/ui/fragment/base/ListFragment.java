@@ -39,11 +39,11 @@ public abstract class ListFragment<D, T, VH extends RecyclerView.ViewHolder> ext
     }
 
     @Override
-    protected void onLoadSuccess(@NonNull D result) {
+    protected void onLoadSuccess(@NonNull D data) {
         if (!hasPrevious()) { // 如果无上一页, 完全重载
             mAdapter.removeAll();
         }
-        mAdapter.append(transformListFromData(result));
+        mAdapter.append(transformListFromData(data));
         // 同步调用notifyDataSetChanged RecyclerView会报错
         Handler handler = new Handler();
         final Runnable r = mAdapter::notifyDataSetChanged;
