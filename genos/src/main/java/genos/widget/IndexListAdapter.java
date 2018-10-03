@@ -16,9 +16,9 @@
 
 package genos.widget;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.widget.SectionIndexer;
 
+import androidx.recyclerview.widget.RecyclerView;
 import genos.ui.BaseAdapter;
 
 public abstract class IndexListAdapter<T, VH extends RecyclerView.ViewHolder> extends BaseAdapter<T, VH> implements SectionIndexer {

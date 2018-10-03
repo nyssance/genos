@@ -179,7 +179,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(MessageEvent event) {
+    public void onEventReceived(MessageEvent event) {
         Logger.t("EventBus").w("Activity: " + getClass().getSimpleName() + " 收到了 Fragment: " + event.sender.getClass().getSimpleName() + " 的消息: "
                 + event.message);
     }

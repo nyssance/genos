@@ -99,7 +99,7 @@ abstract class LoaderFragment<D> extends BaseFragment {
         }
     }
 
-    protected abstract void onLoadSuccess(@NonNull D result);
+    protected abstract void onLoadSuccess(@NonNull D data);
 
     protected void onLoadFailure(int statusCode, @NonNull String message) {
         Logger.t("base").w(message);
