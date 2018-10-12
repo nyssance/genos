@@ -16,20 +16,78 @@
 
 package genos.ui;
 
+import android.view.MotionEvent;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.selection.ItemDetailsLookup;
+import androidx.recyclerview.selection.ItemKeyProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     private List<T> mData = new ArrayList<>();
+    private ItemKeyProvider mKeyProvider;
+    private ItemDetailsLookup mDetailsLookup;
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull final RecyclerView recyclerView) {
+        // KeyProvider & DetailsLookup
+        mKeyProvider = new ItemKeyProvider<T>(ItemKeyProvider.SCOPE_CACHED) {
+            @Nullable
+            @Override
+            public T getKey(int position) {
+                return getItem(position);
+            }
+
+            @Override
+            public int getPosition(@NonNull T key) {
+                return mData.indexOf(key);
+            }
+        };
+        mDetailsLookup = new ItemDetailsLookup() {
+            @Nullable
+            @Override
+            public ItemDetails getItemDetails(@NonNull MotionEvent e) {
+                View view = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                if (view != null) {
+                    RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(view);
+                    final int position = holder.getAdapterPosition();
+                    return new ItemDetails<T>() {
+                        @Override
+                        public int getPosition() {
+                            return position;
+                        }
+
+                        @Nullable
+                        @Override
+                        public T getSelectionKey() {
+                            return getItem(position);
+                        }
+                    };
+                }
+                return null;
+            }
+        };
+    }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    @NonNull
+    public final ItemKeyProvider getKeyProvider() {
+        return mKeyProvider;
+    }
+
+    @NonNull
+    public final ItemDetailsLookup getDetailsLookup() {
+        return mDetailsLookup;
     }
 
     @Nullable

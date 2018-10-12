@@ -18,7 +18,10 @@ package genos.ui.fragment.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,14 +33,13 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.selection.OnItemActivatedListener;
+import androidx.recyclerview.selection.SelectionTracker;
+import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import genos.R;
 import genos.ui.BaseAdapter;
-import genos.widget.AbsRecyclerView;
-import genos.widget.recycler.RecyclerItemClickListener;
-
-import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE_MODAL;
 
 public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHolder> extends LoaderFragment<D> {
     protected RecyclerView mListView;
@@ -82,35 +84,66 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
             }
         };
         mListView.setAdapter(mAdapter);
-        mListView.addOnItemTouchListener(new RecyclerItemClickListener(requireContext(), mListView, new RecyclerItemClickListener.OnItemClickListener() {
+        // SelectionTracker
+        SelectionTracker<T> selectionTracker = new SelectionTracker.Builder<>(
+                "my-selection-id",
+                mListView,
+                mAdapter.getKeyProvider(),
+                mAdapter.getDetailsLookup(),
+                StorageStrategy.createLongStorage())
+                .withOnItemActivatedListener((OnItemActivatedListener<T>) (item, e) -> {
+                    RecyclerViewFragment.this.onItemClick(item.getSelectionKey());
+                    Logger.w("单击 onItemActivated: ");
+                    return true;
+                })
+                .withOnDragInitiatedListener(e -> {
+                    Logger.w("拖动 onDragInitiated: ");
+                    return true;
+                })
+                .build();
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<T>() {
             @Override
-            public void onItemClick(View view, int position) {
-                if (mListView instanceof AbsRecyclerView) {
-                    AbsRecyclerView absRecyclerView = (AbsRecyclerView) mListView;
-                    if (absRecyclerView.getChoiceMode() == CHOICE_MODE_MULTIPLE_MODAL && absRecyclerView.getCheckedItemCount() > 0) {
-                        absRecyclerView.setItemChecked(position, !absRecyclerView.isItemChecked(position));
-                        if (absRecyclerView.getCheckedItemCount() == 0) {
-                            absRecyclerView.clearChoices();
-                        }
-                    } else {
-                        RecyclerViewFragment.this.onItemClick(mAdapter.getItem(position));
-                    }
-                } else {
-                    RecyclerViewFragment.this.onItemClick(mAdapter.getItem(position));
-                }
+            public void onItemStateChanged(@NonNull T key, boolean selected) {
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-                if (mListView instanceof AbsRecyclerView) {
-                    AbsRecyclerView absRecyclerView = (AbsRecyclerView) mListView;
-                    if (absRecyclerView.getChoiceMode() == CHOICE_MODE_MULTIPLE_MODAL) {
-                        requireActivity().startActionMode(absRecyclerView.getMultiChoiceModeListener());
-                        absRecyclerView.performLongPress(position);
-                    }
+            public void onSelectionChanged() {
+                Logger.w("多选 onSelectionChanged: ");
+                ActionMode actionMode = null;
+                if (selectionTracker.hasSelection() && actionMode == null) {
+                    actionMode = requireActivity().startActionMode(new ActionMode.Callback() {
+                        @Override
+                        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                            return false;
+                        }
+
+                        @Override
+                        public void onDestroyActionMode(ActionMode mode) {
+                            selectionTracker.clearSelection();
+                        }
+                    });
+//                    setMenuItemTitle(selectionTracker.getSelection().size());
+                } else if (!selectionTracker.hasSelection() && actionMode != null) {
+                    actionMode.finish();
+                    actionMode = null;
+                } else {
+//                    setMenuItemTitle(selectionTracker.getSelection().size());
+                }
+                for (T item : selectionTracker.getSelection()) {
+                    Logger.w(item.toString());
                 }
             }
-        }));
+        });
     }
 
     @Override

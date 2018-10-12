@@ -64,6 +64,7 @@ dependencies {
 
     api "com.google.android.material:material:$material_version"          // 自动依赖了 appcompat-v7 recyclerview-v7
     api "androidx.cardview:cardview:$material_version"
+    api "androidx.recyclerview:recyclerview-selection:$material_version"
     api "androidx.constraintlayout:constraintlayout:$constraint_version"
     // ViewModel and LiveData
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
