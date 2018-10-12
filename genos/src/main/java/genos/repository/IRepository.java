@@ -16,10 +16,10 @@
 
 package genos.repository;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import retrofit2.Call;
 
 public interface IRepository<D> {
-    MutableLiveData<D> getData(Call<D> call, MutableLiveData<D> data);
+    MutableLiveData<D> getData(@NonNull Call<D> call, @NonNull MutableLiveData<D> data);
 }

@@ -16,16 +16,16 @@
 
 package genos.ui.fragment.base;
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import genos.R;
 import genos.ui.BaseViewModel;
 import retrofit2.Call;
@@ -101,7 +101,7 @@ abstract class LoaderFragment<D> extends BaseFragment {
 
     protected abstract void onLoadSuccess(@NonNull D data);
 
-    protected void onLoadFailure(int statusCode, @NonNull String message) {
+    protected void onLoadFailure(int code, @NonNull String message) {
         Logger.t("base").w(message);
     }
 

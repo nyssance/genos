@@ -16,13 +16,14 @@
 
 package genos.ui.activity;
 
+import androidx.annotation.NonNull;
 import genos.R;
 import genos.ui.activity.base.SingleActivity;
 
 public abstract class AppBarActivity extends SingleActivity {
 
     @Override
-    protected void onSetContentView(String name) {
+    protected void onSetContentView(@NonNull String name) {
         setContentView(R.layout.activity_app_bar);
     }
 }

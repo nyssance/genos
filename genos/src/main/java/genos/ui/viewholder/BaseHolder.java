@@ -16,9 +16,6 @@
 
 package genos.ui.viewholder;
 
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,10 +24,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class BaseHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews = new SparseArray<>();
 
-    public BaseHolder(View itemView) {
+    public BaseHolder(@NonNull View itemView) {
         super(itemView);
     }
 
@@ -56,7 +57,7 @@ public class BaseHolder extends RecyclerView.ViewHolder {
         setImage(getView(id), string);
     }
 
-    public final void setImage(ImageView imageView, String string) {
+    public final void setImage(@NonNull ImageView imageView, String string) {
         Glide.with(itemView.getContext()).load(string).into(imageView);
     }
 }

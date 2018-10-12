@@ -17,12 +17,14 @@
 package genos.ui.activity;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
 import genos.R;
 import genos.ui.activity.base.NavigationActivity;
 
@@ -31,7 +33,7 @@ public abstract class DrawerActivity extends NavigationActivity {
     protected NavigationView mNavigation;
 
     @Override
-    protected void onSetContentView(String name) {
+    protected void onSetContentView(@NonNull String name) {
         setContentView(R.layout.activity_drawer);
     }
 

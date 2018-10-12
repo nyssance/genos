@@ -17,10 +17,11 @@
 package genos.ui.fragment.base;
 
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static genos.BaseAppManager.LIST_START_PAGE;
 
@@ -51,8 +52,8 @@ public abstract class ListFragment<D, T, VH extends RecyclerView.ViewHolder> ext
     }
 
     @Override
-    protected void onLoadFailure(int statusCode, @NonNull String message) {
-        super.onLoadFailure(statusCode, message);
+    protected void onLoadFailure(int code, @NonNull String message) {
+        super.onLoadFailure(code, message);
         if (mPage > LIST_START_PAGE) {
             mPage--;
         }

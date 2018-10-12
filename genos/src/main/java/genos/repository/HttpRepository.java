@@ -16,14 +16,14 @@
 
 package genos.repository;
 
-import androidx.lifecycle.MutableLiveData;
 import android.net.Uri;
-import androidx.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import genos.BuildConfig;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -63,7 +63,7 @@ public class HttpRepository<D> implements IRepository {
                 Logger.t(request.url().scheme()).e(t, String.format("❌ %s\n", getUrlString(request)));
             }
 
-            private String getUrlString(Request request) {
+            private String getUrlString(@NonNull Request request) {
                 return Uri.decode(request.url().toString());
             }
         });

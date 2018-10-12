@@ -16,15 +16,16 @@
 
 package genos.ui;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import genos.repository.HttpRepository;
 import genos.repository.IRepository;
 import retrofit2.Call;
 
 public class BaseViewModel<D> extends ViewModel {
     public MutableLiveData<D> data;
+    @NonNull
     public IRepository repo;
 
     public BaseViewModel() {
@@ -32,7 +33,7 @@ public class BaseViewModel<D> extends ViewModel {
         repo = new HttpRepository<>();
     }
 
-    public void loadData(Call<D> call) {
+    public void loadData(@NonNull Call<D> call) {
         data = repo.getData(call, data);
     }
 }

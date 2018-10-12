@@ -16,9 +16,6 @@
 
 package genos;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -29,6 +26,8 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import java.io.IOException;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

@@ -17,12 +17,12 @@
 package genos.ui.fragment;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import genos.ui.fragment.base.ListFragment;
 
 public abstract class CollectionList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {

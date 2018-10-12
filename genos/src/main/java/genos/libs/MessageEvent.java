@@ -16,8 +16,8 @@
 
 package genos.libs;
 
-import androidx.fragment.app.Fragment;
 import androidx.collection.SimpleArrayMap;
+import androidx.fragment.app.Fragment;
 
 public class MessageEvent {
     public final Fragment sender;
