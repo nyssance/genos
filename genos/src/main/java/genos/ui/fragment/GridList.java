@@ -27,8 +27,9 @@ import genos.ui.fragment.base.ListFragment;
 
 public abstract class GridList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {
 
+    @NonNull
     @Override
-    protected final RecyclerView.LayoutManager onCreateLayoutManager(Context context) {
+    protected final RecyclerView.LayoutManager onCreateLayoutManager(@NonNull Context context) {
         return new GridLayoutManager(context, 3);
     }
 

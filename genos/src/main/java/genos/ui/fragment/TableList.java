@@ -28,8 +28,9 @@ import genos.ui.fragment.base.ListFragment;
 
 public abstract class TableList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {
 
+    @NonNull
     @Override
-    protected final RecyclerView.LayoutManager onCreateLayoutManager(Context context) {
+    protected final RecyclerView.LayoutManager onCreateLayoutManager(@NonNull Context context) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         mListView.addItemDecoration(new DividerItemDecoration(context, layoutManager.getOrientation()));
         return layoutManager;

@@ -16,7 +16,6 @@
 
 package genos.widget;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.view.View;
 
@@ -41,7 +40,6 @@ public class ActionSheet extends BottomSheetDialogFragment {
         }
     };
 
-    @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);

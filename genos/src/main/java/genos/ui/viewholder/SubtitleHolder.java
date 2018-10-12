@@ -19,12 +19,14 @@ package genos.ui.viewholder;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import genos.R;
 
 public class SubtitleHolder extends DefaultHolder {
+    @NonNull
     public TextView subtitle;
 
-    public SubtitleHolder(View itemView) {
+    public SubtitleHolder(@NonNull View itemView) {
         super(itemView);
         subtitle = getView(R.id.subtitle);
     }

@@ -39,6 +39,7 @@ abstract class BaseItem {
         this.title = title;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return title;

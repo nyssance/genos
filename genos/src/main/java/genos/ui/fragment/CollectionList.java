@@ -27,8 +27,9 @@ import genos.ui.fragment.base.ListFragment;
 
 public abstract class CollectionList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {
 
+    @NonNull
     @Override
-    protected RecyclerView.LayoutManager onCreateLayoutManager(Context context) {
+    protected RecyclerView.LayoutManager onCreateLayoutManager(@NonNull Context context) {
         return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 
