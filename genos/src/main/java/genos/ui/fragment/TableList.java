@@ -17,13 +17,13 @@
 package genos.ui.fragment;
 
 import android.content.Context;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-
 import genos.ui.fragment.base.ListFragment;
 
 public abstract class TableList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {

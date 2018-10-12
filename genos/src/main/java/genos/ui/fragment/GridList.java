@@ -17,12 +17,12 @@
 package genos.ui.fragment;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import genos.ui.fragment.base.ListFragment;
 
 public abstract class GridList<T, VH extends RecyclerView.ViewHolder> extends ListFragment<List<T>, T, VH> {

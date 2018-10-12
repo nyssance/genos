@@ -18,20 +18,23 @@ package genos.models;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import genos.Helper;
 
 abstract class BaseItem {
+    @NonNull
     public String name;
+    @NonNull
     public String title;
 
-    public BaseItem(String name, Context context) {
+    public BaseItem(@NonNull String name, @NonNull Context context) {
         int resId = Helper.getResId(context, name, "string");
         this.name = name;
         this.title = resId == 0 ? name : context.getString(resId);
         // this(name, name);
     }
 
-    public BaseItem(String name, String title) {
+    public BaseItem(@NonNull String name, @NonNull String title) {
         this.name = name;
         this.title = title;
     }

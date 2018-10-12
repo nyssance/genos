@@ -18,11 +18,6 @@ package genos.ui.fragment.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +27,11 @@ import com.orhanobut.logger.Logger;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 import genos.R;
 import genos.ui.BaseAdapter;
 import genos.widget.AbsRecyclerView;

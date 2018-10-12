@@ -18,6 +18,7 @@ package genos.models;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.NonNull;
 
 public class Item extends BaseItem {
@@ -25,7 +26,7 @@ public class Item extends BaseItem {
     public String subtitle;
     public String uri;
 
-    public Item(@NonNull String name, Drawable icon, String uri, Context context) {
+    public Item(@NonNull String name, Drawable icon, String uri, @NonNull Context context) {
         super(name, context);
         this.icon = icon;
         this.uri = uri;

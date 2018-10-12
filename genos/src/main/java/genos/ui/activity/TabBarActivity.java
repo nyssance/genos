@@ -18,13 +18,15 @@ package genos.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.reflect.Field;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import genos.R;
 import genos.ui.activity.base.NavigationActivity;
 
@@ -32,7 +34,7 @@ public abstract class TabBarActivity extends NavigationActivity {
     protected boolean mShiftingMode;
 
     @Override
-    protected void onSetContentView(String name) {
+    protected void onSetContentView(@NonNull String name) {
         setContentView(R.layout.activity_tab_bar);
     }
 
@@ -57,7 +59,7 @@ public abstract class TabBarActivity extends NavigationActivity {
         }
     }
 
-    private void setField(Class targetClass, Object instance, String fieldName, Object value) {
+    private void setField(@NonNull Class targetClass, @NonNull Object instance, @NonNull String fieldName, @NonNull Object value) {
         try {
             Field field = targetClass.getDeclaredField(fieldName);
             field.setAccessible(true);

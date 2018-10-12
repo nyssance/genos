@@ -21,16 +21,19 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Field;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 public class Helper {
 
@@ -59,12 +62,12 @@ public class Helper {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
-    public static boolean isTablet(Context context) {
+    public static boolean isTablet(@NonNull Context context) {
         return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getPhoneType() == TelephonyManager.PHONE_TYPE_NONE;
     }
 
     // @IdRes
-    public static int getResId(Context context, String name, String defType) {
+    public static int getResId(@NonNull Context context, @Nullable String name, @Nullable String defType) {
         int resId = context.getResources().getIdentifier(name, defType, context.getPackageName());
         if (resId == 0) {
             Logger.t("helper").wtf("R." + defType + "." + name + " 不存在");
@@ -73,37 +76,40 @@ public class Helper {
     }
 
     // Color
-    public static int getColor(Context context, @ColorRes int id) {
+    @ColorInt
+    public static int getColor(@NonNull Context context, @ColorRes int id) {
         return ContextCompat.getColor(context, id);
     }
 
     // Drawable
     // SO: https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
-    public static Drawable getDrawable(Context context, @DrawableRes int id) {
+    @Nullable
+    public static Drawable getDrawable(@NonNull Context context, @DrawableRes int id) {
         return ContextCompat.getDrawable(context, id);
         // return ResourcesCompat.getDrawable(context.getResources(), id,
         // theme);
     }
 
     // 其他
-    public static int getColorFromIdentifier(Context context, int id) {
+    public static int getColorFromIdentifier(@NonNull Context context, int id) {
         final int resId = getResId(context, context.getResources().getResourceEntryName(id), "color");
         return resId != 0 ? getColor(context, resId) : 0;
     }
 
     @Nullable
-    public static Drawable getDrawableFromIdentifier(Context context, int id) {
+    public static Drawable getDrawableFromIdentifier(@NonNull Context context, int id) {
         final int resId = getResId(context, context.getResources().getResourceEntryName(id), "drawable");
         return resId != 0 ? getDrawable(context, resId) : null;
     }
 
-    public static String getApplicationName(Context context) {
+    @NonNull
+    public static String getApplicationName(@NonNull Context context) {
         ApplicationInfo applicationInfo = context.getApplicationInfo();
         int stringId = applicationInfo.labelRes;
         return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
     }
 
-    public static CharSequence getActivityName(FragmentActivity activity) {
+    public static CharSequence getActivityName(@NonNull FragmentActivity activity) {
         try {
             PackageManager pm = activity.getPackageManager();
             return pm.getActivityInfo(activity.getComponentName(), 0).loadLabel(pm);

@@ -20,11 +20,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 public class DefaultHolder extends BaseHolder {
+    @NonNull
     public ImageView icon;
+    @NonNull
     public TextView title;
 
-    public DefaultHolder(View itemView) {
+    public DefaultHolder(@NonNull View itemView) {
         super(itemView);
         icon = getView(android.R.id.icon);
         title = getView(android.R.id.title);

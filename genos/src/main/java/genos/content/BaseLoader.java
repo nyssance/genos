@@ -17,6 +17,7 @@
 package genos.content;
 
 import android.content.Context;
+
 import androidx.loader.content.AsyncTaskLoader;
 
 public abstract class BaseLoader<D> extends AsyncTaskLoader<D> {

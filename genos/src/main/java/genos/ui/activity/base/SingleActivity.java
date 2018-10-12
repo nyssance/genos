@@ -17,9 +17,9 @@
 package genos.ui.activity.base;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import genos.R;
 
 public abstract class SingleActivity extends BaseActivity {

@@ -18,17 +18,11 @@ package genos.ui.activity.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.core.app.NavUtils;
-import androidx.core.app.TaskStackBuilder;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +31,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
 import genos.Helper;
 import genos.R;
 import genos.libs.MessageEvent;
@@ -103,7 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void onSetContentView(String name) {
+    protected void onSetContentView(@NonNull String name) {
         String layoutName = "activity_" + name;
         int layoutResID = Helper.getResId(this, layoutName, "layout");
         if (layoutResID > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
