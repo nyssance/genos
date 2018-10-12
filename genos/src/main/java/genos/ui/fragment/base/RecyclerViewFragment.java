@@ -68,7 +68,12 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
 
             @Override
             public void onBindViewHolder(@NonNull VH holder, int position) {
-                onDisplayItem(getItem(position), holder, getItemViewType(position));
+                T item = getItem(position);
+                if (item != null) {
+                    onDisplayItem(item, holder, getItemViewType(position));
+                } else {
+                    Logger.t("recycler").w("item is null.");
+                }
             }
 
             @Override
@@ -118,24 +123,26 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
      * @param context
      * @return LayoutManager
      */
-    protected abstract RecyclerView.LayoutManager onCreateLayoutManager(Context context);
+    @NonNull
+    protected abstract RecyclerView.LayoutManager onCreateLayoutManager(@NonNull Context context);
 
     /**
      * 获取子类的ViewHolder
      */
-    protected VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Nullable
+    protected VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ParameterizedType superClassType = (ParameterizedType) getClass().getGenericSuperclass();
         Class<VH> vhClass = (Class<VH>) superClassType.getActualTypeArguments()[1];
         try {
             Constructor<VH> constructor = vhClass.getDeclaredConstructor(View.class);
             return constructor.newInstance(LayoutInflater.from(parent.getContext()).inflate(mTileId, parent, false));
         } catch (Exception e) {
-            Logger.t("viewholder").e(e, "Exception");
+            Logger.t("recycler viewholder").e(e, "Exception");
         }
         return null;
     }
 
-    protected void onItemClick(T item) {
+    protected void onItemClick(@Nullable T item) {
         onPerform(R.id.action_item_open, item);
     }
 
@@ -144,9 +151,13 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
         return onPerform(action, null);
     }
 
-    protected boolean onPerform(int action, T item) {
+    protected boolean onPerform(int action, @Nullable T item) {
         if (action == R.id.action_item_open) {
-            onOpenItem(item);
+            if (item != null) {
+                onOpenItem(item);
+            } else {
+                Logger.t("recycler").w("item is null.");
+            }
             return true;
         } else if (action == R.id.action_view_refresh) {
             refresh();
@@ -155,7 +166,7 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
         return false;
     }
 
-    protected abstract void onDisplayItem(T item, VH holder, int viewType);
+    protected abstract void onDisplayItem(@NonNull T item, @NonNull VH holder, int viewType);
 
     protected int onGetItemViewType(int position) {
         return 0;
@@ -166,7 +177,7 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
      *
      * @param item
      */
-    protected abstract void onOpenItem(T item);
+    protected abstract void onOpenItem(@NonNull T item);
 
     // TODO:
     protected void setSelection(int position, int offset) {

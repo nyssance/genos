@@ -16,6 +16,8 @@
 
 package genos.ui.fragment.base;
 
+import androidx.annotation.Nullable;
+
 public abstract class ObjectFragment<D> extends LoaderFragment<D> {
 
     @Override
@@ -23,7 +25,7 @@ public abstract class ObjectFragment<D> extends LoaderFragment<D> {
         return onPerform(action, null);
     }
 
-    protected boolean onPerform(int action, D data) {
+    protected boolean onPerform(int action, @Nullable D data) {
         return false;
     }
 }

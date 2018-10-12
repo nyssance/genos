@@ -16,7 +16,6 @@
 
 package genos.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -38,7 +37,6 @@ public abstract class TabBarActivity extends NavigationActivity {
         setContentView(R.layout.activity_tab_bar);
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +62,7 @@ public abstract class TabBarActivity extends NavigationActivity {
             Field field = targetClass.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(instance, value);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }

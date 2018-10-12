@@ -32,7 +32,6 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return mData.size();
     }
 
-    // Taylor
     @Nullable
     public final T getItem(int position) {
         return mData.get(position);
