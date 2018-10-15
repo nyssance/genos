@@ -34,6 +34,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.OnItemActivatedListener;
+import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -47,6 +48,8 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
     protected BaseAdapter<T, VH> mAdapter;
     @LayoutRes
     protected int mTileId = R.layout.list_item_default;
+    // FIXME: 找到只开启单选的方式
+    SelectionTracker.SelectionPredicate<T> mSelectionPredicate = SelectionPredicates.createSelectSingleAnything();
 
     @Nullable
     @Override
@@ -85,7 +88,8 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
         };
         mListView.setAdapter(mAdapter);
         // SelectionTracker
-        SelectionTracker<T> selectionTracker = new SelectionTracker.Builder<>(
+        // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
+        SelectionTracker<T> tracker = new SelectionTracker.Builder<>(
                 "my-selection-id",
                 mListView,
                 mAdapter.getKeyProvider(),
@@ -101,16 +105,17 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
                     return true;
                 })
                 .build();
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<T>() {
+        tracker.addObserver(new SelectionTracker.SelectionObserver<T>() {
             @Override
             public void onItemStateChanged(@NonNull T key, boolean selected) {
+                Logger.w("onItemStateChanged: ");
             }
 
             @Override
             public void onSelectionChanged() {
                 Logger.w("多选 onSelectionChanged: ");
                 ActionMode actionMode = null;
-                if (selectionTracker.hasSelection() && actionMode == null) {
+                if (tracker.hasSelection() && actionMode == null) {
                     actionMode = requireActivity().startActionMode(new ActionMode.Callback() {
                         @Override
                         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -129,19 +134,19 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
 
                         @Override
                         public void onDestroyActionMode(ActionMode mode) {
-                            selectionTracker.clearSelection();
+                            tracker.clearSelection();
                         }
                     });
-//                    setMenuItemTitle(selectionTracker.getSelection().size());
-                } else if (!selectionTracker.hasSelection() && actionMode != null) {
+//                    setMenuItemTitle(tracker.getSelection().size());
+                } else if (!tracker.hasSelection() && actionMode != null) {
                     actionMode.finish();
                     actionMode = null;
                 } else {
-//                    setMenuItemTitle(selectionTracker.getSelection().size());
+//                    setMenuItemTitle(tracker.getSelection().size());
                 }
-                for (T item : selectionTracker.getSelection()) {
-                    Logger.w(item.toString());
-                }
+//                for (T item : tracker.getSelection()) {
+//                    Logger.w(item.toString());
+//                }
             }
         });
     }
