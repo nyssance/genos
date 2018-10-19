@@ -91,7 +91,7 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
 
                 })
                 .withOnItemActivatedListener { item: ItemDetailsLookup.ItemDetails<Long>, e: MotionEvent ->
-                    this@RecyclerViewFragment.onItemClick(adapter.getItem(item.position))
+                    this@RecyclerViewFragment.onOpenItem(adapter.getItem(item.position))
                     Logger.w("单击 onItemActivated: ")
                     true
                 }
@@ -167,10 +167,6 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
         return BaseHolder(v) as VH
     }
 
-    protected fun onItemClick(item: T?) {
-        onPerform(R.id.action_item_open, item)
-    }
-
     override fun onPerform(action: Int): Boolean {
         return onPerform(action, null)
     }
@@ -183,7 +179,7 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
                 } else {
                     Logger.t("recycler").w("item is null.")
                 }
-                return true
+                true
             }
             R.id.action_view_refresh -> {
                 refresh()
