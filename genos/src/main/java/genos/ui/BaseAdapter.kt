@@ -65,7 +65,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
         return data.size
     }
 
-    fun getItem(position: Int): T? {
+    fun getItem(position: Int): T {
         return data[position]
     }
 

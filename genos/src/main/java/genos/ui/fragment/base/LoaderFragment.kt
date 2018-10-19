@@ -42,16 +42,16 @@ abstract class LoaderFragment<D> : BaseFragment() {
     protected var refreshControlMode = RefreshControlMode.Always
     protected var isLoading = false
 
-    protected var swipeRefresh: SwipeRefreshLayout? = null
+    protected var refreshControl: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // 下拉刷新
         if (refreshControlMode == RefreshControlMode.Always) {
-            swipeRefresh = view.findViewById(R.id.swipe_refresh)
-            swipeRefresh?.setColorSchemeResources(R.color.app_color)
-            swipeRefresh?.setOnRefreshListener {
-                swipeRefresh?.isRefreshing = true
+            refreshControl = view.findViewById(R.id.swipe_refresh)
+            refreshControl?.setColorSchemeResources(R.color.app_color)
+            refreshControl?.setOnRefreshListener {
+                refreshControl?.isRefreshing = true
                 onPerform(R.id.action_view_refresh)
             }
         }
@@ -82,7 +82,7 @@ abstract class LoaderFragment<D> : BaseFragment() {
     protected fun onDataChanged(data: D?) {
         isLoading = false
         if (refreshControlMode == RefreshControlMode.Always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
-            swipeRefresh?.isRefreshing = false
+            refreshControl?.isRefreshing = false
         }
         if (data != null) {
             onLoadSuccess(data)

@@ -120,7 +120,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Wrong doc: https://developer.android.com/training/implementing-navigation/ancestral.html#up
-        // SO: https://stackoverflow.com/a/31350642
+        // SO: https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
         return when (item.itemId) {
             android.R.id.home -> {
                 val upIntent = NavUtils.getParentActivityIntent(this)
@@ -132,7 +132,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     NavUtils.navigateUpTo(this, upIntent)
                 }
-                return true
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }
