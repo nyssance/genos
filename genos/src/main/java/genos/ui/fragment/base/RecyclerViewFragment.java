@@ -33,8 +33,6 @@ import java.lang.reflect.ParameterizedType;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.selection.OnItemActivatedListener;
-import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -48,8 +46,7 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
     protected BaseAdapter<T, VH> mAdapter;
     @LayoutRes
     protected int mTileId = R.layout.list_item_default;
-    // FIXME: 找到只开启单选的方式
-    SelectionTracker.SelectionPredicate<T> mSelectionPredicate = SelectionPredicates.createSelectSingleAnything();
+    protected boolean mCanSelectMultiple;
 
     @Nullable
     @Override
@@ -89,14 +86,30 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
         mListView.setAdapter(mAdapter);
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
-        SelectionTracker<T> tracker = new SelectionTracker.Builder<>(
+        SelectionTracker<Long> tracker = new SelectionTracker.Builder<>(
                 "my-selection-id",
                 mListView,
                 mAdapter.getKeyProvider(),
                 mAdapter.getDetailsLookup(),
                 StorageStrategy.createLongStorage())
-                .withOnItemActivatedListener((OnItemActivatedListener<T>) (item, e) -> {
-                    RecyclerViewFragment.this.onItemClick(item.getSelectionKey());
+                .withSelectionPredicate(new SelectionTracker.SelectionPredicate<Long>() { // SelectionPredicates.createSelectAnything()
+                    @Override
+                    public boolean canSetStateForKey(@NonNull Long key, boolean nextState) {
+                        return mCanSelectMultiple;
+                    }
+
+                    @Override
+                    public boolean canSetStateAtPosition(int position, boolean nextState) {
+                        return mCanSelectMultiple;
+                    }
+
+                    @Override
+                    public boolean canSelectMultiple() {
+                        return mCanSelectMultiple;
+                    }
+                })
+                .withOnItemActivatedListener((item, e) -> {
+                    RecyclerViewFragment.this.onItemClick(mAdapter.getItem(item.getPosition()));
                     Logger.w("单击 onItemActivated: ");
                     return true;
                 })
@@ -105,9 +118,9 @@ public abstract class RecyclerViewFragment<D, T, VH extends RecyclerView.ViewHol
                     return true;
                 })
                 .build();
-        tracker.addObserver(new SelectionTracker.SelectionObserver<T>() {
+        tracker.addObserver(new SelectionTracker.SelectionObserver<Long>() {
             @Override
-            public void onItemStateChanged(@NonNull T key, boolean selected) {
+            public void onItemStateChanged(@NonNull Long key, boolean selected) {
                 Logger.w("onItemStateChanged: ");
             }
 

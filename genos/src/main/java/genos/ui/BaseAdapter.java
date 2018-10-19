@@ -31,25 +31,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     private List<T> mData = new ArrayList<>();
-    private ItemKeyProvider mKeyProvider;
-    private ItemDetailsLookup mDetailsLookup;
+    private ItemKeyProvider<Long> mKeyProvider;
+    private ItemDetailsLookup<Long> mDetailsLookup;
 
     @Override
     public void onAttachedToRecyclerView(@NonNull final RecyclerView recyclerView) {
         // KeyProvider & DetailsLookup
-        mKeyProvider = new ItemKeyProvider<T>(ItemKeyProvider.SCOPE_CACHED) {
+        mKeyProvider = new ItemKeyProvider<Long>(ItemKeyProvider.SCOPE_MAPPED) {
             @Nullable
             @Override
-            public T getKey(int position) {
-                return getItem(position);
+            public Long getKey(int position) {
+                return (long) position;
             }
 
             @Override
-            public int getPosition(@NonNull T key) {
-                return mData.indexOf(key);
+            public int getPosition(@NonNull Long key) {
+                return key.intValue();
             }
         };
-        mDetailsLookup = new ItemDetailsLookup() {
+        mDetailsLookup = new ItemDetailsLookup<Long>() {
             @Nullable
             @Override
             public ItemDetails getItemDetails(@NonNull MotionEvent e) {
@@ -57,7 +57,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
                 if (view != null) {
                     RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(view);
                     final int position = holder.getAdapterPosition();
-                    return new ItemDetails<T>() {
+                    return new ItemDetails<Long>() {
                         @Override
                         public int getPosition() {
                             return position;
@@ -65,8 +65,8 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
 
                         @Nullable
                         @Override
-                        public T getSelectionKey() {
-                            return getItem(position);
+                        public Long getSelectionKey() {
+                            return (long) position;
                         }
                     };
                 }
@@ -81,12 +81,12 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     }
 
     @NonNull
-    public final ItemKeyProvider getKeyProvider() {
+    public final ItemKeyProvider<Long> getKeyProvider() {
         return mKeyProvider;
     }
 
     @NonNull
-    public final ItemDetailsLookup getDetailsLookup() {
+    public final ItemDetailsLookup<Long> getDetailsLookup() {
         return mDetailsLookup;
     }
 
