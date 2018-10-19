@@ -21,11 +21,6 @@ import android.widget.ImageView
 import android.widget.TextView
 
 open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
-    var icon: ImageView
-    var title: TextView
-
-    init {
-        icon = getView(android.R.id.icon)
-        title = getView(android.R.id.title)
-    }
+    var icon: ImageView = getView(android.R.id.icon)
+    var title: TextView = getView(android.R.id.title)
 }

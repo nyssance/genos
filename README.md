@@ -99,6 +99,7 @@ genos
   * [Support Library](https://developer.android.com/topic/libraries/support-library/index.html)
   * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
   * [ATSL](https://developer.android.com/topic/libraries/testing-support-library/index.html)
+  * [Android KTX](https://github.com/android/android-ktx)
 * Others
   * [Retrofit](https://square.github.io/retrofit/)
   * [Glide](https://github.com/bumptech/glide)
@@ -108,13 +109,13 @@ genos
 Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
 
 ### License
-    Copyright 2018 NY (nyssance@icloud.com)
+    Copyright 2018 NY <nyssance@icloud.com>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+       https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,

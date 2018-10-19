@@ -23,13 +23,11 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import genos.R
 import genos.ui.activity.base.BaseActivity
 
@@ -47,7 +45,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     /**
-     * onPrepare() : 初始化, mCall, mTileId, setHasOptionsMenu
+     * onPrepare() : 初始化, call, tileId, setHasOptionsMenu
      */
     protected abstract fun onPrepare()
 
@@ -77,14 +75,14 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         Logger.t("base").i("onKeyUp keyCode: $keyCode")
-        when (keyCode) {
+        return when (keyCode) {
             KeyEvent.KEYCODE_SEARCH // 处理一些设备的专用search按钮
-            -> return true
-            KeyEvent.KEYCODE_F1 -> return onPerform(R.id.action_help)
-            KeyEvent.KEYCODE_F5 -> return onPerform(R.id.action_view_refresh)
-            KeyEvent.KEYCODE_ENTER -> return true
-            KeyEvent.KEYCODE_ESCAPE -> return true
-            else -> return false
+            -> true
+            KeyEvent.KEYCODE_F1 -> onPerform(R.id.action_help)
+            KeyEvent.KEYCODE_F5 -> onPerform(R.id.action_view_refresh)
+            KeyEvent.KEYCODE_ENTER -> true
+            KeyEvent.KEYCODE_ESCAPE -> true
+            else -> false
         }
     }
 
@@ -112,7 +110,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     fun setTitle(title: CharSequence) {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         if (actionBar != null) {
-            actionBar.setTitle(title)
+            actionBar.title = title
         } else {
             Logger.t("base").w("No action bar!")
         }

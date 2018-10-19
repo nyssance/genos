@@ -22,36 +22,37 @@ import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
-    private val mData = ArrayList<T>()
-    lateinit var keyProvider: ItemKeyProvider<T>
+    private val data = ArrayList<T>()
+    lateinit var keyProvider: ItemKeyProvider<Long>
         private set
-    lateinit var detailsLookup: ItemDetailsLookup<T>
+    lateinit var detailsLookup: ItemDetailsLookup<Long>
         private set
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         // KeyProvider & DetailsLookup
-        keyProvider = object : ItemKeyProvider<T>(SCOPE_CACHED) {
-            override fun getKey(position: Int): T? {
-                return getItem(position)
+        // https://medium.com/@Dalvin/android-recycler-view-with-multiple-item-selections-b2af90eb5825
+        keyProvider = object : ItemKeyProvider<Long>(SCOPE_MAPPED) {
+            override fun getKey(position: Int): Long? {
+                return position.toLong()
             }
 
-            override fun getPosition(key: T): Int {
-                return mData.indexOf(key)
+            override fun getPosition(key: Long): Int {
+                return key.toInt()
             }
         }
-        detailsLookup = object : ItemDetailsLookup<T>() {
-            override fun getItemDetails(e: MotionEvent): ItemDetails<T>? {
+        detailsLookup = object : ItemDetailsLookup<Long>() {
+            override fun getItemDetails(e: MotionEvent): ItemDetails<Long>? {
                 val view = recyclerView.findChildViewUnder(e.x, e.y)
                 if (view != null) {
                     val holder = recyclerView.getChildViewHolder(view)
                     val position = holder.adapterPosition
-                    return object : ItemDetailsLookup.ItemDetails<T>() {
+                    return object : ItemDetails<Long>() {
                         override fun getPosition(): Int {
                             return position
                         }
 
-                        override fun getSelectionKey(): T? {
-                            return getItem(position)
+                        override fun getSelectionKey(): Long? {
+                            return position.toLong()
                         }
                     }
                 }
@@ -61,28 +62,28 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
     }
 
     override fun getItemCount(): Int {
-        return mData.size
+        return data.size
     }
 
     fun getItem(position: Int): T? {
-        return mData[position]
+        return data[position]
     }
 
     fun append(items: Collection<T>) {
-        mData.addAll(items)
+        data.addAll(items)
     }
 
     fun removeAll() {
-        mData.clear()
+        data.clear()
     }
 
     fun add(index: Int, item: T) {
-        mData.add(index, item)
+        data.add(index, item)
         notifyItemInserted(index) // TODO: 同步调用会不会出错
     }
 
     fun remove(index: Int) {
-        mData.removeAt(index)
+        data.removeAt(index)
         notifyItemRemoved(index)
     }
 }

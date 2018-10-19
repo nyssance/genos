@@ -21,23 +21,23 @@ import android.content.Context
 import androidx.loader.content.AsyncTaskLoader
 
 abstract class BaseLoader<D>(context: Context) : AsyncTaskLoader<D>(context) {
-    protected var mData: D? = null
+    protected var data: D? = null
 
     override fun deliverResult(data: D?) {
         if (isReset) {
             return
         }
-        mData = data
+        this.data = data
         if (isStarted) {
             super.deliverResult(data)
         }
     }
 
     override fun onStartLoading() {
-        if (mData != null) {
-            deliverResult(mData)
+        if (data != null) {
+            deliverResult(data)
         }
-        if (takeContentChanged() || mData == null) {
+        if (takeContentChanged() || data == null) {
             forceLoad()
         }
     }
@@ -49,6 +49,6 @@ abstract class BaseLoader<D>(context: Context) : AsyncTaskLoader<D>(context) {
     override fun onReset() {
         super.onReset()
         onStopLoading()
-        mData = null
+        data = null
     }
 }

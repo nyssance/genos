@@ -18,10 +18,11 @@ package genos.ui.activity.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.transaction
 import genos.R
 
 abstract class SingleActivity : BaseActivity() {
-    protected lateinit var mFragment: Fragment
+    protected var mFragment: Fragment? = null
     protected var mParentClass: Class<Any>? = null
 
     protected abstract fun onCreateFragment(): Fragment
@@ -30,9 +31,9 @@ abstract class SingleActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null && mFragment == null) {
             mFragment = onCreateFragment()
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.container_for_add, mFragment)
-                    .commit()
+            supportFragmentManager.transaction(allowStateLoss = true) {
+                add(R.id.container_for_add, mFragment!!)
+            }
         }
     }
 }

@@ -20,10 +20,8 @@ import android.os.Handler
 import androidx.recyclerview.widget.RecyclerView
 import genos.BaseAppManager.Companion.LIST_START_PAGE
 
-//import genos.BaseAppManager.LIST_START_PAGE
-
 abstract class ListFragment<D, T, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
-    protected var mPage = LIST_START_PAGE
+    protected var page = LIST_START_PAGE
 
     protected abstract fun transformListFromData(data: D): List<T>
 
@@ -32,45 +30,45 @@ abstract class ListFragment<D, T, VH : RecyclerView.ViewHolder> : RecyclerViewFr
     }
 
     protected fun hasPrevious(): Boolean {
-        return mPage > LIST_START_PAGE
+        return page > LIST_START_PAGE
     }
 
     override fun onLoadSuccess(data: D) {
         if (!hasPrevious()) { // 如果无上一页, 完全重载
-            mAdapter.removeAll()
+            adapter.removeAll()
         }
-        mAdapter.append(transformListFromData(data))
+        adapter.append(transformListFromData(data))
         // 同步调用notifyDataSetChanged RecyclerView会报错
         val handler = Handler()
-        val r = Runnable { mAdapter.notifyDataSetChanged() }
+        val r = Runnable { adapter.notifyDataSetChanged() }
         handler.post(r)
     }
 
     override fun onLoadFailure(code: Int, message: String) {
         super.onLoadFailure(code, message)
-        if (mPage > LIST_START_PAGE) {
-            mPage--
+        if (page > LIST_START_PAGE) {
+            page--
         }
     }
 
     override fun onGetItemViewType(position: Int): Int {
-        loadMore(mAdapter.itemCount, position)
+        loadMore(adapter.itemCount, position)
         return super.onGetItemViewType(position)
     }
 
     override fun refresh() {
-        mPage = LIST_START_PAGE
+        page = LIST_START_PAGE
         onPrepare()
         super.refresh()
     }
 
     protected fun loadMore(size: Int, position: Int) {
-        if (!hasNext() || mIsLoading) {
+        if (!hasNext() || isLoading) {
             return
         }
         if (position == size - 1) {
-            mIsLoading = true
-            mPage++
+            isLoading = true
+            page++
             onPrepare()
             super.refresh()
         }

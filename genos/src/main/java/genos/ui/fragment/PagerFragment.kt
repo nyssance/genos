@@ -20,44 +20,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.google.android.material.tabs.TabLayout
-
-import java.util.ArrayList
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import genos.R
 
 open class PagerFragment : Fragment() {
-    protected lateinit var mTabLayout: TabLayout
-    protected lateinit var mViewPager: ViewPager
-    protected var mFragments = ArrayList<Fragment>()
-    protected var mTitles = ArrayList<String>()
+    protected lateinit var tabLayout: TabLayout
+    protected lateinit var viewPager: ViewPager
+    protected var fragments = ArrayList<Fragment>()
+    protected var titles = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_pager, container, false)
-        mTabLayout = view.findViewById(android.R.id.tabs)
-        mViewPager = view.findViewById(R.id.pager)
+        tabLayout = view.findViewById(android.R.id.tabs)
+        viewPager = view.findViewById(R.id.pager)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // mViewPager.setPageMargin(16);
         // mViewPager.setPageMarginDrawable(android.R.color.black);
-        mViewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
+        viewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
             override fun getCount(): Int {
-                return mFragments.size
+                return fragments.size
             }
 
             override fun getItem(position: Int): Fragment {
-                return mFragments[position]
+                return fragments[position]
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
-                return mTitles[position]
+                return titles[position]
             }
         }
-        mTabLayout.setupWithViewPager(mViewPager)
+        tabLayout.setupWithViewPager(viewPager)
     }
 }

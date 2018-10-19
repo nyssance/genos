@@ -22,54 +22,51 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.gson.reflect.TypeToken
 import com.orhanobut.logger.Logger
 import genos.R
 import genos.ui.BaseViewModel
 import retrofit2.Call
 
 enum class RefreshMode {
-    didLoad, willAppear, didAppear, never
+    DidLoad, WillAppear, DidAppear, Never
 }
 
 enum class RefreshControlMode {
-    always, never
+    Always, Never
 }
 
 abstract class LoaderFragment<D> : BaseFragment() {
-    protected lateinit var mViewModel: ViewModel
-    protected var mCall: Call<D>? = null
-    protected var mRefreshMode = RefreshMode.didLoad
-    protected var mRefreshControlMode = RefreshControlMode.always
-    protected var mIsLoading: Boolean = false
+    protected lateinit var viewModel: ViewModel
+    protected var call: Call<D>? = null
+    protected var refreshMode = RefreshMode.DidLoad
+    protected var refreshControlMode = RefreshControlMode.Always
+    protected var isLoading = false
 
-    protected var mSwipeRefresh: SwipeRefreshLayout? = null
+    protected var swipeRefresh: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // 下拉刷新
-        if (mRefreshControlMode == RefreshControlMode.always) {
-            mSwipeRefresh = view.findViewById(R.id.swipe_refresh)
-            if (mSwipeRefresh != null) {
-                mSwipeRefresh?.setColorSchemeResources(R.color.app_color)
-                mSwipeRefresh?.setOnRefreshListener {
-                    mSwipeRefresh?.isRefreshing = true
-                    onPerform(R.id.action_view_refresh)
-                }
+        if (refreshControlMode == RefreshControlMode.Always) {
+            swipeRefresh = view.findViewById(R.id.swipe_refresh)
+            swipeRefresh?.setColorSchemeResources(R.color.app_color)
+            swipeRefresh?.setOnRefreshListener {
+                swipeRefresh?.isRefreshing = true
+                onPerform(R.id.action_view_refresh)
             }
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mViewModel = onCreateViewModel()
+        viewModel = onCreateViewModel()
         onViewModelCreated()
-        (mViewModel as BaseViewModel<D>).data.observe(this, Observer<D> { it -> this.onDataChanged(it) })
-        if (mCall == null) { // 如果call为空, 刷新模式自动为never
-            mRefreshMode = RefreshMode.never
-            mRefreshControlMode = RefreshControlMode.never
+        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { result -> this.onDataChanged(result) })
+        if (call == null) { // 如果call为空, 刷新模式自动为never
+            refreshMode = RefreshMode.Never
+            refreshControlMode = RefreshControlMode.Never
         }
-        if (mRefreshMode == RefreshMode.didLoad) {
+        if (refreshMode == RefreshMode.DidLoad) {
             refresh()
         }
     }
@@ -83,11 +80,9 @@ abstract class LoaderFragment<D> : BaseFragment() {
     protected fun onViewModelCreated() {}
 
     protected fun onDataChanged(data: D?) {
-        mIsLoading = false
-        if (mRefreshControlMode == RefreshControlMode.always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
-            if (mSwipeRefresh != null) {
-                mSwipeRefresh?.isRefreshing = false
-            }
+        isLoading = false
+        if (refreshControlMode == RefreshControlMode.Always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
+            swipeRefresh?.isRefreshing = false
         }
         if (data != null) {
             onLoadSuccess(data)
@@ -105,9 +100,9 @@ abstract class LoaderFragment<D> : BaseFragment() {
     // MARK: - 💛 Action
 
     protected open fun refresh() {
-        if (mCall != null) {
-            mIsLoading = true
-            (mViewModel as BaseViewModel<D>).loadData(mCall!!)
+        if (call != null) {
+            isLoading = true
+            (viewModel as BaseViewModel<D>).loadData(call!!)
         }
     }
 }

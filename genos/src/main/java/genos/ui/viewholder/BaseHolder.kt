@@ -26,14 +26,15 @@ import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
 
 open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val mViews = SparseArray<View>()
+    private val views = SparseArray<View>()
 
     fun <V : View> getView(@IdRes id: Int): V {
-        var view = mViews.get(id)
+        var view = views.get(id)
+//        view = views.getOrDefault(id, itemView.findViewById(id))
         if (view == null) {
             view = itemView.findViewById(id)
             if (view != null) {
-                mViews.put(id, view)
+                views.put(id, view)
             } else {
                 Logger.t("viewholder").e("itemView.findViewById return null. check your tile id, IdRes: " + itemView.context.resources.getResourceName(id))
             }

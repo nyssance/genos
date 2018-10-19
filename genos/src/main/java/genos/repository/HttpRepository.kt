@@ -17,16 +17,14 @@
 package genos.repository
 
 import android.net.Uri
-
-import com.orhanobut.logger.Logger
-
-import java.io.IOException
 import androidx.lifecycle.MutableLiveData
+import com.orhanobut.logger.Logger
 import genos.BuildConfig
 import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class HttpRepository<D> : IRepository<D> {
     override fun getData(call: Call<D>, data: MutableLiveData<D>): MutableLiveData<D> { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
@@ -35,27 +33,25 @@ class HttpRepository<D> : IRepository<D> {
             override fun onResponse(call: Call<D>, response: Response<D>) {
                 val request = call.request()
                 val scheme = request.url().scheme()
-                var log = String.format("%s %s %s %s",
-                        request.method(), getUrlString(request), response.code(), response.message())
+                var log = "${request.method()} ${getUrlString(request)} ${response.code()} ${response.message()}"
                 if (BuildConfig.DEBUG) {
-                    log = String.format("%s\n\n▼ Response Headers\n%s\n▼ Request Headers\n%s", log, response.headers(), request.headers())
+                    log = "$log\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}"
                 }
                 if (response.isSuccessful) {
                     Logger.t(scheme).d("✅ $log")
                     data.postValue(response.body())
                 } else { // TODO: 处理detail
                     try {
-                        Logger.t(scheme).d(String.format("❎ %s\n%s", log, response.errorBody()?.string()))
+                        Logger.t(scheme).d("❎ $log\n${response.errorBody()?.string()}")
                     } catch (e: IOException) {
                         Logger.t(scheme).e(scheme + e.localizedMessage)
                     }
-
                 }
             }
 
             override fun onFailure(call: Call<D>, t: Throwable) {
                 val request = call.request()
-                Logger.t(request.url().scheme()).e(t, String.format("❌ %s\n", getUrlString(request)))
+                Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
             }
 
             private fun getUrlString(request: Request): String {

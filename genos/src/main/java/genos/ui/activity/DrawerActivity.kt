@@ -17,17 +17,18 @@
 package genos.ui.activity
 
 import android.os.Bundle
-
-import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 import genos.R
 import genos.ui.activity.base.NavigationActivity
 
 abstract class DrawerActivity : NavigationActivity() {
-    protected lateinit var mDrawer: DrawerLayout
-    protected var mNavigation: NavigationView? = null
+    protected lateinit var drawerLayout: DrawerLayout
+    protected var navigationView: NavigationView? = null
 
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_drawer)
@@ -35,21 +36,28 @@ abstract class DrawerActivity : NavigationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mDrawer = findViewById(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(this, mDrawer, navigationBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        mDrawer.addDrawerListener(toggle)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, navigationBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+//        val navController = Navigation.findNavController(this, R.id.navigation)
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawer)
 
         val navigation = findViewById<NavigationView>(R.id.navigation)
         navigation.setNavigationItemSelectedListener { item ->
-            mDrawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             onNavigationItemSelected(item.itemId)
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp()
+    }
+
     override fun onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }

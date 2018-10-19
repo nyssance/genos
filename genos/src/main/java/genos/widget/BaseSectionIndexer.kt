@@ -17,8 +17,7 @@
 package genos.widget
 
 import android.widget.SectionIndexer
-
-import java.util.Arrays
+import java.util.*
 
 /**
  * 该类参考官方Contacts的ContactsSectionIndexer
