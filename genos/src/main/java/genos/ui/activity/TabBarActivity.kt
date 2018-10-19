@@ -17,17 +17,14 @@
 package genos.ui.activity
 
 import android.os.Bundle
-
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
-import java.lang.reflect.Field
 import genos.R
 import genos.ui.activity.base.NavigationActivity
 
 abstract class TabBarActivity : NavigationActivity() {
-    protected var mShiftingMode: Boolean = false
+    protected var shiftingMode: Boolean = false
 
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_tab_bar)

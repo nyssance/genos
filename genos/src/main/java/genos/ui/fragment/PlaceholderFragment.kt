@@ -30,13 +30,13 @@ class PlaceholderFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_placeholder, container, false)
         val textView = rootView.findViewById<TextView>(android.R.id.text1)
         if (arguments != null) {
-            textView.setText(String.format("%s %s", "P", Integer.toString(arguments!!.getInt(ARG_SECTION_NUMBER))))
+            textView.text = "P ${arguments!!.getInt(ARG_SECTION_NUMBER)}"
         }
         return rootView
     }
 
     companion object {
-        val ARG_SECTION_NUMBER = "section_number"
+        const val ARG_SECTION_NUMBER = "section_number"
 
         fun newInstance(sectionNumber: Int): PlaceholderFragment {
             val fragment = PlaceholderFragment()

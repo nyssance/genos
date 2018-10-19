@@ -16,27 +16,19 @@
 
 package genos
 
-import com.google.gson.Gson
+import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
 import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
-
-import java.io.IOException
-import java.util.Locale
-import androidx.fragment.app.Fragment
-import okhttp3.Interceptor
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
+import okhttp3.*
 import okio.BufferedSink
 import okio.GzipSink
 import okio.Okio
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.util.*
 
 abstract class BaseAppManager {
     init {
@@ -60,7 +52,7 @@ abstract class BaseAppManager {
     abstract fun route(fragment: Fragment, uri: String)
 
     protected fun onCreateRetrofit(): Retrofit {
-        val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
+//        val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
         // Cache cache = new Cache(new File("/data/user/0/com.nyssance.android/cache", "http"), SIZE_OF_CACHE);
         val httpClient = OkHttpClient.Builder().addInterceptor(object : Interceptor {
             @Throws(IOException::class)
@@ -69,16 +61,16 @@ abstract class BaseAppManager {
                 val builder = chain.request().newBuilder()
                         .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
                         .header("App-Scheme", APP_SCHEME)
-                if (!AUTH_TOKEN.isEmpty()) {
-                    builder.header(AUTH_HEADER, String.format("%s %s", AUTH_PREFIX, AUTH_TOKEN))
+                if (AUTH_TOKEN.isNotBlank()) {
+                    builder.header(AUTH_HEADER, "$AUTH_PREFIX $AUTH_TOKEN")
                 }
                 val request = builder.build()
                 // 发送数据的时候GZip压缩 https://github.com/square/okhttp/wiki/Interceptors
                 if (request.body() == null || request.header("Content-Encoding") != null) {
-                    //                    Response response = chain.proceed(request);
-                    //                    String cacheControl = request.cacheControl().toString();
-                    //                    if (TextUtils.isEmpty(cacheControl)) {
-                    //                        cacheControl = "public, max-age=60";
+                    //                    val response = chain.proceed(request)
+                    //                    val cacheControl = request.cacheControl().toString()
+                    //                    if (cacheControl.isBlank()) {
+                    //                        cacheControl = "public, max-age=60"
                     //                    }
                     //                    return response.newBuilder()
                     //                            .header("Cache-Control", cacheControl)
@@ -127,7 +119,7 @@ abstract class BaseAppManager {
         //
         var LIST_START_PAGE = 1
         //
-        protected var BASE_URL = "https://www.必填.com"
+        var BASE_URL = "https://www.必填.com"
         protected var APP_SCHEME = "genos"
         protected var AUTH_HEADER = "Authorization"
         protected var AUTH_PREFIX = "JWT" // JWT / Bearer

@@ -34,8 +34,4 @@ abstract class BaseItem {
         this.name = name
         this.title = title
     }
-
-    override fun toString(): String {
-        return title
-    }
 }

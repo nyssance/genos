@@ -18,17 +18,15 @@ package genos.ui.activity.base
 
 import android.os.Bundle
 import android.util.SparseArray
-
 import androidx.annotation.IdRes
-import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import genos.R
 
 abstract class NavigationActivity : BaseActivity() {
-    protected var mFragments = SparseArray<Fragment>()
-    private var mCurrentFragment: Fragment? = null
-    private var mCurrentTag = ""
+    protected var fragments = SparseArray<Fragment>()
+    private var currentFragment: Fragment? = null
+    private var currentTag = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,25 +35,25 @@ abstract class NavigationActivity : BaseActivity() {
     }
 
     protected fun onNavigationItemSelected(@IdRes id: Int): Boolean {
-        val tag = String.format("%s", id)
-        if (mCurrentTag == tag) {
+        val tag = id.toString()
+        if (currentTag == tag) {
             return false
         }
-        mCurrentTag = tag
+        currentTag = tag
         val transaction = supportFragmentManager.beginTransaction()
-        if (mCurrentFragment != null) {
-            transaction.hide(mCurrentFragment!!)
+        if (currentFragment != null) {
+            transaction.hide(currentFragment!!)
         }
-        var fragment = supportFragmentManager.findFragmentByTag(mCurrentTag) // 目标Fragment
+        var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         if (fragment == null) {
-            fragment = mFragments.get(id)
-            transaction.add(R.id.container_for_add, fragment!!, mCurrentTag)
+            fragment = fragments.get(id)
+            transaction.add(R.id.container_for_add, fragment!!, currentTag)
         } else {
             transaction.show(fragment)
         }
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
-        mCurrentFragment = fragment
+        currentFragment = fragment
         return true
     }
 }

@@ -25,7 +25,7 @@ abstract class IndexListAdapter<T, VH : RecyclerView.ViewHolder> : BaseAdapter<T
     lateinit var indexer: SectionIndexer
 
     override fun getSections(): Array<Any> {
-        return if (indexer == null) arrayOf<Any>(" ") else indexer.sections
+        return if (indexer == null) arrayOf(" ") else indexer.sections
     }
 
     override fun getPositionForSection(section: Int): Int {

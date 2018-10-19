@@ -18,25 +18,18 @@ package genos.content
 
 import android.content.Context
 import android.net.Uri
-
 import com.orhanobut.logger.Logger
-
-import okhttp3.Request
 import retrofit2.Call
-import retrofit2.Response
 
-class HttpLoader<D>(context: Context, private val mCall: Call<D>) : BaseLoader<D>(context) {
+class HttpLoader<D>(context: Context, private val call: Call<D>) : BaseLoader<D>(context) {
 
     override fun loadInBackground(): D? {
         try { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
-            // mCall.isExecuted() ? mCall.clone() : mCall).execute().body();
-            val request = mCall.request()
-            val response = (if (mCall.isExecuted) mCall.clone() else mCall).execute()
+            // call.isExecuted() ? call.clone() : call).execute().body();
+            val request = call.request()
+            val response = (if (call.isExecuted) call.clone() else call).execute()
             val code = response.code()
-            Logger.t("http").d(String.format("%s %s %s %s\n\n▼ Response Headers\n%s\n▼ Request Headers\n%s",
-                    request.method(), Uri.decode(request.url().toString()), code, response.message(),
-                    response.headers(),
-                    request.headers()))
+            Logger.t("http").d("${request.method()} ${Uri.decode(request.url().toString())} $code ${response.message()}\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
             return if (response.isSuccessful) {
                 response.body()
             } else {
@@ -45,7 +38,6 @@ class HttpLoader<D>(context: Context, private val mCall: Call<D>) : BaseLoader<D
         } catch (e: Exception) {
             Logger.t("http").e(e, "Exception")
         }
-
         return null
     }
 }

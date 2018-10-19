@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -33,13 +32,12 @@ import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType
 
 abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
-    protected var mListView: RecyclerView? = null
-    protected lateinit var mLayoutManager: RecyclerView.LayoutManager
-    protected lateinit var mAdapter: BaseAdapter<T, VH>
+    protected lateinit var listView: RecyclerView
+    protected lateinit var layoutManager: RecyclerView.LayoutManager
+    protected lateinit var adapter: BaseAdapter<T, VH>
     @LayoutRes
-    protected var mTileId = R.layout.list_item_default
-    // FIXME: 找到只开启单选的方式
-    internal var mSelectionPredicate: SelectionTracker.SelectionPredicate<T> = SelectionPredicates.createSelectSingleAnything()
+    protected var tileId = R.layout.list_item_default
+    protected var canSelectMultiple = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_recylcer_view, container, false)
@@ -47,11 +45,11 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mListView = view.findViewById(android.R.id.list)
-        mLayoutManager = onCreateLayoutManager(requireContext())
-        mListView?.layoutManager = mLayoutManager
-        mListView?.itemAnimator = DefaultItemAnimator()
-        mAdapter = object : BaseAdapter<T, VH>() {
+        listView = view.findViewById(android.R.id.list)
+        layoutManager = onCreateLayoutManager(requireContext())
+        listView.layoutManager = layoutManager
+        listView.itemAnimator = DefaultItemAnimator()
+        adapter = object : BaseAdapter<T, VH>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
                 return this@RecyclerViewFragment.onCreateViewHolder(parent, viewType)
             }
@@ -69,24 +67,38 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
                 return onGetItemViewType(position)
             }
         }
-        mListView?.adapter = mAdapter
+        listView.adapter = adapter
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
-        val tracker = SelectionTracker.Builder(
+        val tracker = SelectionTracker.Builder<Long>(
                 "my-selection-id",
-                mListView!!,
-                mAdapter.keyProvider,
-                mAdapter.detailsLookup,
+                listView,
+                adapter.keyProvider,
+                adapter.detailsLookup,
                 StorageStrategy.createLongStorage())
-                .withOnItemActivatedListener({ item: ItemDetailsLookup.ItemDetails<T>, e: MotionEvent ->
-                    this@RecyclerViewFragment.onItemClick(item.getSelectionKey())
+                .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
+                    override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
+                        return canSelectMultiple
+                    }
+
+                    override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
+                        return canSelectMultiple
+                    }
+
+                    override fun canSelectMultiple(): Boolean {
+                        return canSelectMultiple
+                    }
+
+                })
+                .withOnItemActivatedListener { item: ItemDetailsLookup.ItemDetails<Long>, e: MotionEvent ->
+                    this@RecyclerViewFragment.onItemClick(adapter.getItem(item.position))
                     Logger.w("单击 onItemActivated: ")
                     true
-                })
-                .withOnDragInitiatedListener({ e: MotionEvent ->
+                }
+                .withOnDragInitiatedListener { e: MotionEvent ->
                     Logger.w("拖动 onDragInitiated: ")
                     true
-                })
+                }
                 .build()
         tracker.addObserver(object : SelectionTracker.SelectionObserver<T>() {
             override fun onItemStateChanged(key: T, selected: Boolean) {
@@ -122,14 +134,14 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
                     //                    setMenuItemTitle(tracker.getSelection().size());
                 }
                 //                for (T item : tracker.getSelection()) {
-                //                    Logger.w(item.toString());
+                //                    Logger.w(item);
                 //                }
             }
         })
     }
 
     override fun onDestroyView() {
-        mListView = null
+//        mListView = null
         super.onDestroyView()
     }
 
@@ -143,11 +155,11 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
      * 获取子类的ViewHolder
      */
     protected open fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val superClassType = javaClass.getGenericSuperclass() as ParameterizedType
+        val superClassType = javaClass.genericSuperclass as ParameterizedType
         val vhClass = superClassType.actualTypeArguments[1] as Class<VH>
         try {
             val constructor = vhClass.getDeclaredConstructor(View::class.java)
-            return constructor.newInstance(LayoutInflater.from(parent.context).inflate(mTileId, parent, false))
+            return constructor.newInstance(LayoutInflater.from(parent.context).inflate(tileId, parent, false))
         } catch (e: Exception) {
             Logger.t("recycler viewholder").e(e, "Exception")
         }
@@ -164,18 +176,21 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
     }
 
     protected open fun onPerform(action: Int, item: T?): Boolean {
-        if (action == R.id.action_item_open) {
-            if (item != null) {
-                onOpenItem(item)
-            } else {
-                Logger.t("recycler").w("item is null.")
+        return when (action) {
+            R.id.action_item_open -> {
+                if (item != null) {
+                    onOpenItem(item)
+                } else {
+                    Logger.t("recycler").w("item is null.")
+                }
+                return true
             }
-            return true
-        } else if (action == R.id.action_view_refresh) {
-            refresh()
-            return true
+            R.id.action_view_refresh -> {
+                refresh()
+                return true
+            }
+            else -> false
         }
-        return false
     }
 
     protected abstract fun onDisplayItem(item: T, holder: VH, viewType: Int)
@@ -193,6 +208,6 @@ abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : Loader
 
     // TODO:
     protected fun setSelection(position: Int, offset: Int) {
-        mLayoutManager.scrollToPosition(position)
+        layoutManager.scrollToPosition(position)
     }
 }

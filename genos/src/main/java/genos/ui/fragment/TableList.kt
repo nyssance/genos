@@ -26,7 +26,7 @@ abstract class TableList<T, VH : RecyclerView.ViewHolder> : ListFragment<List<T>
 
     override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
         val layoutManager = LinearLayoutManager(context)
-        mListView?.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
+        listView.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         return layoutManager
     }
 

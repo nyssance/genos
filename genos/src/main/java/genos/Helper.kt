@@ -17,21 +17,16 @@
 package genos
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.telephony.TelephonyManager
-
-import com.orhanobut.logger.Logger
-
-import java.lang.reflect.Field
-
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.orhanobut.logger.Logger
 
 object Helper {
 
@@ -46,13 +41,13 @@ object Helper {
         get() = Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
 
     private fun getAllResourceIDs(dataClass: Class<Any>): IntArray { // 传入class为.R
-        val IDFields = dataClass.fields
-        val IDs = IntArray(IDFields.size)
-        val count = IDFields.size
+        val resourceIDFields = dataClass.fields
+        val resourceIDs = IntArray(resourceIDFields.size)
+        val count = resourceIDFields.size
         try {
             for (i in 0 until count) {
                 // pass 'null' because class is static
-                IDs[i] = IDFields[i].getInt(null)
+                resourceIDs[i] = resourceIDFields[i].getInt(null)
             }
         } catch (e: IllegalAccessException) {
             Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")
@@ -60,7 +55,7 @@ object Helper {
             Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")
         }
 
-        return IDs
+        return resourceIDs
     }
 
     fun isTablet(context: Context): Boolean {

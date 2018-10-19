@@ -21,53 +21,49 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
-
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.orhanobut.logger.Logger
-
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-
-import java.util.Locale
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import androidx.core.app.TaskStackBuilder
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.orhanobut.logger.Logger
 import genos.Helper
 import genos.R
 import genos.libs.MessageEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 abstract class BaseActivity : AppCompatActivity() {
-    protected lateinit var mCollapsingToolbar: CollapsingToolbarLayout
+    protected var collapsingToolbar: CollapsingToolbarLayout? = null
     var navigationBar: Toolbar? = null
         protected set
     var toolbar: Toolbar? = null
         protected set
-    private var mMenuRes: Int = 0
-    private var mOnBackPressedListener: OnBackPressedListener? = null
-    private var mOnKeyUpListener: OnKeyUpListener? = null
+    private var menuRes: Int = 0
+    private var onBackPressedListener: OnBackPressedListener? = null
+    private var onKeyUpListener: OnKeyUpListener? = null
 
     fun setOnBackPressedListener(listener: OnBackPressedListener) {
-        mOnBackPressedListener = listener
+        onBackPressedListener = listener
     }
 
     fun setOnKeyUpListener(listener: OnKeyUpListener) {
-        mOnKeyUpListener = listener
+        onKeyUpListener = listener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val className = javaClass.getSimpleName()
-        Logger.t("base").i(className + " : onCreate()")
+        val className = javaClass.simpleName
+        Logger.t("base").i("$className : onCreate()")
         val name = className.replace("Activity", "")
                 .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
                 .toLowerCase(Locale.ENGLISH)
         onSetContentView(name)
-        mMenuRes = Helper.getResId(this, name, "menu")
+        menuRes = Helper.getResId(this, name, "menu")
         // 可折叠顶栏
-        mCollapsingToolbar = findViewById(R.id.collapsing_toolbar)
+        collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         // 顶部导航栏
         navigationBar = findViewById(R.id.navigation_bar)
         if (navigationBar != null) {
@@ -110,8 +106,8 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (mMenuRes > 0) {
-            menuInflater.inflate(mMenuRes, menu)
+        if (menuRes > 0) {
+            menuInflater.inflate(menuRes, menu)
             return true
         }
         return super.onCreateOptionsMenu(menu)
@@ -125,7 +121,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Wrong doc: https://developer.android.com/training/implementing-navigation/ancestral.html#up
         // SO: https://stackoverflow.com/a/31350642
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 val upIntent = NavUtils.getParentActivityIntent(this)
                 if (NavUtils.shouldUpRecreateTask(this, upIntent!!) || isTaskRoot) {
@@ -138,24 +134,20 @@ abstract class BaseActivity : AppCompatActivity() {
                 }
                 return true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
-        if (mOnBackPressedListener != null) {
-            if (!mOnBackPressedListener!!.onBackPressed()) {
-                super.onBackPressed()
-            }
-        } else { // 如果为null, 执行系统默认
+        if (onBackPressedListener?.onBackPressed() == false) {
             super.onBackPressed()
         }
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return if (event.isTracking && !event.isCanceled) {
-            if (mOnKeyUpListener != null) {
-                mOnKeyUpListener!!.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event)
+            if (onKeyUpListener != null) {
+                onKeyUpListener!!.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event)
             } else { // 如果为null, 执行系统默认
                 super.onKeyUp(keyCode, event)
             }
@@ -166,8 +158,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventReceived(event: MessageEvent) {
-        Logger.t("EventBus").w("Activity: " + javaClass.getSimpleName() + " 收到了 Fragment: " + event.sender.javaClass.getSimpleName() + " 的消息: "
-                + event.message)
+        Logger.t("EventBus").w("Activity: $javaClass.simpleName 收到了 Fragment: $event.sender.javaClass.simpleName 的消息: $event.message")
     }
 
     interface OnBackPressedListener {

@@ -30,7 +30,7 @@ class Item : BaseItem {
         // this(name, null, icon, null, uri);
     }
 
-    constructor(name: String, title: String, icon: Drawable, uri: String) : this(name, title, icon, null, uri) {}
+    constructor(name: String, title: String, icon: Drawable, uri: String) : this(name, title, icon, null, uri)
 
     constructor(name: String, title: String, icon: Drawable, subtitle: String?, uri: String) : super(name, title) {
         this.icon = icon
