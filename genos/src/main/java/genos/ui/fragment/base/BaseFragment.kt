@@ -92,9 +92,12 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
 
     protected abstract fun onPerform(action: Int): Boolean
 
+    /**
+     * 工具方法
+     */
     @JvmOverloads
-    fun startActivitySafely(intent: Intent, newTask: Boolean = false) {
-        if (newTask) {
+    fun startActivitySafely(intent: Intent, isNewTask: Boolean = false) { // 默认为不开启外部Activity
+        if (isNewTask) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 该句决定是否在同一进程中
         }
         try {
@@ -104,7 +107,6 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
         } catch (e: SecurityException) {
             postError(e.localizedMessage)
         }
-
     }
 
     fun setTitle(title: CharSequence) {
@@ -120,6 +122,3 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 }
-/**
- * 工具方法
- */// 默认为不开启外部Activity

@@ -34,7 +34,7 @@ abstract class NavigationActivity : BaseActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    protected fun onNavigationItemSelected(@IdRes id: Int): Boolean {
+    protected open fun onNavigationItemSelected(@IdRes id: Int): Boolean {
         val tag = id.toString()
         if (currentTag == tag) {
             return false

@@ -31,6 +31,21 @@ import java.io.IOException
 import java.util.*
 
 abstract class BaseAppManager {
+    companion object {
+        @JvmField
+        var LIST_START_PAGE = 1
+        @JvmField
+        var BASE_URL = "https://www.必填.com"
+        @JvmField
+        var APP_SCHEME = "genos"
+        @JvmField
+        var AUTH_HEADER = "Authorization"
+        @JvmField
+        var AUTH_PREFIX = "JWT" // JWT / Bearer
+        @JvmField
+        var AUTH_TOKEN = ""
+    }
+
     init {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)
@@ -113,16 +128,5 @@ abstract class BaseAppManager {
                 .callFactory(httpClient) // 官方建议使用callFactory而不使用client方法
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-    }
-
-    companion object {
-        //
-        var LIST_START_PAGE = 1
-        //
-        var BASE_URL = "https://www.必填.com"
-        protected var APP_SCHEME = "genos"
-        protected var AUTH_HEADER = "Authorization"
-        protected var AUTH_PREFIX = "JWT" // JWT / Bearer
-        protected var AUTH_TOKEN = ""
     }
 }
