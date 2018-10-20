@@ -18,12 +18,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'guru.stefma.bintrayrelease'
 
-version = '1.1.0-alpha01'
+version = '1.1.0-rc1'
 group = 'com.nyssance.genos'
 androidArtifact {
-    artifactId = "genos"
+    artifactId = 'genos'
 }
-
 publish {
     userOrg = 'nyssance'
     desc = 'The BEST high-level framework for Android by NY.'
@@ -49,7 +48,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.1.0-alpha01"
+        versionName "1.1.0-rc1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
