@@ -58,11 +58,13 @@ object Helper {
         return resourceIDs
     }
 
+    @JvmStatic
     fun isTablet(context: Context): Boolean {
         return (context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).phoneType == TelephonyManager.PHONE_TYPE_NONE
     }
 
     // @IdRes
+    @JvmStatic
     fun getResId(context: Context, name: String?, defType: String?): Int {
         val resId = context.resources.getIdentifier(name, defType, context.packageName)
         if (resId == 0) {
@@ -79,6 +81,7 @@ object Helper {
 
     // Drawable
     // SO: https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
+    @JvmStatic
     fun getDrawable(context: Context, @DrawableRes id: Int): Drawable? {
         return ContextCompat.getDrawable(context, id)
         // return ResourcesCompat.getDrawable(context.getResources(), id,
@@ -86,22 +89,26 @@ object Helper {
     }
 
     // 其他
+    @JvmStatic
     fun getColorFromIdentifier(context: Context, id: Int): Int {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
         return if (resId != 0) getColor(context, resId) else 0
     }
 
+    @JvmStatic
     fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
         return if (resId != 0) getDrawable(context, resId) else null
     }
 
+    @JvmStatic
     fun getApplicationName(context: Context): String {
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes
         return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
     }
 
+    @JvmStatic
     fun getActivityName(activity: FragmentActivity): CharSequence? {
         try {
             val pm = activity.packageManager

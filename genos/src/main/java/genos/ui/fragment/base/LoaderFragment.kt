@@ -71,15 +71,15 @@ abstract class LoaderFragment<D> : BaseFragment() {
         }
     }
 
-    protected fun onCreateViewModel(): ViewModel {
+    protected open fun onCreateViewModel(): ViewModel {
         // SO: https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
         val ref = BaseViewModel<D>().javaClass // BaseViewModel<D>::class.java 不行
         return ViewModelProviders.of(this).get<BaseViewModel<D>>(ref)
     }
 
-    protected fun onViewModelCreated() {}
+    protected open fun onViewModelCreated() {}
 
-    protected fun onDataChanged(data: D?) {
+    protected open fun onDataChanged(data: D?) {
         isLoading = false
         if (refreshControlMode == RefreshControlMode.Always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
             refreshControl?.isRefreshing = false
@@ -91,7 +91,7 @@ abstract class LoaderFragment<D> : BaseFragment() {
         }
     }
 
-    protected abstract fun onLoadSuccess(data: D)
+    protected open abstract fun onLoadSuccess(data: D)
 
     protected open fun onLoadFailure(code: Int, message: String) {
         Logger.t("base").w(message)
