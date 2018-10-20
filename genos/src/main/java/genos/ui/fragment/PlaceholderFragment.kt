@@ -28,6 +28,7 @@ class PlaceholderFragment : Fragment() {
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
 
+        @JvmStatic
         fun newInstance(sectionNumber: Int): PlaceholderFragment {
             val fragment = PlaceholderFragment()
             val args = Bundle()

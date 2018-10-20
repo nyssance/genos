@@ -16,8 +16,9 @@
 
 package com.example.genos;
 
-import android.support.v4.app.Fragment;
+import org.jetbrains.annotations.NotNull;
 
+import androidx.fragment.app.Fragment;
 import genos.BaseAppManager;
 
 public class AppManager extends BaseAppManager {
@@ -34,14 +35,12 @@ public class AppManager extends BaseAppManager {
 
     @Override
     public void settings() {
-        DOMAIN_NAME = "github.com";
         BASE_URL = "https://api.github.com";
         // Create retrofit
         API = onCreateRetrofit().create(APIService.class);
     }
 
     @Override
-    public void route(Fragment fragment, String uri) {
-
+    public void route(@NotNull Fragment fragment, @NotNull String uri) {
     }
 }

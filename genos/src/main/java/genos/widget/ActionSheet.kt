@@ -16,16 +16,15 @@
 
 package genos.widget
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.View
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ActionSheet : BottomSheetDialogFragment() {
 
-    private val mBottomSheetBehaviorCallback = object : BottomSheetCallback() {
+    private val mBottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                 dismiss()
@@ -35,7 +34,8 @@ class ActionSheet : BottomSheetDialogFragment() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {}
     }
 
-    override fun setupDialog(dialog: Dialog, style: Int) {
+    @SuppressLint("RestrictedApi")
+    override fun setupDialog(dialog: Dialog?, style: Int) {
         super.setupDialog(dialog, style)
         //        View contentView = View.inflate(requireContext(), R.layout.fragment_bottom_sheet, null);
         //        dialog.setContentView(contentView);

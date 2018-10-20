@@ -35,13 +35,19 @@ enum class RefreshControlMode {
     Always, Never
 }
 
-abstract class LoaderFragment<D> : BaseFragment() {
+@JvmSuppressWildcards
+abstract class LoaderFragment<D : Any> : BaseFragment() {
     protected lateinit var viewModel: ViewModel
-    protected var call: Call<D>? = null
+    @JvmField
+    protected var call: Call<out D>? = null
+    @JvmField
     protected var refreshMode = RefreshMode.DidLoad
+    @JvmField
     protected var refreshControlMode = RefreshControlMode.Always
+    @JvmField
     protected var isLoading = false
 
+    @JvmField
     protected var refreshControl: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +108,8 @@ abstract class LoaderFragment<D> : BaseFragment() {
     protected open fun refresh() {
         if (call != null) {
             isLoading = true
-            (viewModel as BaseViewModel<D>).loadData(call!!)
+            val c = call as Call<D>
+            (viewModel as BaseViewModel<D>).loadData(c)
         }
     }
 }

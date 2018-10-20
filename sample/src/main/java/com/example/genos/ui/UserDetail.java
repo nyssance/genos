@@ -17,8 +17,8 @@
 package com.example.genos.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,7 +33,7 @@ public class UserDetail extends DetailFragment<User> {
 
     @Override
     protected void onPrepare() {
-        mCall = API.userDetail(requireActivity().getIntent().getStringExtra("login"));
+        call = API.userDetail(requireActivity().getIntent().getStringExtra("login"));
     }
 
     @Override

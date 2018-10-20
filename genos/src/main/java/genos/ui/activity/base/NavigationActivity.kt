@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction
 import genos.R
 
 abstract class NavigationActivity : BaseActivity() {
+    @JvmField
     protected var fragments = SparseArray<Fragment>()
     private var currentFragment: Fragment? = null
     private var currentTag = ""
