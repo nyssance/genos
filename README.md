@@ -29,19 +29,19 @@ Create a list fragment, override three methods, 20 lines code, that's all you ne
 public class UserList extends TableList<User, SubtitleHolder> {
     @Override
     protected void onPrepare() {
-        mCall = API.userList(mPage);  // a retrofit call of this fragment.
-        mTileId = R.layout.list_item_subtitle;  // the layour res id of list item
+        call = API.userList(mPage);  // a retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle;  // the layour res id of list item
     }
 
     @Override
-    protected void onDisplayItem(User item, SubtitleHolder holder, int viewType) {
-        holder.title.setText(item.name);
-        holder.subtitle.setText("id: " + item.id);
-        holder.setImage(holder.icon, item.avatarUrl);
+    protected void onDisplayItem(@NotNull User item, @NotNull SubtitleHolder holder, int viewType) {
+        holder.getTitle().setText(item.login);
+        holder.getSubtitle().setText("id: " + item.id);
+        holder.setImage(holder.getIcon(), item.avatarUrl);
     }
 
     @Override
-    protected void onOpenItem(User item) {
+    protected void onOpenItem(@NotNull User item) {
         // startActivity or do anything when click item
     }
 }
@@ -53,9 +53,9 @@ public class MainActivity extends TabBarActivity { // If you need a drawer navig
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragments.append(R.id.navigation_home, new UserList());
-        mFragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2));
-        mFragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3));
+        fragments.append(R.id.navigation_home, new UserList());
+        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2));
+        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3));
         onNavigationItemSelected(R.id.navigation_home);
     }
 }

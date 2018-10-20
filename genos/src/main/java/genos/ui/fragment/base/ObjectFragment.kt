@@ -16,7 +16,7 @@
 
 package genos.ui.fragment.base
 
-abstract class ObjectFragment<D> : LoaderFragment<D>() {
+abstract class ObjectFragment<D : Any> : LoaderFragment<D>() {
 
     override fun onPerform(action: Int): Boolean {
         return onPerform(action, null)

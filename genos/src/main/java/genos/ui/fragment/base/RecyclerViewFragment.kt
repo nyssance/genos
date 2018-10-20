@@ -31,12 +31,14 @@ import genos.ui.BaseAdapter
 import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType
 
-abstract class RecyclerViewFragment<D, T, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
+abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
     protected lateinit var listView: RecyclerView
     protected lateinit var layoutManager: RecyclerView.LayoutManager
     protected lateinit var adapter: BaseAdapter<T, VH>
+    @JvmField
     @LayoutRes
     protected var tileId = R.layout.list_item_default
+    @JvmField
     protected var canSelectMultiple = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

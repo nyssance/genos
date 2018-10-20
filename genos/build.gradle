@@ -16,25 +16,40 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'guru.stefma.bintrayrelease'
 
-//buildscript {
-//    repositories {
-//        jcenter()
-//    }
-//    dependencies {
-//        classpath 'com.novoda:bintray-release:0.8.1'
-//    }
-//}
+version = '1.1.0-alpha01'
+group = 'com.nyssance.genos'
+androidArtifact {
+    artifactId = "genos"
+}
+
+publish {
+    userOrg = 'nyssance'
+    desc = 'The BEST high-level framework for Android by NY.'
+    website = 'https://github.com/nyssance/genos'
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.71'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'guru.stefma.bintrayrelease:bintrayrelease:+'
+    }
+}
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.0-rc3"
+        versionName "1.1.0-alpha01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,10 +57,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -76,7 +87,7 @@ dependencies {
     api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
     api "android.arch.work:work-runtime-ktx:$work_version"
     //
-    api "com.google.android.material:material:$material_version"          // 自动依赖了 appcompat-v7 recyclerview-v7
+    api "com.google.android.material:material:$material_version"    // 自动依赖了 appcompat-v7 recyclerview-v7
     api "androidx.cardview:cardview:$material_version"
     api "androidx.recyclerview:recyclerview-selection:$material_version"
     api "androidx.constraintlayout:constraintlayout:$constraint_version"
@@ -86,7 +97,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // Room
     api "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
+    kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
     // Paging
     api "androidx.paging:paging-runtime:$paging_version"
     // Test helpers for LiveData
@@ -98,22 +109,10 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
     api "org.greenrobot:eventbus:$eventbus_version"
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
 }
-repositories {
-    mavenCentral()
-}
-
-//publish {
-//    userOrg = 'nyssance'
-//    groupId = 'com.nyssance.genos'
-//    artifactId = 'genos'
-//    publishVersion = '1.0.0-rc3'
-//    desc = 'The BEST high-level framework for Android by NY.'
-//    website = 'https://github.com/nyssance/genos'
-//}

@@ -21,6 +21,8 @@ import android.content.Intent;
 import com.example.genos.R;
 import com.example.genos.models.User;
 
+import org.jetbrains.annotations.NotNull;
+
 import genos.ui.fragment.TableList;
 import genos.ui.viewholder.SubtitleHolder;
 
@@ -30,19 +32,19 @@ public class UserList extends TableList<User, SubtitleHolder> {
 
     @Override
     protected void onPrepare() {
-        mCall = API.userList(mPage);
-        mTileId = R.layout.list_item_subtitle;
+        call = API.userList(page);
+        tileId = R.layout.list_item_subtitle;
     }
 
     @Override
-    protected void onDisplayItem(User item, SubtitleHolder holder, int viewType) {
-        holder.title.setText(item.login);
-        holder.subtitle.setText("id: " + item.id);
-        holder.setImage(holder.icon, item.avatarUrl);
+    protected void onDisplayItem(@NotNull User item, @NotNull SubtitleHolder holder, int viewType) {
+        holder.getTitle().setText(item.login);
+        holder.getSubtitle().setText("id: " + item.id);
+        holder.setImage(holder.getIcon(), item.avatarUrl);
     }
 
     @Override
-    protected void onOpenItem(User item) {
+    protected void onOpenItem(@NotNull User item) {
         Intent intent = new Intent();
         intent.putExtra("login", item.login);
         intent.setClass(requireContext(), UserDetailActivity.class);

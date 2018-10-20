@@ -16,6 +16,7 @@
 
 package genos.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -30,6 +31,7 @@ abstract class TabBarActivity : NavigationActivity() {
         setContentView(R.layout.activity_tab_bar)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)

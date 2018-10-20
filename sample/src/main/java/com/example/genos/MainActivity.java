@@ -20,17 +20,18 @@ import android.os.Bundle;
 
 import com.example.genos.ui.UserList;
 
+import org.jetbrains.annotations.Nullable;
+
 import genos.ui.activity.TabBarActivity;
 import genos.ui.fragment.PlaceholderFragment;
 
 public class MainActivity extends TabBarActivity {
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragments.append(R.id.navigation_home, new UserList());
-        mFragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2));
-        mFragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3));
+        fragments.append(R.id.navigation_home, new UserList());
+        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2));
+        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3));
         onNavigationItemSelected(R.id.navigation_home);
     }
 }

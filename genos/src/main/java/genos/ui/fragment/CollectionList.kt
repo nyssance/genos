@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import genos.ui.fragment.base.ListFragment
 
-abstract class CollectionList<T, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
+abstract class CollectionList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
 
     override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
         return StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

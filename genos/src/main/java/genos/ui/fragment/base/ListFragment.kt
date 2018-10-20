@@ -20,7 +20,8 @@ import android.os.Handler
 import androidx.recyclerview.widget.RecyclerView
 import genos.BaseAppManager.Companion.LIST_START_PAGE
 
-abstract class ListFragment<D, T, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
+abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
+    @JvmField
     protected var page = LIST_START_PAGE
 
     protected abstract fun transformListFromData(data: D): List<T>

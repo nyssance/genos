@@ -16,8 +16,7 @@
 
 package com.example.genos.ui;
 
-import android.support.v4.app.Fragment;
-
+import androidx.fragment.app.Fragment;
 import genos.ui.activity.CollapsingActivity;
 
 public class UserDetailActivity extends CollapsingActivity {
