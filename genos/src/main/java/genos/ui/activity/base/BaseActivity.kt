@@ -139,7 +139,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (onBackPressedListener?.onBackPressed() == false) {
+        if (onBackPressedListener?.onBackPressed() != true) { // null or false
             super.onBackPressed()
         }
     }

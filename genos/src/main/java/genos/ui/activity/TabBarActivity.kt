@@ -16,51 +16,22 @@
 
 package genos.ui.activity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import genos.R
 import genos.ui.activity.base.NavigationActivity
 
 abstract class TabBarActivity : NavigationActivity() {
-    protected var shiftingMode: Boolean = false
 
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_tab_bar)
     }
 
-    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED
         navigation.setOnNavigationItemSelectedListener { item -> onNavigationItemSelected(item.itemId) }
-
-        // SO: https://stackoverflow.com/questions/40396545/bottomnavigationview-display-both-icons-and-text-labels-at-all-times
-        val menu = navigation.getChildAt(0) as BottomNavigationMenuView
-        val count = menu.childCount
-        if (count > 3) {
-            //            setField(menu.getClass(), menu, "mShiftingMode", mShiftingMode);
-            for (i in 0 until count) {
-                val item = menu.getChildAt(i) as BottomNavigationItemView
-                //                item.setShiftingMode(mShiftingMode);
-                item.setShifting(true)
-                item.setChecked(true)
-            }
-        }
-    }
-
-    private fun setField(targetClass: Class<Any>, instance: Any, fieldName: String, value: Any) {
-        try {
-            val field = targetClass.getDeclaredField(fieldName)
-            field.isAccessible = true
-            field.set(instance, value)
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        } catch (e: NoSuchFieldException) {
-            e.printStackTrace()
-        }
-
     }
 }

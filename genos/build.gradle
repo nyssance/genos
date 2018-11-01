@@ -16,29 +16,30 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'guru.stefma.bintrayrelease'
+apply plugin: 'com.novoda.bintray-release'
 
-version = '1.1.0-rc1'
-group = 'com.nyssance.genos'
-androidArtifact {
-    artifactId = 'genos'
-}
 publish {
     userOrg = 'nyssance'
+    groupId = 'com.nyssance.genos'
+    artifactId = 'genos'
+    publishVersion = '1.1.0-rc1'
     desc = 'The BEST high-level framework for Android by NY.'
     website = 'https://github.com/nyssance/genos'
 }
 
 buildscript {
-    ext.kotlin_version = '1.2.71'
+    ext.kotlin_version = '1.3.0'
 
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://novoda.bintray.com/snapshots'
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'guru.stefma.bintrayrelease:bintrayrelease:+'
+        classpath 'com.novoda:bintray-release:SNAPSHOT-10'
     }
 }
 
@@ -61,8 +62,6 @@ android {
 
 dependencies {
     def ktx_version = '1.0.0'
-    def navigation_version = '1.0.0-alpha06'
-    def work_version = '1.0.0-alpha10'
 
     def material_version = '1.0.0'
     // https://developer.android.com/topic/libraries/support-library/features.html
@@ -71,20 +70,19 @@ dependencies {
     // https://developer.android.com/topic/libraries/architecture/adding-components.html
     def room_version = '2.0.0'
     def paging_version = '2.0.0'
+    def navigation_version = '1.0.0-alpha07'
+    def work_version = '1.0.0-alpha10'
     // vendor
     def logger_version = '2.2.0'                 // https://github.com/orhanobut/logger
     def retrofit_version = '2.4.0'               // https://square.github.io/retrofit/
     def glide_version = '4.8.0'                  // https://github.com/bumptech/glide
     def eventbus_version = '3.1.1'               // https://github.com/greenrobot/EventBus 
 
+    // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // ktx
+    // KTX
     api "androidx.core:core-ktx:$ktx_version"
     api "androidx.fragment:fragment-ktx:$ktx_version"
-
-    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
-    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-    api "android.arch.work:work-runtime-ktx:$work_version"
     //
     api "com.google.android.material:material:$material_version"    // 自动依赖了 appcompat-v7 recyclerview-v7
     api "androidx.cardview:cardview:$material_version"
@@ -99,6 +97,11 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
     // Paging
     api "androidx.paging:paging-runtime:$paging_version"
+    // Navigation
+    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+    //
+    api "android.arch.work:work-runtime-ktx:$work_version"
     // Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
     // Test helpers for Room
@@ -112,6 +115,6 @@ dependencies {
     api "org.greenrobot:eventbus:$eventbus_version"
     // Test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

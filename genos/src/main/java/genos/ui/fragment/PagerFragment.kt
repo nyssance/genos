@@ -40,8 +40,8 @@ open class PagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // mViewPager.setPageMargin(16);
-        // mViewPager.setPageMarginDrawable(android.R.color.black);
+        // viewPager.setPageMargin(16);
+        // viewPager.setPageMarginDrawable(android.R.color.black);
         viewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
             override fun getCount(): Int {
                 return fragments.size
