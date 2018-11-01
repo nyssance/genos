@@ -158,7 +158,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onEventReceived(event: MessageEvent) {
-        Logger.t("EventBus").w("Activity: $javaClass.simpleName 收到了 Fragment: $event.sender.javaClass.simpleName 的消息: $event.message")
+        Logger.t("EventBus").w("Activity: ${javaClass.simpleName} 收到了 Fragment: ${event.sender.javaClass.simpleName} 的消息: ${event.message}")
     }
 
     interface OnBackPressedListener {

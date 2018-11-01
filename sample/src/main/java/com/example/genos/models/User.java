@@ -19,12 +19,9 @@ package com.example.genos.models;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    @SerializedName("login")
     public String login;
-    @SerializedName("id")
     public long id;
     @SerializedName("avatar_url")
     public String avatarUrl;
-    @SerializedName("name")
     public String name;
 }

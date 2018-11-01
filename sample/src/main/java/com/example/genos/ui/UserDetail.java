@@ -17,12 +17,13 @@
 package com.example.genos.ui;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.genos.models.User;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import genos.ui.fragment.DetailFragment;
 
@@ -37,14 +38,14 @@ public class UserDetail extends DetailFragment<User> {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTextView = view.findViewById(android.R.id.text1);
         mTextView.setText("");
     }
 
     @Override
-    protected void onLoadSuccess(@NonNull User result) {
-        mTextView.setText(result.name);
+    protected void onLoadSuccess(@NotNull User data) {
+        mTextView.setText(data.name);
     }
 }

@@ -65,7 +65,7 @@ object Helper {
 
     // @IdRes
     @JvmStatic
-    fun getResId(context: Context, name: String?, defType: String?): Int {
+    fun getResId(context: Context, name: String, defType: String): Int {
         val resId = context.resources.getIdentifier(name, defType, context.packageName)
         if (resId == 0) {
             Logger.t("helper").wtf("R.$defType.$name 不存在")
