@@ -27,7 +27,7 @@ class Item : BaseItem {
     constructor(name: String, icon: Drawable, uri: String, context: Context) : super(name, context) {
         this.icon = icon
         this.uri = uri
-        // this(name, null, icon, null, uri);
+        // this(name, null, icon, null, uri)
     }
 
     constructor(name: String, title: String, icon: Drawable, uri: String) : this(name, title, icon, null, uri)

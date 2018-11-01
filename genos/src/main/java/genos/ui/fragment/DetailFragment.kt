@@ -33,6 +33,6 @@ abstract class DetailFragment<D : Any> : ObjectFragment<D>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val textView = view.findViewById<TextView>(android.R.id.text1)
-        // textView.setText(text);
+        // textView.text = text
     }
 }

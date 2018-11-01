@@ -37,12 +37,12 @@ class ActionSheet : BottomSheetDialogFragment() {
     @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog?, style: Int) {
         super.setupDialog(dialog, style)
-        //        View contentView = View.inflate(requireContext(), R.layout.fragment_bottom_sheet, null);
-        //        dialog.setContentView(contentView);
-        //        LayoutParams params = (LayoutParams) ((View) contentView.getParent()).getLayoutParams();
-        //        Behavior behavior = params.getBehavior();
+        //        View contentView = View.inflate(requireContext(), R.layout.fragment_bottom_sheet, null)
+        //        dialog.setContentView(contentView)
+        //        LayoutParams params = (LayoutParams) ((View) contentView.getParent()).getLayoutParams()
+        //        Behavior behavior = params.getBehavior()
         //        if (behavior != null && behavior instanceof BottomSheetBehavior) {
-        //            ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
+        //            ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback)
         //        }
     }
 }

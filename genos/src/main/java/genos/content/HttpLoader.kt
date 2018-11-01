@@ -25,7 +25,7 @@ class HttpLoader<D>(context: Context, private val call: Call<D>) : BaseLoader<D>
 
     override fun loadInBackground(): D? {
         try { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
-            // call.isExecuted() ? call.clone() : call).execute().body();
+            // (if (call.isExecuted) call.clone() else call).execute().body()
             val request = call.request()
             val response = (if (call.isExecuted) call.clone() else call).execute()
             val code = response.code()
