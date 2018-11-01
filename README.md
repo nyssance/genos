@@ -29,15 +29,15 @@ Create a list fragment, override three methods, 20 lines code, that's all you ne
 public class UserList extends TableList<User, SubtitleHolder> {
     @Override
     protected void onPrepare() {
-        call = API.userList(mPage);  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle;  // the layour res id of list item
+        call = API.userList(page);  // a retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle;  // the layout res id of list item
     }
 
     @Override
     protected void onDisplayItem(@NotNull User item, @NotNull SubtitleHolder holder, int viewType) {
-        holder.getTitle().setText(item.login);
-        holder.getSubtitle().setText("id: " + item.id);
-        holder.setImage(holder.getIcon(), item.avatarUrl);
+        holder.title.setText(item.login);
+        holder.subtitle.setText("id: " + item.id);
+        holder.setImage(holder.icon, item.avatarUrl);
     }
 
     @Override

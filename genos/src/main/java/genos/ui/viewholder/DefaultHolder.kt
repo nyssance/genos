@@ -21,6 +21,8 @@ import android.widget.ImageView
 import android.widget.TextView
 
 open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
+    @JvmField
     var icon: ImageView = getView(android.R.id.icon)
+    @JvmField
     var title: TextView = getView(android.R.id.title)
 }

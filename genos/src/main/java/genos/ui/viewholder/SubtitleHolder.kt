@@ -21,5 +21,6 @@ import android.widget.TextView
 import genos.R
 
 class SubtitleHolder(itemView: View) : DefaultHolder(itemView) {
+    @JvmField
     var subtitle: TextView = getView(R.id.subtitle)
 }
