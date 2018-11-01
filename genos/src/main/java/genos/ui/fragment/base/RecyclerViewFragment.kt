@@ -142,10 +142,10 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         })
     }
 
-    override fun onDestroyView() {
+//    override fun onDestroyView() {
 //        mListView = null
-        super.onDestroyView()
-    }
+//        super.onDestroyView()
+//    }
 
     /**
      * @param context

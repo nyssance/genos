@@ -22,17 +22,16 @@ import androidx.fragment.app.transaction
 import genos.R
 
 abstract class SingleActivity : BaseActivity() {
-    protected var mFragment: Fragment? = null
-    protected var mParentClass: Class<Any>? = null
+    protected var fragment: Fragment? = null
 
     protected abstract fun onCreateFragment(): Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null && mFragment == null) {
-            mFragment = onCreateFragment()
+        if (savedInstanceState == null && fragment == null) {
+            fragment = onCreateFragment()
             supportFragmentManager.transaction(allowStateLoss = true) {
-                add(R.id.container_for_add, mFragment!!)
+                add(R.id.container_for_add, fragment!!)
             }
         }
     }

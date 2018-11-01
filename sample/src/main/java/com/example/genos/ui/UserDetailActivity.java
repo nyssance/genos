@@ -16,10 +16,13 @@
 
 package com.example.genos.ui;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.fragment.app.Fragment;
 import genos.ui.activity.CollapsingActivity;
 
 public class UserDetailActivity extends CollapsingActivity {
+    @NotNull
     @Override
     protected Fragment onCreateFragment() {
         return new UserDetail();
