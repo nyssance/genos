@@ -23,6 +23,8 @@ import com.example.genos.models.User;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import genos.ui.fragment.TableList;
 import genos.ui.viewholder.SubtitleHolder;
 
@@ -48,5 +50,11 @@ public class UserList extends TableList<User, SubtitleHolder> {
         intent.putExtra("login", item.login);
         intent.setClass(requireContext(), UserDetailActivity.class);
         startActivitySafely(intent);
+    }
+
+    @Override
+    protected void onLoadSuccess(@NotNull List<? extends User> data) {
+        super.onLoadSuccess(data);
+        // SO:  https://stackoverflow.com/questions/49742105/overriding-kotlin-method-with-generic-parameter-in-java-method-clash#49747977
     }
 }

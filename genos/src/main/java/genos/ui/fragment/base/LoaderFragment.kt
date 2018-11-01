@@ -39,7 +39,7 @@ enum class RefreshControlMode {
 abstract class LoaderFragment<D : Any> : BaseFragment() {
     protected lateinit var viewModel: ViewModel
     @JvmField
-    protected var call: Call<out D>? = null
+    protected var call: Call<out D>? = null // out防止java中出现List<? extends T>
     @JvmField
     protected var refreshMode = RefreshMode.DidLoad
     @JvmField

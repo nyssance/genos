@@ -47,7 +47,7 @@ abstract class NavigationActivity : BaseActivity() {
         }
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         if (fragment == null) {
-            fragment = fragments.get(id)
+            fragment = fragments[id]
             transaction.add(R.id.container_for_add, fragment!!, currentTag)
         } else {
             transaction.show(fragment)
