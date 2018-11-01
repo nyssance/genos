@@ -29,7 +29,7 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views = SparseArray<View>()
 
     fun <V : View> getView(@IdRes id: Int): V {
-        var view = views.get(id)
+        var view = views[id]
 //        view = views.getOrDefault(id, itemView.findViewById(id))
         if (view == null) {
             view = itemView.findViewById(id)

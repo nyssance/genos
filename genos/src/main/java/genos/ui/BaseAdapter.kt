@@ -70,7 +70,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
     }
 
     fun append(items: Collection<T>) {
-        data.addAll(items)
+        data += items
     }
 
     fun removeAll() {

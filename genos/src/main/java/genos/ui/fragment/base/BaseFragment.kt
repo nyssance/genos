@@ -110,11 +110,14 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     fun setTitle(title: CharSequence) {
-        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        if (actionBar != null) {
-            actionBar.title = title
-        } else {
-            Logger.t("base").w("No action bar!")
+        val activity = requireActivity()
+        if (activity is AppCompatActivity) {
+            val actionBar = activity.supportActionBar
+            if (actionBar != null) {
+                actionBar.title = title
+            } else {
+                Logger.t("base").w("No action bar!")
+            }
         }
     }
 

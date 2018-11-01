@@ -35,4 +35,10 @@ abstract class DetailFragment<D : Any> : ObjectFragment<D>() {
         val textView = view.findViewById<TextView>(android.R.id.text1)
         // textView.text = text
     }
+
+    override fun onLoadSuccess(data: D) {
+        onDisplay(data)
+    }
+
+    protected open abstract fun onDisplay(data: D)
 }

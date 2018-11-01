@@ -41,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         protected set
     var toolbar: Toolbar? = null
         protected set
-    private var menuRes: Int = 0
+    private var menuRes = 0
     private var onBackPressedListener: OnBackPressedListener? = null
     private var onKeyUpListener: OnKeyUpListener? = null
 

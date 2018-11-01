@@ -26,7 +26,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
-
     @GET("repos/square/retrofit/contributors")
     Call<List<User>> userList(@Query("page") int page);
 

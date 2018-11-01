@@ -60,7 +60,11 @@ object Helper {
 
     @JvmStatic
     fun isTablet(context: Context): Boolean {
-        return (context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).phoneType == TelephonyManager.PHONE_TYPE_NONE
+        val manager = context.getSystemService(Context.TELEPHONY_SERVICE)
+        if (manager is TelephonyManager) {
+            return manager.phoneType == TelephonyManager.PHONE_TYPE_NONE
+        }
+        return false
     }
 
     // @IdRes

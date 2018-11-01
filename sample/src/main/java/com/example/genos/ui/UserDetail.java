@@ -45,7 +45,7 @@ public class UserDetail extends DetailFragment<User> {
     }
 
     @Override
-    protected void onLoadSuccess(@NotNull User data) {
+    protected void onDisplay(@NotNull User data) {
         mTextView.setText(data.name);
     }
 }
