@@ -85,7 +85,7 @@ object Helper {
     fun getDrawable(context: Context, @DrawableRes id: Int): Drawable? {
         return ContextCompat.getDrawable(context, id)
         // return ResourcesCompat.getDrawable(context.getResources(), id,
-        // theme);
+        // theme)
     }
 
     // 其他

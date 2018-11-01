@@ -128,15 +128,15 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                             tracker.clearSelection()
                         }
                     })
-                    //                    setMenuItemTitle(tracker.getSelection().size());
+                    //                    setMenuItemTitle(tracker.selection.size())
                 } else if (!tracker.hasSelection() && actionMode != null) {
                     actionMode.finish()
                     actionMode = null
                 } else {
-                    //                    setMenuItemTitle(tracker.getSelection().size());
+                    //                    setMenuItemTitle(tracker.selection.size())
                 }
                 //                for (T item : tracker.getSelection()) {
-                //                    Logger.w(item);
+                //                    Logger.w(item)
                 //                }
             }
         })

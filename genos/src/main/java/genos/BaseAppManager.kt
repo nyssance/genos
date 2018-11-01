@@ -53,12 +53,11 @@ abstract class BaseAppManager {
                 .tag("Genos")
                 .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
-        //        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
-        //            @Override
-        //            public boolean isLoggable(int priority, String tag) {
-        //                return BuildConfig.DEBUG;
+        //        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
+        //            override fun isLoggable(priority: Int, tag: String?): Boolean {
+        //                return BuildConfig.DEBUG
         //            }
-        //        });
+        //        })
         settings()
     }
 
@@ -67,8 +66,8 @@ abstract class BaseAppManager {
     abstract fun route(fragment: Fragment, uri: String)
 
     protected fun onCreateRetrofit(): Retrofit {
-//        val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
-        // Cache cache = new Cache(new File("/data/user/0/com.nyssance.android/cache", "http"), SIZE_OF_CACHE);
+        // val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
+        // val cache = Cache(File("/data/user/0/com.nyssance.android/cache", "http"), SIZE_OF_CACHE)
         val httpClient = OkHttpClient.Builder().addInterceptor(object : Interceptor {
             @Throws(IOException::class)
             override fun intercept(chain: Interceptor.Chain): Response {
@@ -90,7 +89,7 @@ abstract class BaseAppManager {
                     //                    return response.newBuilder()
                     //                            .header("Cache-Control", cacheControl)
                     //                            .removeHeader("Pragma")
-                    //                            .build();
+                    //                            .build()
                     return chain.proceed(request)
                 }
                 val compressedRequest = request.newBuilder()
