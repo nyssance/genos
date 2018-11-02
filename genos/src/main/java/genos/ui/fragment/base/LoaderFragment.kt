@@ -98,7 +98,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         }
     }
 
-    protected open abstract fun onLoadSuccess(data: D)
+    protected abstract fun onLoadSuccess(data: D)
 
     protected open fun onLoadFailure(code: Int, message: String) {
         Logger.t("base").w(message)

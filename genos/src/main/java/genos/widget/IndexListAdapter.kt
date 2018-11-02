@@ -21,18 +21,18 @@ import android.widget.SectionIndexer
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.BaseAdapter
 
-abstract class IndexListAdapter<T, VH : RecyclerView.ViewHolder> : BaseAdapter<T, VH>(), SectionIndexer {
-    lateinit var indexer: SectionIndexer
+abstract class IndexListAdapter<T : Any, VH : RecyclerView.ViewHolder> : BaseAdapter<T, VH>(), SectionIndexer {
+    var indexer: SectionIndexer? = null
 
     override fun getSections(): Array<Any> {
-        return if (indexer == null) arrayOf(" ") else indexer.sections
+        return if (indexer == null) arrayOf(" ") else indexer!!.sections
     }
 
     override fun getPositionForSection(section: Int): Int {
-        return if (indexer == null) -1 else indexer.getPositionForSection(section)
+        return if (indexer == null) -1 else indexer!!.getPositionForSection(section)
     }
 
     override fun getSectionForPosition(position: Int): Int {
-        return if (indexer == null) -1 else indexer.getSectionForPosition(position)
+        return if (indexer == null) -1 else indexer!!.getSectionForPosition(position)
     }
 }
