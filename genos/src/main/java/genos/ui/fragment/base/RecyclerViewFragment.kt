@@ -20,7 +20,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.LayoutRes
-import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -57,12 +56,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
 
             override fun onBindViewHolder(holder: VH, position: Int) {
-                val item = getItem(position)
-                if (item != null) {
-                    onDisplayItem(item, holder, getItemViewType(position))
-                } else {
                     Logger.t("recycler").w("item is null.")
-                }
+                onDisplayItem(getItem(position), holder, getItemViewType(position))
             }
 
             override fun getItemViewType(position: Int): Int {
@@ -93,12 +88,12 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                     }
 
                 })
-                .withOnItemActivatedListener { item: ItemDetailsLookup.ItemDetails<Long>, e: MotionEvent ->
+                .withOnItemActivatedListener { item, _ ->
                     this@RecyclerViewFragment.onOpenItem(adapter.getItem(item.position))
                     Logger.w("单击 onItemActivated: ")
                     true
                 }
-                .withOnDragInitiatedListener { e: MotionEvent ->
+                .withOnDragInitiatedListener {
                     Logger.w("拖动 onDragInitiated: ")
                     true
                 }
@@ -132,7 +127,6 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                     //                    setMenuItemTitle(tracker.selection.size())
                 } else if (!tracker.hasSelection() && actionMode != null) {
                     actionMode.finish()
-                    actionMode = null
                 } else {
                     //                    setMenuItemTitle(tracker.selection.size())
                 }

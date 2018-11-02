@@ -58,7 +58,7 @@ abstract class BaseAppManager {
         //                return BuildConfig.DEBUG
         //            }
         //        })
-        settings()
+        this.settings()
     }
 
     abstract fun settings()

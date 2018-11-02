@@ -33,5 +33,5 @@ abstract class DetailFragment<D : Any> : ObjectFragment<D>() {
         onDisplay(data)
     }
 
-    protected open abstract fun onDisplay(data: D)
+    protected abstract fun onDisplay(data: D)
 }
