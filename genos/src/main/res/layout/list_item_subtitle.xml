@@ -16,37 +16,37 @@
   -->
 
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/list_item_height">
-
-    <include
-        layout="@layout/image_icon"
-        android:layout_width="@dimen/list_icon_size"
-        android:layout_height="@dimen/list_icon_size"
-        android:layout_marginStart="@dimen/default_margin"/>
-
-    <include
-        layout="@layout/text_item_title"
-        android:layout_width="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_toEndOf="@android:id/icon"/>
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/list_item_height">
 
     <include
-        android:id="@id/subtitle"
-        layout="@layout/text_no_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@android:id/title"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_toEndOf="@android:id/icon"/>
+            layout="@layout/image_icon"
+            android:layout_width="@dimen/list_icon_size"
+            android:layout_height="@dimen/list_icon_size"
+            android:layout_marginStart="@dimen/default_margin"/>
+
+    <include
+            layout="@layout/text_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_toEndOf="@android:id/icon"/>
+
+    <include
+            android:id="@id/subtitle"
+            layout="@layout/text_no_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_toEndOf="@android:id/icon"/>
 
 </RelativeLayout>
