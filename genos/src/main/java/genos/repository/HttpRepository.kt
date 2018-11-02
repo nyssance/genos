@@ -28,8 +28,8 @@ import java.io.IOException
 
 class HttpRepository<D> : IRepository<D> {
     override fun getData(
-        call: Call<D>,
-        data: MutableLiveData<D>
+            call: Call<D>,
+            data: MutableLiveData<D>
     ): MutableLiveData<D> { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
         // (if (call.isExecuted) call.clone() else call).execute().body()
         call.enqueue(object : Callback<D> {

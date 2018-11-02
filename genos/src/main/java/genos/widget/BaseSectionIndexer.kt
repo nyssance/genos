@@ -23,7 +23,7 @@ import java.util.*
  * 该类参考官方Contacts的ContactsSectionIndexer
  */
 class BaseSectionIndexer(private val mSections: Array<Any>, private val mPositions: IntArray, private val mCount: Int) :
-    SectionIndexer {
+        SectionIndexer {
 
     override fun getSections(): Array<Any> {
         return mSections

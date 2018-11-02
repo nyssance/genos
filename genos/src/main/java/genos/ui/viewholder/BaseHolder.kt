@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.core.util.getOrElse
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
@@ -29,19 +30,18 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views = SparseArray<View>()
 
     fun <V : View> getView(@IdRes id: Int): V {
-        var view = views[id]
-//        view = views.getOrDefault(id, itemView.findViewById(id))
-        if (view == null) {
-            view = itemView.findViewById(id)
-            if (view != null) {
-                views.put(id, view)
+        val view = views.getOrElse(id) {
+            var view1 = itemView.findViewById<V>(id)
+            if (view1 != null) {
+                views.put(id, view1)
             } else {
                 Logger.t("viewholder").e(
-                    "itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(
-                        id
-                    )}"
+                        "itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(
+                                id
+                        )}"
                 )
             }
+            view1
         }
         return view as V
     }
