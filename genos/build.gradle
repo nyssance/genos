@@ -17,6 +17,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 
 publish {
@@ -80,7 +81,7 @@ dependencies {
     def eventbus_version = '3.1.1'               // https://github.com/greenrobot/EventBus 
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     // KTX
     api "androidx.core:core-ktx:$ktx_version"
     api "androidx.fragment:fragment-ktx:$ktx_version"
@@ -116,6 +117,7 @@ dependencies {
     api "org.greenrobot:eventbus:$eventbus_version"
     // Test
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
