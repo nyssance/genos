@@ -48,10 +48,10 @@ abstract class BaseAppManager {
 
     init {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)
-                .methodCount(2)
-                .tag("Genos")
-                .build()
+            .showThreadInfo(false)
+            .methodCount(2)
+            .tag("Genos")
+            .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
         //        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
         //            override fun isLoggable(priority: Int, tag: String?): Boolean {
@@ -73,8 +73,8 @@ abstract class BaseAppManager {
             override fun intercept(chain: Interceptor.Chain): Response {
                 // OkHttp自动增加了Content-Length和Content-Type
                 val builder = chain.request().newBuilder()
-                        .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
-                        .header("App-Scheme", APP_SCHEME)
+                    .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
+                    .header("App-Scheme", APP_SCHEME)
                 if (AUTH_TOKEN.isNotBlank()) {
                     builder.header(AUTH_HEADER, "$AUTH_PREFIX $AUTH_TOKEN")
                 }
@@ -93,9 +93,9 @@ abstract class BaseAppManager {
                     return chain.proceed(request)
                 }
                 val compressedRequest = request.newBuilder()
-                        .header("Content-Encoding", "gzip")
-                        .method(request.method(), gzip(request.body()))
-                        .build()
+                    .header("Content-Encoding", "gzip")
+                    .method(request.method(), gzip(request.body()))
+                    .build()
                 return chain.proceed(compressedRequest)
             }
 
@@ -123,9 +123,9 @@ abstract class BaseAppManager {
         //
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create() // TODO: 是否必须
         return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .callFactory(httpClient) // 官方建议使用callFactory而不使用client方法
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
+            .baseUrl(BASE_URL)
+            .callFactory(httpClient) // 官方建议使用callFactory而不使用client方法
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
     }
 }

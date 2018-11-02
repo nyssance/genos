@@ -16,9 +16,9 @@
   -->
 
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/icon"
-    android:layout_width="@dimen/list_icon_size"
-    android:layout_height="@dimen/list_icon_size"
-    android:contentDescription="@string/icon" />
+           android:id="@android:id/icon"
+           android:layout_width="@dimen/list_icon_size"
+           android:layout_height="@dimen/list_icon_size"
+           android:contentDescription="@string/icon"/>
 
     <!-- 一定不能加layout_margin Top/Bottom，否则include该icon的相对布局中TextView永远无法上下居中对齐 -->
