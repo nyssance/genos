@@ -78,6 +78,7 @@ object Helper {
     }
 
     // Color
+    @JvmStatic
     @ColorInt
     fun getColor(context: Context, @ColorRes id: Int): Int {
         return ContextCompat.getColor(context, id)
@@ -120,7 +121,6 @@ object Helper {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
-
         return null
     }
 }
