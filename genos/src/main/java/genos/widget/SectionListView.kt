@@ -27,7 +27,11 @@ import android.widget.ListView
 
 import genos.R
 
-class SectionListView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.listViewStyle) : ListView(context, attrs, defStyle) {
+class SectionListView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = android.R.attr.listViewStyle
+) : ListView(context, attrs, defStyle) {
     lateinit var pinnedHeader: View
         private set // 不能为null，必须设一个值
 

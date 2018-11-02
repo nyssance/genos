@@ -73,35 +73,36 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
         val tracker = SelectionTracker.Builder<Long>(
-                "my-selection-id",
-                listView,
-                adapter.keyProvider,
-                adapter.detailsLookup,
-                StorageStrategy.createLongStorage())
-                .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
-                    override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
-                        return canSelectMultiple
-                    }
-
-                    override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
-                        return canSelectMultiple
-                    }
-
-                    override fun canSelectMultiple(): Boolean {
-                        return canSelectMultiple
-                    }
-
-                })
-                .withOnItemActivatedListener { item: ItemDetailsLookup.ItemDetails<Long>, e: MotionEvent ->
-                    this@RecyclerViewFragment.onOpenItem(adapter.getItem(item.position))
-                    Logger.w("单击 onItemActivated: ")
-                    true
+            "my-selection-id",
+            listView,
+            adapter.keyProvider,
+            adapter.detailsLookup,
+            StorageStrategy.createLongStorage()
+        )
+            .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
+                override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
+                    return canSelectMultiple
                 }
-                .withOnDragInitiatedListener { e: MotionEvent ->
-                    Logger.w("拖动 onDragInitiated: ")
-                    true
+
+                override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
+                    return canSelectMultiple
                 }
-                .build()
+
+                override fun canSelectMultiple(): Boolean {
+                    return canSelectMultiple
+                }
+
+            })
+            .withOnItemActivatedListener { item: ItemDetailsLookup.ItemDetails<Long>, e: MotionEvent ->
+                this@RecyclerViewFragment.onOpenItem(adapter.getItem(item.position))
+                Logger.w("单击 onItemActivated: ")
+                true
+            }
+            .withOnDragInitiatedListener { e: MotionEvent ->
+                Logger.w("拖动 onDragInitiated: ")
+                true
+            }
+            .build()
         tracker.addObserver(object : SelectionTracker.SelectionObserver<T>() {
             override fun onItemStateChanged(key: T, selected: Boolean) {
                 Logger.w("onItemStateChanged: ")
