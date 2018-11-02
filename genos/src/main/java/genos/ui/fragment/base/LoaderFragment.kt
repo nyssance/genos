@@ -67,7 +67,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = onCreateViewModel()
         onViewModelCreated()
-        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { result -> this.onDataChanged(result) })
+        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { result -> onDataChanged(result) })
         if (call == null) { // 如果call为空, 刷新模式自动为never
             refreshMode = RefreshMode.Never
             refreshControlMode = RefreshControlMode.Never
@@ -79,8 +79,9 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
 
     protected open fun onCreateViewModel(): ViewModel {
         // SO: https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
-        val ref = BaseViewModel<D>().javaClass // BaseViewModel<D>::class.java 不行
-        return ViewModelProviders.of(this).get<BaseViewModel<D>>(ref)
+        // ViewModelProviders.of(this).get<BaseViewModel<D>>(BaseViewModel<D>().javaClass)
+        // BaseViewModel<D>::class.java 不行
+        return ViewModelProviders.of(this).get(BaseViewModel::class.java)
     }
 
     protected open fun onViewModelCreated() {}
