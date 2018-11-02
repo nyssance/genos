@@ -30,10 +30,10 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views = SparseArray<View>()
 
     fun <V : View> getView(@IdRes id: Int): V {
-        val view = views.getOrElse(id) {
-            var view1 = itemView.findViewById<V>(id)
-            if (view1 != null) {
-                views.put(id, view1)
+        return views.getOrElse(id) {
+            val view = itemView.findViewById<V>(id)
+            if (view != null) {
+                views.put(id, view)
             } else {
                 Logger.t("viewholder").e(
                         "itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(
@@ -41,9 +41,8 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         )}"
                 )
             }
-            view1
-        }
-        return view as V
+            view
+        } as V
     }
 
     fun setText(@IdRes id: Int, text: CharSequence) {

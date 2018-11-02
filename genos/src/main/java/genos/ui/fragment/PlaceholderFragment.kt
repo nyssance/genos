@@ -39,10 +39,12 @@ class PlaceholderFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_placeholder, container, false)
+        return inflater.inflate(R.layout.fragment_placeholder, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (arguments != null) {
             text1.text = "P ${arguments!!.getInt(ARG_SECTION_NUMBER)}"
         }
-        return rootView
     }
 }
