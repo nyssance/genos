@@ -17,27 +17,27 @@
 
 
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/section_header"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
-
-    <TextView
-        android:id="@id/header_title"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@id/section_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/section_header_background"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:lines="1"
-        android:minHeight="32dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:textAllCaps="true"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textIsSelectable="false"
-        android:textStyle="bold"/>
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
+
+    <TextView
+            android:id="@id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_header_background"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:minHeight="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textIsSelectable="false"
+            android:textStyle="bold"/>
 
 </RelativeLayout>
