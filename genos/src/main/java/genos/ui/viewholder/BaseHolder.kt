@@ -46,7 +46,7 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun setText(@IdRes id: Int, text: CharSequence) {
-        this.getView<TextView>(id).text = text
+        getView<TextView>(id).text = text
     }
 
     fun setImage(@IdRes id: Int, string: String) {

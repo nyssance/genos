@@ -26,7 +26,7 @@ abstract class BaseItem {
     constructor(name: String, context: Context) {
         val resId = Helper.getResId(context, name, "string")
         this.name = name
-        this.title = if (resId == 0) name else context.getString(resId)
+        title = if (resId == 0) name else context.getString(resId)
         // this(name, name)
     }
 
