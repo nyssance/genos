@@ -30,7 +30,7 @@ class HttpLoader<D>(context: Context, private val call: Call<D>) : BaseLoader<D>
             val response = (if (call.isExecuted) call.clone() else call).execute()
             val code = response.code()
             Logger.t("http")
-                .d("${request.method()} ${Uri.decode(request.url().toString())} $code ${response.message()}\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
+                    .d("${request.method()} ${Uri.decode(request.url().toString())} $code ${response.message()}\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
             return if (response.isSuccessful) {
                 response.body()
             } else {

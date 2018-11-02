@@ -22,27 +22,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import genos.R
+import kotlinx.android.synthetic.main.fragment_pager.*
 
 open class PagerFragment : Fragment() {
-    protected lateinit var tabLayout: TabLayout
-    protected lateinit var viewPager: ViewPager
     protected var fragments = ArrayList<Fragment>()
     protected var titles = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_pager, container, false)
-        tabLayout = view.findViewById(android.R.id.tabs)
-        viewPager = view.findViewById(R.id.pager)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // viewPager.pageMargin = 16
-        // viewPager.setPageMarginDrawable(android.R.color.black)
-        viewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
+        // pager.pageMargin = 16
+        // pager.setPageMarginDrawable(android.R.color.black)
+        pager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
             override fun getCount(): Int {
                 return fragments.size
             }
@@ -55,6 +50,6 @@ open class PagerFragment : Fragment() {
                 return titles[position]
             }
         }
-        tabLayout.setupWithViewPager(viewPager)
+        tabs.setupWithViewPager(pager)
     }
 }

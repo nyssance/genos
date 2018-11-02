@@ -86,7 +86,8 @@ dependencies {
     api "androidx.core:core-ktx:$ktx_version"
     api "androidx.fragment:fragment-ktx:$ktx_version"
     //
-    api "com.google.android.material:material:$material_version"    // 自动依赖了 appcompat-v7 recyclerview-v7
+    api "com.google.android.material:material:$material_version"
+    // 自动依赖了 appcompat-v7 recyclerview-v7
     api "androidx.cardview:cardview:$material_version"
     api "androidx.recyclerview:recyclerview-selection:$material_version"
     api "androidx.constraintlayout:constraintlayout:$constraint_version"

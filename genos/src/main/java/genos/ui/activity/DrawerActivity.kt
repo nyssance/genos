@@ -20,9 +20,9 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import genos.R
 import genos.ui.activity.base.NavigationActivity
+import kotlinx.android.synthetic.main.activity_drawer.*
 
 abstract class DrawerActivity : NavigationActivity() {
     protected lateinit var drawerLayout: DrawerLayout
@@ -33,17 +33,16 @@ abstract class DrawerActivity : NavigationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        drawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = drawer_layout
         val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            navigationBar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+                this,
+                drawerLayout,
+                navigationBar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        val navigation = findViewById<NavigationView>(R.id.navigation)
         navigation.setNavigationItemSelectedListener { item ->
             drawerLayout.closeDrawer(GravityCompat.START)
             onNavigationItemSelected(item.itemId)

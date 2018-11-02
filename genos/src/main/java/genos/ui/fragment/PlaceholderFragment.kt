@@ -20,9 +20,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import genos.R
+import kotlinx.android.synthetic.main.fragment_placeholder.*
 
 class PlaceholderFragment : Fragment() {
     companion object {
@@ -40,9 +40,8 @@ class PlaceholderFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_placeholder, container, false)
-        val textView = rootView.findViewById<TextView>(android.R.id.text1)
         if (arguments != null) {
-            textView.text = "P ${arguments!!.getInt(ARG_SECTION_NUMBER)}"
+            text1.text = "P ${arguments!!.getInt(ARG_SECTION_NUMBER)}"
         }
         return rootView
     }

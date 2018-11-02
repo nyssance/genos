@@ -58,8 +58,8 @@ abstract class BaseActivity : AppCompatActivity() {
         val className = javaClass.simpleName
         Logger.t("base").i("$className : onCreate()")
         val name = className.replace("Activity", "")
-            .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
-            .toLowerCase(Locale.ENGLISH)
+                .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
+                .toLowerCase(Locale.ENGLISH)
         onSetContentView(name)
         menuRes = Helper.getResId(this, name, "menu")
         // 可折叠顶栏
@@ -126,8 +126,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 val upIntent = NavUtils.getParentActivityIntent(this)
                 if (NavUtils.shouldUpRecreateTask(this, upIntent!!) || isTaskRoot) {
                     TaskStackBuilder.create(this)
-                        .addNextIntentWithParentStack(upIntent)
-                        .startActivities()
+                            .addNextIntentWithParentStack(upIntent)
+                            .startActivities()
                 } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
                     upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     NavUtils.navigateUpTo(this, upIntent)
@@ -159,7 +159,7 @@ abstract class BaseActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onEventReceived(event: MessageEvent) {
         Logger.t("EventBus")
-            .w("Activity: ${javaClass.simpleName} 收到了 Fragment: ${event.sender.javaClass.simpleName} 的消息: ${event.message}")
+                .w("Activity: ${javaClass.simpleName} 收到了 Fragment: ${event.sender.javaClass.simpleName} 的消息: ${event.message}")
     }
 
     interface OnBackPressedListener {
