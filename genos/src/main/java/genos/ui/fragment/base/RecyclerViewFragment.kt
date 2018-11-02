@@ -56,7 +56,6 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
 
             override fun onBindViewHolder(holder: VH, position: Int) {
-                    Logger.t("recycler").w("item is null.")
                 onDisplayItem(getItem(position), holder, getItemViewType(position))
             }
 
