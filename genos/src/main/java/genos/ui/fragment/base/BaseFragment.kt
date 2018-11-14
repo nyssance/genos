@@ -16,7 +16,6 @@
 
 package genos.ui.fragment.base
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -76,8 +75,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         Logger.t("base").i("onKeyUp keyCode: $keyCode")
         return when (keyCode) {
-            KeyEvent.KEYCODE_SEARCH // 处理一些设备的专用search按钮
-            -> true
+            KeyEvent.KEYCODE_SEARCH -> true // 处理一些设备的专用search按钮
             KeyEvent.KEYCODE_F1 -> onPerform(R.id.action_help)
             KeyEvent.KEYCODE_F5 -> onPerform(R.id.action_view_refresh)
             KeyEvent.KEYCODE_ENTER -> true
@@ -102,10 +100,8 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
         }
         try {
             startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            postError(e.localizedMessage)
-        } catch (e: SecurityException) {
-            postError(e.localizedMessage)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -119,9 +115,5 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
                 Logger.t("base").w("No action bar!")
             }
         }
-    }
-
-    fun postError(text: CharSequence) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 }
