@@ -67,7 +67,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = onCreateViewModel()
         onViewModelCreated()
-        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { result -> onDataChanged(result) })
+        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { it -> onDataChanged(it) })
         if (call == null) { // 如果call为空, 刷新模式自动为never
             refreshMode = RefreshMode.Never
             refreshControlMode = RefreshControlMode.Never

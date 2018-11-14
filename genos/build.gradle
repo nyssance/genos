@@ -35,13 +35,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url 'https://novoda.bintray.com/snapshots'
-        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.novoda:bintray-release:SNAPSHOT-10'
+        classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
@@ -63,7 +60,8 @@ android {
 }
 
 dependencies {
-    def ktx_version = '1.0.0'
+    def ktx_core_version = '1.0.1'
+    def ktx_fragment_version = '1.0.0'
 
     def material_version = '1.0.0'
     // https://developer.android.com/topic/libraries/support-library/features.html
@@ -73,7 +71,7 @@ dependencies {
     def room_version = '2.0.0'
     def paging_version = '2.0.0'
     def navigation_version = '1.0.0-alpha07'
-    def work_version = '1.0.0-alpha10'
+    def work_version = '1.0.0-alpha11'
     // vendor
     def logger_version = '2.2.0'                 // https://github.com/orhanobut/logger
     def retrofit_version = '2.4.0'               // https://square.github.io/retrofit/
@@ -83,8 +81,8 @@ dependencies {
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     // KTX
-    api "androidx.core:core-ktx:$ktx_version"
-    api "androidx.fragment:fragment-ktx:$ktx_version"
+    api "androidx.core:core-ktx:$ktx_core_version"
+    api "androidx.fragment:fragment-ktx:$ktx_fragment_version"
     //
     api "com.google.android.material:material:$material_version"
     // 自动依赖了 appcompat-v7 recyclerview-v7
