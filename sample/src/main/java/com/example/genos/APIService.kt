@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package com.example.genos;
+package com.example.genos
 
-import com.example.genos.models.User;
+import com.example.genos.models.User
 
-import java.util.List;
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-
-public interface APIService {
+interface APIService {
     @GET("repos/square/retrofit/contributors")
-    Call<List<User>> userList(@Query("page") int page);
+    fun userList(@Query("page") page: Int): Call<List<User>>
 
     @GET("users/{login}")
-    Call<User> userDetail(@Path("login") String login);
+    fun userDetail(@Path("login") login: String): Call<User>
 }

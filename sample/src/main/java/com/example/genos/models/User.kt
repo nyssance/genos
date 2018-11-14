@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.genos;
+package com.example.genos.models
 
-import org.junit.Test;
+import com.google.gson.annotations.SerializedName
 
-import static org.junit.Assert.*;
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](https://d.android.com/tools/testing).
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+class User {
+    var login: String? = null
+    var id: Long = 0
+    @SerializedName("avatar_url")
+    var avatarUrl: String? = null
+    var name: String? = null
 }

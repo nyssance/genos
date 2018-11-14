@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package com.example.genos.models;
+package com.example.genos
 
-import com.google.gson.annotations.SerializedName;
+import android.os.Bundle
 
-public class User {
-    public String login;
-    public long id;
-    @SerializedName("avatar_url")
-    public String avatarUrl;
-    public String name;
+import com.example.genos.ui.UserList
+
+import genos.ui.activity.TabBarActivity
+import genos.ui.fragment.PlaceholderFragment
+
+class MainActivity : TabBarActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragments.append(R.id.navigation_home, UserList())
+        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
+        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+        onNavigationItemSelected(R.id.navigation_home)
+    }
 }

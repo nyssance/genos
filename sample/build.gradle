@@ -15,6 +15,9 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -22,9 +25,8 @@ android {
         applicationId "com.example.genos"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.1.0"
-        archivesBaseName = "$archivesBaseName-$versionName"
+        versionCode 111
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -37,8 +39,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    productFlavors {
-    }
 }
 
 dependencies {
@@ -48,13 +48,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-}
-
-repositories {
-    google()
-}
-buildscript {
-    repositories {
-        google()
-    }
 }

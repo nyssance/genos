@@ -7,8 +7,9 @@ For more information please see [the website][1].
 ### Download
 Gradle:
 ```gradle
-implementation 'com.nyssance.genos:genos:1.1.0'
+implementation 'com.nyssance.genos:genos:1.1.1'
 ```
+
 ### Featured
 Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
 
@@ -16,7 +17,7 @@ Genos integrate google architecture. just use. if your need learn more info abou
 
 - Activity just as an container, include app bar and drawer/bottom navigation, and one fragment or more.
 - Fragment have two type: list and detail.
-  - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `mListView`, `mAdapter`
+  - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `listView`, `adapter`
   - detail for REST detail api, like https://www.yourdomain,com/api/v1/users/{:user_id}/
   - call in fragment is a call of it, it's a [Retrofit](http://square.github.io/retrofit/) call 
 - Repository is for load data.
@@ -25,38 +26,34 @@ Genos integrate google architecture. just use. if your need learn more info abou
 2. How to use
 
 Create a list fragment, override three methods, 20 lines code, that's all you need to do.
-```java
-public class UserList extends TableList<User, SubtitleHolder> {
-    @Override
-    protected void onPrepare() {
-        call = API.userList(page);  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle;  // the layout res id of list item
+```kotlin
+class UserList : TableList<User, SubtitleHolder>() {
+    override fun onPrepare() {
+        call = API.userList(page)  // a retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle  // the layout res id of list item
     }
 
-    @Override
-    protected void onDisplayItem(@NotNull User item, @NotNull SubtitleHolder holder, int viewType) {
-        holder.title.setText(item.login);
-        holder.subtitle.setText("id: " + item.id);
-        holder.setImage(holder.icon, item.avatarUrl);
+    override fun onDisplayItem(item: User, holder: SubtitleHolder, viewType: Int) {
+        holder.title.text = item.login
+        holder.subtitle.text = "id: " + item.id
+        holder.setImage(holder.icon, item.avatarUrl!!)
     }
 
-    @Override
-    protected void onOpenItem(@NotNull User item) {
+    override fun onOpenItem(item: User) {
         // startActivity or do anything when click item
     }
 }
 ```
 
 Create a bottom navigation with three buttons, 10 lines
-```java
-public class MainActivity extends TabBarActivity { // If you need a drawer navigation, just use DrawerActivity
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        fragments.append(R.id.navigation_home, new UserList());
-        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2));
-        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3));
-        onNavigationItemSelected(R.id.navigation_home);
+```kotlin
+class MainActivity : TabBarActivity() { // If you need a drawer navigation, just use DrawerActivity
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragments.append(R.id.navigation_home, UserList())
+        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
+        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+        onNavigationItemSelected(R.id.navigation_home)
     }
 }
 ```
@@ -82,11 +79,11 @@ genos
     │   ├── TabBarActivity.kt         Activity with bottom navigation.
     │   └── base                      (design your activity by extends activities in base.)
     ├── fragment
-    │   ├── CollectionList.kt         Fragment with a StaggeredGrid layout, use for waterfall list.
+    │   ├── CollectionList.kt         Fragment with a staggered grid layout, use for waterfall list.
     │   ├── DetailFragment.kt         Fragment for detail.
     │   ├── GridList.kt               Fragment with a grid layout, user for grid list.
     │   ├── PagerFragment.kt          Fragment with a pager.
-    │   ├── TableList.kt              Fragment with a Linear layout, use for stand list, one item per line.
+    │   ├── TableList.kt              Fragment with a linear layout, use for stand list, one item per line.
     │   └── base                      (design your fragemnt by extends fragments in base.)
     └── viewholder
         ├── BaseHolder.kt             Base holder.
@@ -96,10 +93,7 @@ genos
 
 ### Vendor
 * Android
-  * [Support Library](https://developer.android.com/topic/libraries/support-library/index.html)
-  * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
-  * [ATSL](https://developer.android.com/topic/libraries/testing-support-library/index.html)
-  * [Android KTX](https://github.com/android/android-ktx)
+  * [Android Jetpack](https://developer.android.com/jetpack/)
 * Others
   * [Retrofit](https://square.github.io/retrofit/)
   * [Glide](https://github.com/bumptech/glide)
@@ -115,7 +109,7 @@ Special thanks [bintray-release](https://github.com/novoda/bintray-release), you
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-       https://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,

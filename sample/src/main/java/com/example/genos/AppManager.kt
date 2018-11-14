@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package com.example.genos.ui;
+package com.example.genos
 
-import org.jetbrains.annotations.NotNull;
+import androidx.fragment.app.Fragment
+import genos.BaseAppManager
 
-import androidx.fragment.app.Fragment;
-import genos.ui.activity.CollapsingActivity;
-
-public class UserDetailActivity extends CollapsingActivity {
-    @NotNull
-    @Override
-    protected Fragment onCreateFragment() {
-        return new UserDetail();
+class AppManager private constructor() : BaseAppManager() {
+    companion object {
+        val instance = AppManager()
+        lateinit var API: APIService
     }
+
+    override fun settings() {
+        BASE_URL = "https://api.github.com"
+        // Create retrofit
+        API = onCreateRetrofit().create(APIService::class.java)
+    }
+
+    override fun route(fragment: Fragment, uri: String) {}
 }
