@@ -24,7 +24,7 @@ publish {
     userOrg = 'nyssance'
     groupId = 'com.nyssance.genos'
     artifactId = 'genos'
-    publishVersion = '1.1.0-rc1'
+    publishVersion = '1.1.0'
     desc = 'The BEST high-level framework for Android by NY.'
     website = 'https://github.com/nyssance/genos'
 }
@@ -48,7 +48,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 2
-        versionName "1.1.0-rc1"
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

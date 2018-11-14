@@ -7,7 +7,7 @@ For more information please see [the website][1].
 ### Download
 Gradle:
 ```gradle
-implementation 'com.nyssance.genos:genos:1.1.0rc1'
+implementation 'com.nyssance.genos:genos:1.1.0'
 ```
 ### Featured
 Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
