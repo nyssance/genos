@@ -7,7 +7,7 @@ For more information please see [the website][1].
 ### Download
 Gradle:
 ```gradle
-implementation 'com.nyssance.genos:genos:1.0.0-rc2'
+implementation 'com.nyssance.genos:genos:1.1.0rc1'
 ```
 ### Featured
 Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
@@ -18,7 +18,7 @@ Genos integrate google architecture. just use. if your need learn more info abou
 - Fragment have two type: list and detail.
   - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `mListView`, `mAdapter`
   - detail for REST detail api, like https://www.yourdomain,com/api/v1/users/{:user_id}/
-  - mCall in fragment is a call of it, it's a [Retrofit](http://square.github.io/retrofit/) call 
+  - call in fragment is a call of it, it's a [Retrofit](http://square.github.io/retrofit/) call 
 - Repository is for load data.
 - ViewModel is for bind data and view.
 
@@ -67,31 +67,31 @@ public class MainActivity extends TabBarActivity { // If you need a drawer navig
 ### Architecture
 ```
 genos
-├── BaseAppManager.java                 extends it for config your app.
+├── BaseAppManager.kt                 extends it for config your app.
 ├── libs
-│   └── MessageEvent.java               util for EventBus.
+│   └── MessageEvent.kt               util for EventBus.
 ├── repository
-│   └── HttpRepository.java             Default Http repository.
+│   └── HttpRepository.kt             Default Http repository.
 └─── ui
-    ├── BaseAdapter.java                Default Adapter for list fragment.
-    ├── BaseViewModel.java              Default ViewModel for list and detail fragment.
+    ├── BaseAdapter.kt                Default Adapter for list fragment.
+    ├── BaseViewModel.kt              Default ViewModel for list and detail fragment.
     ├── activity
-    │   ├── AppBarActivity.java         Activity with an app bar.
-    │   ├── CollapsingActivity.java     Activity with a collapsing app bar.
-    │   ├── DrawerActivity.java         Activity with drawer.
-    │   ├── TabBarActivity.java         Activity with bottom navigation.
-    │   └── base                        (design your activity by extends activities in base.)
+    │   ├── AppBarActivity.kt         Activity with an app bar.
+    │   ├── CollapsingActivity.kt     Activity with a collapsing app bar.
+    │   ├── DrawerActivity.kt         Activity with drawer.
+    │   ├── TabBarActivity.kt         Activity with bottom navigation.
+    │   └── base                      (design your activity by extends activities in base.)
     ├── fragment
-    │   ├── CollectionList.java         Fragment with a StaggeredGrid layout, use for waterfall list.
-    │   ├── DetailFragment.java         Fragment for detail.
-    │   ├── GridList.java               Fragment with a grid layout, user for grid list.
-    │   ├── PagerFragment.java          Fragment with a pager.
-    │   ├── TableList.java              Fragment with a Linear layout, use for stand list, one item per line.
-    │   └── base                        (design your fragemnt by extends fragments in base.)
+    │   ├── CollectionList.kt         Fragment with a StaggeredGrid layout, use for waterfall list.
+    │   ├── DetailFragment.kt         Fragment for detail.
+    │   ├── GridList.kt               Fragment with a grid layout, user for grid list.
+    │   ├── PagerFragment.kt          Fragment with a pager.
+    │   ├── TableList.kt              Fragment with a Linear layout, use for stand list, one item per line.
+    │   └── base                      (design your fragemnt by extends fragments in base.)
     └── viewholder
-        ├── BaseHolder.java             Base holder.
-        ├── DefaultHolder.java          A holder with icon / title
-        └── SubtitleHolder.java         A holder with icon / title / subtitle
+        ├── BaseHolder.kt             Base holder.
+        ├── DefaultHolder.kt          A holder with icon / title
+        └── SubtitleHolder.kt         A holder with icon / title / subtitle
 ```
 
 ### Vendor
