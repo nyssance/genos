@@ -26,8 +26,8 @@ import genos.R
 import kotlinx.android.synthetic.main.fragment_pager.*
 
 open class PagerFragment : Fragment() {
-    protected var fragments = ArrayList<Fragment>()
-    protected var titles = ArrayList<String>()
+    @JvmField
+    protected var fragments = ArrayList<Pair<CharSequence, Fragment>>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_pager, container, false)
@@ -42,11 +42,11 @@ open class PagerFragment : Fragment() {
             }
 
             override fun getItem(position: Int): Fragment {
-                return fragments[position]
+                return fragments[position].second
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
-                return titles[position]
+                return fragments[position].first
             }
         }
         tabs.setupWithViewPager(pager)

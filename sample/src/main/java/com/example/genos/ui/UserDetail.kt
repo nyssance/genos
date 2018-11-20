@@ -26,7 +26,7 @@ import genos.ui.activity.CollapsingActivity
 import genos.ui.fragment.DetailFragment
 
 class UserDetail : DetailFragment<User>() {
-    private var mTextView: TextView? = null
+    private var textView: TextView? = null
 
     override fun onPrepare() {
         call = API.userDetail(requireActivity().intent.getStringExtra("login"))
@@ -34,12 +34,12 @@ class UserDetail : DetailFragment<User>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mTextView = view.findViewById(android.R.id.text1)
-        mTextView!!.text = ""
+        textView = view.findViewById(android.R.id.text1)
+        textView?.text = ""
     }
 
     override fun onDisplay(data: User) {
-        mTextView!!.text = data.name
+        textView?.text = data.name
     }
 }
 

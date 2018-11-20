@@ -16,18 +16,22 @@
 
 package genos.ui.activity
 
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.os.Bundle
+import androidx.core.view.get
 import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_tab_bar.*
 
-abstract class TabBarActivity : NavigationActivity() {
-    protected lateinit var tabBar: BottomNavigationView
+abstract class TabBarActivity(var index: Int = 0) : NavigationActivity() {
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_tab_bar)
-        tabBar = navigation
-        tabBar.labelVisibilityMode = LABEL_VISIBILITY_LABELED
-        tabBar.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+        navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED
+        navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        navigation.selectedItemId = navigation.menu.get(index).itemId
     }
 }

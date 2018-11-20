@@ -17,18 +17,17 @@
 package com.example.genos
 
 import android.os.Bundle
-
 import com.example.genos.ui.UserList
-
 import genos.ui.activity.TabBarActivity
 import genos.ui.fragment.PlaceholderFragment
 
-class MainActivity : TabBarActivity() {
+class MainActivity : TabBarActivity(1) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragments.append(R.id.navigation_home, UserList())
-        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
-        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
-        onNavigationItemSelected(R.id.navigation_home)
+        with(fragments) {
+            append(R.id.navigation_home, UserList())
+            append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
+            append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+        }
     }
 }

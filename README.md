@@ -30,13 +30,15 @@ Create a list fragment, override three methods, 20 lines code, that's all you ne
 class UserList : TableList<User, SubtitleHolder>() {
     override fun onPrepare() {
         call = API.userList(page)  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // the layout res id of list item
+        tileId = R.layout.list_item_subtitle  // the layout res id of list item.
     }
 
     override fun onDisplayItem(item: User, holder: SubtitleHolder, viewType: Int) {
         holder.title.text = item.login
-        holder.subtitle.text = "id: " + item.id
-        holder.setImage(holder.icon, item.avatarUrl!!)
+        holder.subtitle.text = item.id.toString()
+        item.avatarUrl?.let {
+            holder.setImage(holder.icon, it)
+        }
     }
 
     override fun onOpenItem(item: User) {
@@ -47,13 +49,14 @@ class UserList : TableList<User, SubtitleHolder>() {
 
 Create a bottom navigation with three buttons, 10 lines
 ```kotlin
-class MainActivity : TabBarActivity() { // If you need a drawer navigation, just use DrawerActivity
+class MainActivity : TabBarActivity(1) { // If you need a drawer navigation, just use DrawerActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragments.append(R.id.navigation_home, UserList())
-        fragments.append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
-        fragments.append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
-        onNavigationItemSelected(R.id.navigation_home)
+        with(fragments) {
+            append(R.id.navigation_home, UserList())
+            append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
+            append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+        }
     }
 }
 ```

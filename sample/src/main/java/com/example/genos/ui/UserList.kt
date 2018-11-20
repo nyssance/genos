@@ -26,13 +26,15 @@ import genos.ui.viewholder.SubtitleHolder
 class UserList : TableList<User, SubtitleHolder>() {
     override fun onPrepare() {
         call = API.userList(page)  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // the layout res id of list item
+        tileId = R.layout.list_item_subtitle  // the layout res id of list item.
     }
 
     override fun onDisplayItem(item: User, holder: SubtitleHolder, viewType: Int) {
         holder.title.text = item.login
-        holder.subtitle.text = "id: " + item.id
-        holder.setImage(holder.icon, item.avatarUrl!!)
+        holder.subtitle.text = item.id.toString()
+        item.avatarUrl?.let {
+            holder.setImage(holder.icon, it)
+        }
     }
 
     override fun onOpenItem(item: User) {
@@ -40,10 +42,5 @@ class UserList : TableList<User, SubtitleHolder>() {
         intent.putExtra("login", item.login)
         intent.setClass(requireContext(), UserDetailActivity::class.java)
         startActivitySafely(intent)
-    }
-
-    override fun onLoadSuccess(data: List<User>) {
-        super.onLoadSuccess(data)
-        // SO:  https://stackoverflow.com/questions/49742105/overriding-kotlin-method-with-generic-parameter-in-java-method-clash#49747977
     }
 }
