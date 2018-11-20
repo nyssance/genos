@@ -29,13 +29,18 @@ import java.io.IOException
 class HttpRepository<D> : IRepository<D> {
     override fun getData(
             call: Call<D>,
-            data: MutableLiveData<D>
-    ): MutableLiveData<D> { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
+            data: MutableLiveData<D>,
+            success: (Int) -> Unit,
+            failure: (Int, String) -> Unit
+    ): MutableLiveData<D> {
+        // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
         // (if (call.isExecuted) call.clone() else call).execute().body()
+        var code = 666
         call.enqueue(object : Callback<D> {
             override fun onResponse(call: Call<D>, response: Response<D>) {
                 val request = call.request()
                 val scheme = request.url().scheme()
+                code = response.code()
                 var log = "${request.method()} ${getUrlString(request)} ${response.code()} ${response.message()}"
                 if (BuildConfig.DEBUG) {
                     log = "$log\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}"
@@ -43,7 +48,9 @@ class HttpRepository<D> : IRepository<D> {
                 if (response.isSuccessful) {
                     Logger.t(scheme).d("✅ $log")
                     data.postValue(response.body())
-                } else { // TODO: 处理detail
+                    success(code)
+                } else {
+                    failure(code, response.errorBody()?.string()!!)
                     try {
                         Logger.t(scheme).d("❎ $log\n${response.errorBody()?.string()}")
                     } catch (e: IOException) {
@@ -53,6 +60,7 @@ class HttpRepository<D> : IRepository<D> {
             }
 
             override fun onFailure(call: Call<D>, t: Throwable) {
+                failure(code, t.localizedMessage)
                 val request = call.request()
                 Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
             }

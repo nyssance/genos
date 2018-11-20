@@ -66,25 +66,22 @@ abstract class BaseActivity : AppCompatActivity() {
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         // 顶部导航栏
         navigationBar = findViewById(R.id.navigation_bar)
-        if (navigationBar != null) {
-            setSupportActionBar(navigationBar)
-        }
+        navigationBar?.let(this::setSupportActionBar)
         // 底部工具栏
         toolbar = findViewById(R.id.toolbar)
-        if (toolbar != null) {
-            val resId = Helper.getResId(this, "${name}_toolbar", "menu")
-            if (resId > 0) {
-                toolbar?.inflateMenu(resId)
+        toolbar?.let {
+            val id = Helper.getResId(this, "${name}_toolbar", "menu")
+            if (id > 0) {
+                it.inflateMenu(id)
             }
         }
         // 默认显示 Up button
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
             if (title == Helper.getApplicationName(this)) { // Activity android:label not set
-                val resId = Helper.getResId(this, name, "string")
-                if (resId > 0) {
-                    actionBar.setTitle(resId)
+                val id = Helper.getResId(this, name, "string")
+                if (id > 0) {
+                    it.setTitle(id)
                 }
             }
         }
@@ -92,9 +89,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected open fun onSetContentView(name: String) {
         val layoutName = "activity_$name"
-        val layoutResID = Helper.getResId(this, layoutName, "layout")
-        if (layoutResID > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
-            setContentView(layoutResID)
+        val id = Helper.getResId(this, layoutName, "layout")
+        if (id > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
+            setContentView(id)
         } else {
             Logger.t("base").wtf("$layoutName.xml not exists!")
         }
@@ -146,10 +143,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return if (event.isTracking && !event.isCanceled) {
-            if (onKeyUpListener != null) {
-                onKeyUpListener!!.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event)
-            } else { // 如果为null, 执行系统默认
-                super.onKeyUp(keyCode, event)
+            onKeyUpListener?.let {
+                it.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event)
+            } ?: run {
+                super.onKeyUp(keyCode, event) // 如果为null, 执行系统默认
             }
         } else {
             false

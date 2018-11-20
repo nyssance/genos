@@ -54,7 +54,6 @@ object Helper {
         } catch (e: IllegalArgumentException) {
             Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")
         }
-
         return resourceIDs
     }
 
@@ -70,11 +69,11 @@ object Helper {
     // @IdRes
     @JvmStatic
     fun getResId(context: Context, name: String, defType: String): Int {
-        val resId = context.resources.getIdentifier(name, defType, context.packageName)
-        if (resId == 0) {
+        val id = context.resources.getIdentifier(name, defType, context.packageName)
+        if (id == 0) {
             Logger.t("helper").wtf("R.$defType.$name 不存在")
         }
-        return resId
+        return id
     }
 
     // Color
@@ -96,14 +95,14 @@ object Helper {
     // 其他
     @JvmStatic
     fun getColorFromIdentifier(context: Context, id: Int): Int {
-        val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
-        return if (resId != 0) getColor(context, resId) else 0
+        val id = getResId(context, context.resources.getResourceEntryName(id), "color")
+        return if (id != 0) getColor(context, id) else 0
     }
 
     @JvmStatic
     fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
-        val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
-        return if (resId != 0) getDrawable(context, resId) else null
+        val id = getResId(context, context.resources.getResourceEntryName(id), "drawable")
+        return if (id != 0) getDrawable(context, id) else null
     }
 
     @JvmStatic

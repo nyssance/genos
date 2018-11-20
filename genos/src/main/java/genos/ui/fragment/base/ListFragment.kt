@@ -26,15 +26,16 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : Re
 
     protected abstract fun transformListFromData(data: D): List<T>
 
-    protected fun hasNext(): Boolean {
+    protected open fun hasNext(): Boolean {
         return true
     }
 
-    protected fun hasPrevious(): Boolean {
+    protected open fun hasPrevious(): Boolean {
         return page > LIST_START_PAGE
     }
 
-    override fun onLoadSuccess(data: D) {
+    override fun onDataChanged(data: D) {
+        super.onDataChanged(data)
         if (!hasPrevious()) { // 如果无上一页, 完全重载
             adapter.removeAll()
         }

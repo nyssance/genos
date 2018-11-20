@@ -67,7 +67,9 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = onCreateViewModel()
         onViewModelCreated()
-        (viewModel as BaseViewModel<D>).data.observe(this, Observer<D> { it -> onDataChanged(it) })
+        (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner, Observer {
+            onDataChanged(it)
+        })
         if (call == null) { // 如果call为空, 刷新模式自动为never
             refreshMode = RefreshMode.Never
             refreshControlMode = RefreshControlMode.Never
@@ -86,19 +88,17 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
 
     protected open fun onViewModelCreated() {}
 
-    protected open fun onDataChanged(data: D?) {
+    protected open fun onDataChanged(data: D) {
+        // Logger.t("loader").d("onDataChanged")
         isLoading = false
-        if (refreshControlMode == RefreshControlMode.Always) { // TODO: 不处理布局文件遗漏下拉刷新的情况
+        if (refreshControlMode == RefreshControlMode.Always) {
             refreshControl?.isRefreshing = false
-        }
-        if (data != null) {
-            onLoadSuccess(data)
-        } else {
-            onLoadFailure(666, "loader data 为 null")
         }
     }
 
-    protected abstract fun onLoadSuccess(data: D)
+    protected open fun onLoadSuccess(code: Int) {
+        Logger.t("base").d("onLoadSuccess code $code")
+    }
 
     protected open fun onLoadFailure(code: Int, message: String) {
         Logger.t("base").w(message)
@@ -109,8 +109,10 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
     protected open fun refresh() {
         if (call != null) {
             isLoading = true
-            val c = call as Call<D>
-            (viewModel as BaseViewModel<D>).loadData(c)
+            (viewModel as? BaseViewModel<D>)?.let {
+                val c = call as Call<D>
+                it.loadData(c, this::onLoadSuccess, this::onLoadFailure)
+            }
         }
     }
 }

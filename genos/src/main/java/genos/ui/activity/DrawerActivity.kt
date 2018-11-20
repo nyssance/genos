@@ -16,7 +16,6 @@
 
 package genos.ui.activity
 
-import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,10 +28,6 @@ abstract class DrawerActivity : NavigationActivity() {
 
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_drawer)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         drawerLayout = drawer_layout
         val toggle = ActionBarDrawerToggle(
                 this,
@@ -43,9 +38,9 @@ abstract class DrawerActivity : NavigationActivity() {
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        navigation.setNavigationItemSelectedListener { item ->
+        navigation.setNavigationItemSelectedListener {
             drawerLayout.closeDrawer(GravityCompat.START)
-            onNavigationItemSelected(item.itemId)
+            onNavigationItemSelected(it)
         }
     }
 

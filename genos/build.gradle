@@ -20,6 +20,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9'
+    }
+}
+
 publish {
     userOrg = 'nyssance'
     groupId = 'com.nyssance.genos'
@@ -55,9 +64,7 @@ dependencies {
     def constraint_version = '2.0.0-alpha2'
     def lifecycle_version = '2.0.0'
     // https://developer.android.com/topic/libraries/architecture/adding-components.html
-    def room_version = '2.0.0'
     def paging_version = '2.0.0'
-    def navigation_version = '1.0.0-alpha07'
     def work_version = '1.0.0-alpha11'
     // vendor
     def logger_version = '2.2.0'                 // https://github.com/orhanobut/logger
@@ -79,20 +86,11 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     // Java8 support for Lifecycles
     api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-    // Room
-    api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
-    // Paging
+    // Paging, Work
     api "androidx.paging:paging-runtime:$paging_version"
-    // Navigation
-    api "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
-    api "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-    //
     api "android.arch.work:work-runtime-ktx:$work_version"
     // Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
-    // Test helpers for Room
-    testImplementation "androidx.room:room-testing:$room_version"
 
     api "com.orhanobut:logger:$logger_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -100,7 +98,7 @@ dependencies {
     api "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
-    api ("com.github.bumptech.glide:recyclerview-integration:$glide_version") {
+    api("com.github.bumptech.glide:recyclerview-integration:$glide_version") {
         transitive = false
     }
     api "org.greenrobot:eventbus:$eventbus_version"

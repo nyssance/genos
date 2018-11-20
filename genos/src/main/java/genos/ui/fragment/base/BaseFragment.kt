@@ -57,7 +57,9 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab?.setOnClickListener { v -> Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_SHORT).show() }
+        fab?.setOnClickListener {
+            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -108,10 +110,9 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     fun setTitle(title: CharSequence) {
         val activity = requireActivity()
         if (activity is AppCompatActivity) {
-            val actionBar = activity.supportActionBar
-            if (actionBar != null) {
-                actionBar.title = title
-            } else {
+            activity.supportActionBar?.let {
+                it.title = title
+            } ?: run {
                 Logger.t("base").w("No action bar!")
             }
         }

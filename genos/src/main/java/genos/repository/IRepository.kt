@@ -20,5 +20,10 @@ import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 
 interface IRepository<D> {
-    fun getData(call: Call<D>, data: MutableLiveData<D>): MutableLiveData<D>
+    fun getData(
+            call: Call<D>,
+            data: MutableLiveData<D>,
+            success: (Int) -> Unit,
+            failure: (Int, String) -> Unit
+    ): MutableLiveData<D>
 }

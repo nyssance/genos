@@ -32,14 +32,10 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun <V : View> getView(@IdRes id: Int): V {
         return views.getOrElse(id) {
             val view = itemView.findViewById<V>(id)
-            if (view != null) {
-                views.put(id, view)
-            } else {
-                Logger.t("viewholder").e(
-                        "itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(
-                                id
-                        )}"
-                )
+            view?.let {
+                views.put(id, it)
+            } ?: run {
+                Logger.t("viewholder").e("itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(id)}")
             }
             view
         } as V

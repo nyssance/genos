@@ -159,7 +159,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         } catch (e: Exception) {
             Logger.t("recycler viewholder").e(e, "Exception")
         }
-        val v = View(requireContext()) // TODO:
+        val v = View(requireContext())
         return BaseHolder(v) as VH
     }
 
@@ -170,16 +170,14 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     protected open fun onPerform(action: Int, item: T?): Boolean {
         return when (action) {
             R.id.action_item_open -> {
-                if (item != null) {
-                    onOpenItem(item)
-                } else {
+                item?.let(this::onOpenItem) ?: run {
                     Logger.t("recycler").w("item is null.")
                 }
                 true
             }
             R.id.action_view_refresh -> {
                 refresh()
-                return true
+                true
             }
             else -> false
         }

@@ -34,9 +34,7 @@ abstract class BaseLoader<D>(context: Context) : AsyncTaskLoader<D>(context) {
     }
 
     override fun onStartLoading() {
-        if (data != null) {
-            deliverResult(data)
-        }
+        data?.let(this::deliverResult)
         if (takeContentChanged() || data == null) {
             forceLoad()
         }

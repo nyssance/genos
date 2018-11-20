@@ -25,14 +25,23 @@ abstract class IndexListAdapter<T : Any, VH : RecyclerView.ViewHolder> : BaseAda
     var indexer: SectionIndexer? = null
 
     override fun getSections(): Array<Any> {
-        return if (indexer == null) arrayOf(" ") else indexer!!.sections
+        indexer?.let {
+            return it.sections
+        }
+        return arrayOf(" ")
     }
 
     override fun getPositionForSection(section: Int): Int {
-        return if (indexer == null) -1 else indexer!!.getPositionForSection(section)
+        indexer?.let {
+            return it.getPositionForSection(section)
+        }
+        return -1
     }
 
     override fun getSectionForPosition(position: Int): Int {
-        return if (indexer == null) -1 else indexer!!.getSectionForPosition(position)
+        indexer?.let {
+            return it.getSectionForPosition(position)
+        }
+        return -1
     }
 }

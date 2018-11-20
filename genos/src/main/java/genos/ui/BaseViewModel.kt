@@ -23,15 +23,10 @@ import genos.repository.IRepository
 import retrofit2.Call
 
 open class BaseViewModel<D> : ViewModel() {
-    var data: MutableLiveData<D>
-    var repo: IRepository<D>
+    var data: MutableLiveData<D> = MutableLiveData()
+    var repo: IRepository<D> = HttpRepository()
 
-    init {
-        data = MutableLiveData()
-        repo = HttpRepository()
-    }
-
-    fun loadData(call: Call<D>) {
-        data = repo.getData(call, data)
+    fun loadData(call: Call<D>, success: (Int) -> Unit, failure: (Int, String) -> Unit) {
+        data = repo.getData(call, data, success, failure)
     }
 }

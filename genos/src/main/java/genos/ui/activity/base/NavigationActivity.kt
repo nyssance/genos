@@ -18,7 +18,7 @@ package genos.ui.activity.base
 
 import android.os.Bundle
 import android.util.SparseArray
-import androidx.annotation.IdRes
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import genos.R
@@ -31,26 +31,22 @@ abstract class NavigationActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    protected open fun onNavigationItemSelected(@IdRes id: Int): Boolean {
-        val tag = id.toString()
+    protected open fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        val tag = item.toString()
         if (currentTag == tag) {
             return false
         }
         currentTag = tag
         val transaction = supportFragmentManager.beginTransaction()
-        if (currentFragment != null) {
-            transaction.hide(currentFragment!!)
-        }
+        currentFragment?.let(transaction::hide)
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
-        if (fragment == null) {
+        fragment?.let(transaction::show) ?: run {
             fragment = fragments[id]
             transaction.add(R.id.container_for_add, fragment!!, currentTag)
-        } else {
-            transaction.show(fragment)
         }
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
