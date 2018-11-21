@@ -45,8 +45,9 @@ abstract class NavigationActivity : BaseActivity() {
         currentFragment?.let(transaction::hide)
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         fragment?.let(transaction::show) ?: run {
-            fragment = fragments[id]
-            transaction.add(R.id.container_for_add, fragment!!, currentTag)
+            val f = fragments[id]
+            fragment = f
+            transaction.add(R.id.container_for_add, f, currentTag)
         }
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()

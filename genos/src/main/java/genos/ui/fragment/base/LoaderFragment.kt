@@ -94,7 +94,10 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         if (refreshControlMode == RefreshControlMode.Always) {
             refreshControl?.isRefreshing = false
         }
+        onDisplay(data)
     }
+
+    protected abstract fun onDisplay(data: D)
 
     protected open fun onLoadSuccess(code: Int) {
         Logger.t("base").d("onLoadSuccess code $code")

@@ -120,16 +120,18 @@ abstract class BaseActivity : AppCompatActivity() {
         // SO: https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
         return when (item.itemId) {
             android.R.id.home -> {
-                val upIntent = NavUtils.getParentActivityIntent(this)
-                if (NavUtils.shouldUpRecreateTask(this, upIntent!!) || isTaskRoot) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities()
-                } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
-                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    NavUtils.navigateUpTo(this, upIntent)
+                NavUtils.getParentActivityIntent(this)?.let {
+                    if (NavUtils.shouldUpRecreateTask(this, it) || isTaskRoot) {
+                        TaskStackBuilder.create(this)
+                                .addNextIntentWithParentStack(it)
+                                .startActivities()
+                    } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
+                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        NavUtils.navigateUpTo(this, it)
+                    }
+                    true
                 }
-                true
+                false
             }
             else -> super.onOptionsItemSelected(item)
         }

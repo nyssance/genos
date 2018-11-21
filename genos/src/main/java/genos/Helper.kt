@@ -29,7 +29,6 @@ import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
 
 object Helper {
-
     // https://developer.android.com/guide/topics/data/data-storage.html#filesExternal
     val isExternalStorageReadable: Boolean
         get() {
@@ -95,14 +94,14 @@ object Helper {
     // 其他
     @JvmStatic
     fun getColorFromIdentifier(context: Context, id: Int): Int {
-        val id = getResId(context, context.resources.getResourceEntryName(id), "color")
-        return if (id != 0) getColor(context, id) else 0
+        val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
+        return if (resId != 0) getColor(context, resId) else 0
     }
 
     @JvmStatic
     fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
-        val id = getResId(context, context.resources.getResourceEntryName(id), "drawable")
-        return if (id != 0) getDrawable(context, id) else null
+        val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
+        return if (resId != 0) getDrawable(context, resId) else null
     }
 
     @JvmStatic

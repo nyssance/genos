@@ -20,7 +20,6 @@ import genos.R
 import genos.ui.activity.base.SingleActivity
 
 abstract class AppBarActivity : SingleActivity() {
-
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_app_bar)
     }

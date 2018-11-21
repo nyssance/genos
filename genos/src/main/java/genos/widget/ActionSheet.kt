@@ -16,33 +16,21 @@
 
 package genos.widget
 
-import android.annotation.SuppressLint
-import android.app.Dialog
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import android.view.ViewGroup
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ActionSheet : BottomSheetDialogFragment() {
-
-    private val bottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onStateChanged(bottomSheet: View, newState: Int) {
-            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                dismiss()
-            }
-        }
-
-        override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+        // return inflater.inflate(R.layout.fragment_action_sheet, container, false)
     }
 
-    @SuppressLint("RestrictedApi")
-    override fun setupDialog(dialog: Dialog?, style: Int) {
-        super.setupDialog(dialog, style)
-        //        View contentView = View.inflate(requireContext(), R.layout.fragment_bottom_sheet, null)
-        //        dialog.setContentView(contentView)
-        //        LayoutParams params = (LayoutParams) ((View) contentView.getParent()).getLayoutParams()
-        //        Behavior behavior = params.getBehavior()
-        //        if (behavior != null && behavior instanceof BottomSheetBehavior) {
-        //            ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback)
-        //        }
+    override fun onStart() {
+        super.onStart()
+        dialog.window.setSoftInputMode(SOFT_INPUT_STATE_HIDDEN)
     }
 }

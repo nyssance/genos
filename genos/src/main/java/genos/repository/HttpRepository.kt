@@ -50,7 +50,7 @@ class HttpRepository<D> : IRepository<D> {
                     data.postValue(response.body())
                     success(code)
                 } else {
-                    failure(code, response.errorBody()?.string()!!)
+                    failure(code, response.errorBody()?.string() ?: "")
                     try {
                         Logger.t(scheme).d("❎ $log\n${response.errorBody()?.string()}")
                     } catch (e: IOException) {

@@ -33,7 +33,7 @@ publish {
     userOrg = 'nyssance'
     groupId = 'com.nyssance.genos'
     artifactId = 'genos'
-    publishVersion = '1.1.1'
+    publishVersion = '1.1.2'
     desc = 'The BEST high-level framework for Android by NY.'
     website = 'https://github.com/nyssance/genos'
 }
@@ -43,8 +43,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 111
-        versionName "1.1.1"
+        versionCode 112
+        versionName "1.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -84,7 +84,7 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$constraint_version"
     // ViewModel and LiveData
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    // Java8 support for Lifecycles
+    // Java8 support for Lifecycle
     api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // Paging, Work
     api "androidx.paging:paging-runtime:$paging_version"

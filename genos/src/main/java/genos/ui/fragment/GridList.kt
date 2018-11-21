@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
 abstract class GridList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
-
     override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
         return GridLayoutManager(context, 3)
     }

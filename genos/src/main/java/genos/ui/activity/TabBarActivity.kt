@@ -32,6 +32,6 @@ abstract class TabBarActivity(var index: Int = 0) : NavigationActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        navigation.selectedItemId = navigation.menu.get(index).itemId
+        navigation.selectedItemId = navigation.menu[index].itemId
     }
 }

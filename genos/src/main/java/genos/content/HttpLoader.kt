@@ -22,7 +22,6 @@ import com.orhanobut.logger.Logger
 import retrofit2.Call
 
 class HttpLoader<D>(context: Context, private val call: Call<D>) : BaseLoader<D>(context) {
-
     override fun loadInBackground(): D? {
         try { // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
             // (if (call.isExecuted) call.clone() else call).execute().body()

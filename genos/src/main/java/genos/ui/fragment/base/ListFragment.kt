@@ -34,8 +34,7 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : Re
         return page > LIST_START_PAGE
     }
 
-    override fun onDataChanged(data: D) {
-        super.onDataChanged(data)
+    override fun onDisplay(data: D) {
         if (!hasPrevious()) { // 如果无上一页, 完全重载
             adapter.removeAll()
         }
