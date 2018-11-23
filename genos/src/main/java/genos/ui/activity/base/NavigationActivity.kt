@@ -16,7 +16,6 @@
 
 package genos.ui.activity.base
 
-import android.os.Bundle
 import android.util.SparseArray
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
@@ -28,11 +27,6 @@ abstract class NavigationActivity : BaseActivity() {
     protected var fragments = SparseArray<Fragment>()
     private var currentFragment: Fragment? = null
     private var currentTag = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-    }
 
     protected open fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId

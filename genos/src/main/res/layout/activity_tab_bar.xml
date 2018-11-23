@@ -22,11 +22,10 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-    <include
-            layout="@layout/activity_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/navigation"/>
+    <include layout="@layout/activity_app_bar"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_above="@id/navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@id/navigation"

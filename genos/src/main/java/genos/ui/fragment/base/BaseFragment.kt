@@ -56,8 +56,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
      * onViewCreated() : ensureList()，各种findViewById获取View
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab?.setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_SHORT).show()
         }
     }

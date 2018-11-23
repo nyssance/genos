@@ -26,8 +26,13 @@ import kotlinx.android.synthetic.main.activity_tab_bar.*
 abstract class TabBarActivity(var index: Int = 0) : NavigationActivity() {
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_tab_bar)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED
         navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

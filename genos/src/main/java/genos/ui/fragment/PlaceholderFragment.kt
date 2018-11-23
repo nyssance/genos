@@ -26,13 +26,13 @@ import kotlinx.android.synthetic.main.fragment_placeholder.*
 
 class PlaceholderFragment : Fragment() {
     companion object {
-        const val ARG_SECTION_NUMBER = "section_number"
+        const val ARG_SECTION_TEXT = "section_text"
 
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
+        fun instance(text: String = ""): PlaceholderFragment {
             val fragment = PlaceholderFragment()
             val args = Bundle()
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber)
+            args.putString(ARG_SECTION_TEXT, text)
             fragment.arguments = args
             return fragment
         }
@@ -44,7 +44,7 @@ class PlaceholderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
-            text1.text = "P ${it.getInt(ARG_SECTION_NUMBER)}"
+            text1.text = it.getString(ARG_SECTION_TEXT)
         }
     }
 }
