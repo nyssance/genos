@@ -20,7 +20,7 @@ import android.util.SparseArray
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import genos.R
+import com.nyssance.genos.R
 
 abstract class NavigationActivity : BaseActivity() {
     @JvmField

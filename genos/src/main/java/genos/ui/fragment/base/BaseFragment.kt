@@ -26,8 +26,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
-import genos.R
 import genos.ui.activity.base.BaseActivity
 
 abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, BaseActivity.OnKeyUpListener {

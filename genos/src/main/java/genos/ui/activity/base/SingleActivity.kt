@@ -19,7 +19,7 @@ package genos.ui.activity.base
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.transaction
-import genos.R
+import com.nyssance.genos.R
 
 abstract class SingleActivity : BaseActivity() {
     protected var fragment: Fragment? = null

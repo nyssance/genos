@@ -24,8 +24,7 @@ import android.view.View
 import android.widget.HeaderViewListAdapter
 import android.widget.ListAdapter
 import android.widget.ListView
-
-import genos.R
+import com.nyssance.genos.R
 
 class SectionListView @JvmOverloads constructor(
         context: Context,

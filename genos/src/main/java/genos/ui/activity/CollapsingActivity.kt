@@ -16,7 +16,7 @@
 
 package genos.ui.activity
 
-import genos.R
+import com.nyssance.genos.R
 import genos.ui.activity.base.SingleActivity
 
 abstract class CollapsingActivity : SingleActivity() {

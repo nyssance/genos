@@ -18,7 +18,7 @@ package genos.ui.viewholder
 
 import android.view.View
 import android.widget.TextView
-import genos.R
+import com.nyssance.genos.R
 
 class SubtitleHolder(itemView: View) : DefaultHolder(itemView) {
     @JvmField

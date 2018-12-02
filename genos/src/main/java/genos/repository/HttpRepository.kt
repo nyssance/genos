@@ -18,8 +18,8 @@ package genos.repository
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
+import com.nyssance.genos.BuildConfig
 import com.orhanobut.logger.Logger
-import genos.BuildConfig
 import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback

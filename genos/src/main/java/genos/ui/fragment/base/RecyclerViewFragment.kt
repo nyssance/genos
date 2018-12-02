@@ -24,8 +24,8 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
+import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
-import genos.R
 import genos.ui.BaseAdapter
 import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType

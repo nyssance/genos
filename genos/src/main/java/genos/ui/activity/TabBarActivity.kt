@@ -19,7 +19,7 @@ package genos.ui.activity
 import android.os.Bundle
 import androidx.core.view.get
 import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
-import genos.R
+import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_tab_bar.*
 

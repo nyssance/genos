@@ -22,8 +22,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
-import genos.R
 import genos.ui.BaseViewModel
 import retrofit2.Call
 

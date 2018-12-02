@@ -26,9 +26,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import androidx.core.app.TaskStackBuilder
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.Helper
-import genos.R
 import genos.libs.MessageEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

@@ -20,7 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import genos.R
+import com.nyssance.genos.R
 import genos.ui.fragment.base.ObjectFragment
 
 abstract class DetailFragment<D : Any> : ObjectFragment<D>() {
