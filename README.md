@@ -4,10 +4,12 @@
 Genos makes it very easy to build better Android apps more quickly and with less code.
 For more information please see [the website][1].
 
+* [Genos Samples](https://github.com/nyssance/genos-samples)
+
 ### Download
 Gradle:
 ```gradle
-implementation 'com.nyssance.genos:genos:1.1.1'
+implementation 'com.nyssance.genos:genos:1.1.3'
 ```
 
 ### Featured

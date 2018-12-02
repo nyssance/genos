@@ -26,8 +26,8 @@ class MainActivity : TabBarActivity(1) {
         super.onCreate(savedInstanceState)
         with(fragments) {
             append(R.id.navigation_home, UserList())
-            append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
-            append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+            append(R.id.navigation_discover, PlaceholderFragment.instance("2"))
+            append(R.id.navigation_me, PlaceholderFragment.instance("3"))
         }
     }
 }
