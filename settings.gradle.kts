@@ -1,3 +1,3 @@
 include(":genos", ":sample")
 
-rootProject.name = "genos-root"
+rootProject.name = "genos-parent"

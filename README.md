@@ -9,7 +9,7 @@ For more information please see [the website][1].
 ### Download
 Gradle:
 ```gradle
-implementation 'com.nyssance.genos:genos:1.1.3'
+implementation 'com.nyssance.genos:genos:1.1.4'
 ```
 
 ### Featured
