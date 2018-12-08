@@ -57,7 +57,7 @@ dependencies {
 
     val materialVersion = "1.0.0"
     // https://developer.android.com/topic/libraries/support-library/features.html
-    val constraintVersion = "2.0.0-alpha2"
+    val constraintVersion = "1.1.2"
     val lifecycleVersion = "2.0.0"
     // https://developer.android.com/topic/libraries/architecture/adding-components.html
     val pagingVersion = "2.0.0"

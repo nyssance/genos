@@ -25,4 +25,4 @@
         android:padding="16dp"
         android:text="@string/help_fragment_detail"
         android:textIsSelectable="true"
-        tools:context=".ui.fragment.DetailFragment"/>
+        tools:context="genos.ui.fragment.DetailFragment"/>
