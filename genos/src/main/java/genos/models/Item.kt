@@ -16,18 +16,21 @@
 
 package genos.models
 
+import android.content.Context
 import android.graphics.drawable.Drawable
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
 import genos.BaseAppManager.Companion.APP_SCHEME
 
 class Item : BaseItem {
     var choices = HashMap<String, String>()
     var dest: FragmentActivity? = null
-    var link: String = ""
+    var link = ""
 
-    constructor(name: String, icon: Drawable? = null, title: String? = null, subtitle: String? = null,
-                dest: FragmentActivity? = null, link: String = "",
-                enabled: Boolean = false, choices: HashMap<String, String> = HashMap()) : super(name, icon, title, subtitle, enabled) {
+    constructor(context: Context, @StringRes id: Int, name: String? = null,
+                icon: Drawable? = null, title: String? = null, subtitle: String? = null,
+                dest: FragmentActivity? = null, link: String = "", enabled: Boolean = false,
+                choices: HashMap<String, String> = HashMap()) : super(context, id, name, icon, title, subtitle, enabled) {
         this.choices = choices
         this.dest = dest
         if (link.isBlank()) {

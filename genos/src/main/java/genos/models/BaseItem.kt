@@ -18,30 +18,22 @@ package genos.models
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import genos.Helper
+import androidx.annotation.StringRes
 
 abstract class BaseItem {
+    var id = 0
     var name: String
     var icon: Drawable? = null
     var title: String
     var subtitle: String? = null
     var enabled = false
 
-    constructor(name: String, icon: Drawable? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
-        this.name = name
+    constructor(context: Context, @StringRes id: Int, name: String? = null, icon: Drawable? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
+        this.id = id
+        this.name = name ?: context.resources.getResourceEntryName(id)
         this.icon = icon
-        this.title = title ?: name
+        this.title = title ?: context.getString(id)
         this.subtitle = subtitle
         this.enabled = enabled
-    }
-
-//    constructor(context: Context, @StringRes resId: Int, icon: Drawable? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
-//        this(title ?: context.getString(resId), icon, title, subtitle, enabled)
-//    }
-
-    constructor(name: String, context: Context) {
-        this.name = name
-        val resId = Helper.getResId(context, name, "string")
-        title = if (resId == 0) name else context.getString(resId)
     }
 }
