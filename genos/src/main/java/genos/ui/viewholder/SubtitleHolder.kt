@@ -17,6 +17,7 @@
 package genos.ui.viewholder
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.nyssance.genos.R
 

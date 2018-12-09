@@ -16,25 +16,35 @@
 
 package genos.models
 
-import android.content.Context
 import android.graphics.drawable.Drawable
+import androidx.fragment.app.FragmentActivity
+import genos.BaseAppManager.Companion.APP_SCHEME
 
 class Item : BaseItem {
-    var icon: Drawable
-    var subtitle: String? = null
-    var uri: String
+    var choices = HashMap<String, String>()
+    var dest: FragmentActivity? = null
+    var link: String = ""
 
-    constructor(name: String, icon: Drawable, uri: String, context: Context) : super(name, context) {
-        this.icon = icon
-        this.uri = uri
-        // this(name, null, icon, null, uri)
-    }
-
-    constructor(name: String, title: String, icon: Drawable, uri: String) : this(name, title, icon, null, uri)
-
-    constructor(name: String, title: String, icon: Drawable, subtitle: String?, uri: String) : super(name, title) {
-        this.icon = icon
-        this.subtitle = subtitle
-        this.uri = uri
+    constructor(name: String, icon: Drawable? = null, title: String? = null, subtitle: String? = null,
+                dest: FragmentActivity? = null, link: String = "",
+                enabled: Boolean = false, choices: HashMap<String, String> = HashMap()) : super(name, icon, title, subtitle, enabled) {
+        this.choices = choices
+        this.dest = dest
+        if (link.isBlank()) {
+            dest?.let {
+                var str = dest.javaClass.simpleName.toLowerCase()
+                if (str.endsWith("list")) {
+                    str = str.replace("list", "_list")
+                } else if (str.endsWith("detail")) {
+                    str = str.replace("detail", "_detail")
+                } else if (str.endsWith("create")) {
+                    str = str.replace("create", "_create")
+                }
+                this.link = "$APP_SCHEME://$str"
+            }
+        } else {
+            this.link = link
+        }
+        this.enabled = enabled || this.link.isNotBlank()
     }
 }

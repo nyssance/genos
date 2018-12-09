@@ -27,8 +27,8 @@ android {
         applicationId = "com.example.genos"
         minSdkVersion(21)
         targetSdkVersion(28)
-        versionCode = 114
-        versionName = "1.1.4"
+        versionCode = 115
+        versionName = "1.1.5"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

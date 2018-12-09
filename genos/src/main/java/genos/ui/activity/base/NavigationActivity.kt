@@ -18,6 +18,7 @@ package genos.ui.activity.base
 
 import android.util.SparseArray
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.nyssance.genos.R
@@ -29,7 +30,7 @@ abstract class NavigationActivity : BaseActivity() {
     private var currentTag = ""
 
     protected open fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
+        val key = item.itemId
         val tag = item.toString()
         if (currentTag == tag) {
             return false
@@ -39,13 +40,18 @@ abstract class NavigationActivity : BaseActivity() {
         currentFragment?.let(transaction::hide)
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         fragment?.let(transaction::show) ?: run {
-            val f = fragments[id]
-            fragment = f
-            transaction.add(R.id.container_for_add, f, currentTag)
+            fragments[key]?.let {
+                fragment = it
+                transaction.add(R.id.container_for_add, it, currentTag)
+            }
         }
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.commit()
-        currentFragment = fragment
+        fragment?.let {
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            transaction.commit()
+            currentFragment = it
+        } ?: run {
+            Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(key)} not exist!", Toast.LENGTH_LONG).show()
+        }
         return true
     }
 }

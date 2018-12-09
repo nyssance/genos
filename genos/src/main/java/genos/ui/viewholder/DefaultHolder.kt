@@ -19,10 +19,13 @@ package genos.ui.viewholder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.nyssance.genos.R
 
 open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
     @JvmField
     var icon: ImageView = getView(android.R.id.icon)
     @JvmField
     var title: TextView = getView(android.R.id.title)
+    @JvmField
+    var accessory: ImageView = getView(R.id.accessory)
 }

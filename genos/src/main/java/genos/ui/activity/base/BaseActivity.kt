@@ -93,7 +93,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (id > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
             setContentView(id)
         } else {
-            Logger.t("base").wtf("$layoutName.xml not exists!")
+            Logger.t("base").wtf("$layoutName.xml not exist!")
         }
     }
 
@@ -129,9 +129,10 @@ abstract class BaseActivity : AppCompatActivity() {
                         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         NavUtils.navigateUpTo(this, it)
                     }
-                    true
+                } ?: run {
+                    onBackPressed() // 未手动添加 android:parentActivityName 的时候默认等同返回键
                 }
-                false
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

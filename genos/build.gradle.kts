@@ -29,7 +29,7 @@ configure<PublishExtension> {
     userOrg = "nyssance"
     groupId = "com.nyssance.genos"
     artifactId = "genos"
-    publishVersion = "1.1.4"
+    publishVersion = "1.1.5"
     desc = "The BEST high-level framework for Android by NY."
     website = "https://github.com/nyssance/genos"
 }
@@ -39,8 +39,8 @@ android {
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(28)
-        versionCode = 114
-        versionName = "1.1.4"
+        versionCode = 115
+        versionName = "1.1.5"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

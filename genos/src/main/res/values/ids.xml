@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <!-- layout -->
+    <!-- 🔯 layout -->
     <item name="container_for_add" type="id"/>
     <item name="drawer_layout" type="id"/>
     <!-- NavigationView & BottomNavigationView -->
@@ -35,13 +35,14 @@
     <item name="header_title" type="id"/>
     <item name="list_divider" type="id"/>
     <item name="subtitle" type="id"/>
+    <item name="accessory" type="id"/>
 
-    <!-- navigation -->
+    <!-- 🔯 navigation -->
     <item name="navigation_home" type="id"/>
     <item name="navigation_discover" type="id"/>
     <item name="navigation_me" type="id"/>
 
-    <!-- action -->
+    <!-- 🔯 action -->
     <!-- Item -->
     <item name="action_item_open" type="id"/>
     <!-- View -->
