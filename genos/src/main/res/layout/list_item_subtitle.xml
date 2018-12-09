@@ -34,7 +34,7 @@
              app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include layout="@layout/text_item_title"
-             android:layout_width="wrap_content"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_marginStart="@dimen/default_margin"
              android:layout_marginEnd="@dimen/default_margin"
@@ -46,7 +46,7 @@
 
     <include android:id="@id/subtitle"
              layout="@layout/text_no_id"
-             android:layout_width="wrap_content"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_marginStart="@dimen/default_margin"
              android:layout_marginEnd="@dimen/default_margin"
@@ -57,8 +57,8 @@
              app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include layout="@layout/image_accessory"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_width="24dp"
+             android:layout_height="24dp"
              android:layout_marginEnd="8dp"
              app:layout_constraintEnd_toEndOf="parent"
              app:layout_constraintTop_toTopOf="parent"
