@@ -27,8 +27,9 @@
     <item name="collapsing_toolbar" type="id"/>
     <item name="navigation_bar" type="id"/>
     <item name="toolbar" type="id"/>
-    <!-- Fab -->
+    <!-- Fab & WebView -->
     <item name="fab" type="id"/>
+    <item name="web_view" type="id"/>
     <!-- android.R.id.list用于表示list和通用指代, grid用于ListView和GridView能切换的场景 -->
     <item name="badge" type="id"/>
     <item name="section_header" type="id"/>
