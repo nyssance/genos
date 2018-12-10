@@ -36,17 +36,16 @@ class Item : BaseItem {
         if (link.isBlank()) {
             dest?.let {
                 var str = dest.javaClass.simpleName.toLowerCase()
-                if (str.endsWith("list")) {
-                    str = str.replace("list", "_list")
-                } else if (str.endsWith("detail")) {
-                    str = str.replace("detail", "_detail")
-                } else if (str.endsWith("create")) {
-                    str = str.replace("create", "_create")
+                str = when {
+                    str.endsWith("list") -> str.replace("list", "s")
+                    str.endsWith("detail") -> str.removeSuffix("detail")
+                    str.endsWith("create") -> str.replace("create", "s/create")
+                    else -> str
                 }
                 this.link = "$APP_SCHEME://$str"
             }
         } else {
-            this.link = link
+            this.link = link.trim()
         }
         this.enabled = enabled || this.link.isNotBlank()
     }

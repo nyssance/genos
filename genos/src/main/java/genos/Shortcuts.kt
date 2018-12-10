@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package genos.repository
+package genos
 
-import androidx.lifecycle.MutableLiveData
-import retrofit2.Call
+import android.content.Context
+import android.content.Intent
 
-interface IRepository<D : Any> {
-    fun getData(
-            call: Call<D>,
-            data: MutableLiveData<D>,
-            success: (Int) -> Unit,
-            failure: (Int, String) -> Unit
-    ): MutableLiveData<D>
+object Shortcuts {
+    @JvmStatic
+    fun showLoginUI(context: Context, cls: Class<*>) {
+        context.startActivity(Intent(context, cls))
+    }
+
+    @JvmStatic
+    fun showAlert() {
+    }
+
+    @JvmStatic
+    fun showActionSheet() {
+    }
 }

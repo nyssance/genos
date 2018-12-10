@@ -26,23 +26,20 @@ import retrofit2.Response
 import java.io.IOException
 
 object HttpUtils {
-    // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed
-    // (if (call.isExecuted) call.clone() else call).execute().body()
     @JvmStatic
-    fun <D> enqueue(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
-        var code = 666
-        call.enqueue(object : Callback<D> {
+    fun <D : Any> enqueue(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
+        // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
+        (if (call.isExecuted) call.clone() else call).enqueue(object : Callback<D> {
             override fun onResponse(call: Call<D>, response: Response<D>) {
                 val request = call.request()
                 val scheme = request.url().scheme()
-                code = response.code()
-                var log = "${request.method()} ${getUrlString(request)} ${response.code()} ${response.message()}"
+                val code = response.code()
+                var log = "${request.method()} ${getUrlString(request)} $code ${response.message()}"
                 if (BuildConfig.DEBUG) {
                     log = "$log\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}"
                 }
                 if (response.isSuccessful) {
                     Logger.t(scheme).d("✅ $log")
-                    // data.postValue(response.body())
                     success(code, response)
                 } else {
                     failure(code, response.errorBody()?.string() ?: "")
@@ -55,7 +52,7 @@ object HttpUtils {
             }
 
             override fun onFailure(call: Call<D>, t: Throwable) {
-                failure(code, t.localizedMessage)
+                failure(666, t.localizedMessage)
                 val request = call.request()
                 Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
             }

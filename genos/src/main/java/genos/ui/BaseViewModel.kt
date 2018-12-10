@@ -22,7 +22,7 @@ import genos.repository.HttpRepository
 import genos.repository.IRepository
 import retrofit2.Call
 
-open class BaseViewModel<D> : ViewModel() {
+open class BaseViewModel<D : Any> : ViewModel() {
     var data: MutableLiveData<D> = MutableLiveData()
     var repo: IRepository<D> = HttpRepository()
 

@@ -19,15 +19,22 @@ package genos.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import genos.models.Item
 import genos.ui.fragment.base.RecyclerViewFragment
+import genos.ui.viewholder.DefaultHolder
+import genos.ui.viewholder.SubtitleHolder
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.memberProperties
 
-abstract class GroupedTableDetail<D : Any, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, Item, VH>() {
+abstract class GroupedTableDetail<D : Any, T: Item, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
     @JvmField
-    protected var items = ArrayList<Item>()
+    protected var items = ArrayList<T>()
+    @JvmField
+    protected var data: D? = null
 
     override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
         val layoutManager = LinearLayoutManager(context)
@@ -46,11 +53,42 @@ abstract class GroupedTableDetail<D : Any, VH : RecyclerView.ViewHolder> : Recyc
     }
 
     override fun onDisplay(data: D) {
+        this.data = data
         adapter.removeAll()
         adapter.append(items)
         // 同步调用notifyDataSetChanged RecyclerView会报错
         val handler = Handler()
         val r = Runnable { adapter.notifyDataSetChanged() }
         handler.post(r)
+    }
+
+    override fun onDisplayItem(item: T, holder: VH, viewType: Int) {
+        if (holder is DefaultHolder) {
+            holder.title.text = item.title
+            holder.accessory.visibility = if (item.enabled) View.VISIBLE else View.GONE
+        }
+        if (holder is SubtitleHolder) {
+            data?.let {
+                holder.subtitle.text = "${readProperty(it, item.name)}"
+            }
+        }
+    }
+
+    override fun onOpenItem(item: T) {
+        // route(item.link)
+    }
+
+//    override fun refresh() {
+//        onPrepare()  // 不做onPrepare()重新赋值call的话, HttpUtils里call不clone是会报错的
+//        super.refresh()
+//    }
+
+    private fun readProperty(instance: Any, propertyName: String): Any? {
+        instance::class.memberProperties.firstOrNull {
+            it.visibility == KVisibility.PUBLIC && it.name == propertyName
+        }?.let {
+            return it.call(instance)
+        }
+        return null
     }
 }

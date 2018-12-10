@@ -75,12 +75,10 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         Logger.t("base").i("onKeyUp keyCode: $keyCode")
-        return when (keyCode) {
-            KeyEvent.KEYCODE_SEARCH -> true // 处理一些设备的专用search按钮
+        return when (keyCode) { // KEYCODE_SEARCH 处理一些设备的专用search按钮
             KeyEvent.KEYCODE_F1 -> onPerform(R.id.action_help)
             KeyEvent.KEYCODE_F5 -> onPerform(R.id.action_view_refresh)
-            KeyEvent.KEYCODE_ENTER -> true
-            KeyEvent.KEYCODE_ESCAPE -> true
+            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_ESCAPE, KeyEvent.KEYCODE_SEARCH -> true
             else -> false
         }
     }

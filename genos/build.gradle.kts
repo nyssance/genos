@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import com.novoda.gradle.release.PublishExtension
+import org.jetbrains.kotlin.config.KotlinCompilerVersion
 
 plugins {
     id("com.android.library")
@@ -29,7 +29,7 @@ configure<PublishExtension> {
     userOrg = "nyssance"
     groupId = "com.nyssance.genos"
     artifactId = "genos"
-    publishVersion = "1.1.5"
+    publishVersion = "1.1.6"
     desc = "The BEST high-level framework for Android by NY."
     website = "https://github.com/nyssance/genos"
 }
@@ -39,8 +39,8 @@ android {
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(28)
-        versionCode = 115
-        versionName = "1.1.5"
+        versionCode = 116
+        versionName = "1.1.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -64,12 +64,13 @@ dependencies {
     val workVersion = "1.0.0-alpha11"
     // vendor
     val loggerVersion = "2.2.0"                 // https://github.com/orhanobut/logger
-    val retrofitVersion = "2.4.0"               // https://square.github.io/retrofit/
+    val retrofitVersion = "2.5.0"               // https://square.github.io/retrofit/
     val glideVersion = "4.8.0"                  // https://github.com/bumptech/glide
     val eventbusVersion = "3.1.1"               // https://github.com/greenrobot/EventBus
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
+    implementation(kotlin("reflect", KotlinCompilerVersion.VERSION))
     // KTX
     api("androidx.core:core-ktx:$ktxCoreVersion")
     api("androidx.fragment:fragment-ktx:$ktxFragmentVersion")

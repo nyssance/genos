@@ -136,11 +136,6 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         })
     }
 
-//    override fun onDestroyView() {
-//        mListView = null
-//        super.onDestroyView()
-//    }
-
     /**
      * @param context
      * @return LayoutManager
@@ -152,7 +147,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
      */
     protected open fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val superClassType = javaClass.genericSuperclass as ParameterizedType
-        val vhClass = superClassType.actualTypeArguments[1] as Class<VH>
+        val vhClass = superClassType.actualTypeArguments.last() as Class<VH>
         try {
             val constructor = vhClass.getDeclaredConstructor(View::class.java)
             return constructor.newInstance(LayoutInflater.from(parent.context).inflate(tileId, parent, false))
