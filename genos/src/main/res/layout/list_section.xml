@@ -15,29 +15,35 @@
   ~ limitations under the License.
   -->
 
-
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@id/section_header"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
+        android:layout_height="wrap_content">
 
     <TextView
             android:id="@id/header_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/section_header_background"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:lines="1"
-            android:minHeight="32dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:textIsSelectable="false"
-            android:textStyle="bold"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
-</RelativeLayout>
+    <ViewStub
+            android:id="@id/stub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/header_title"
+            app:layout_constraintBottom_toTopOf="@id/footer"/>
+
+    <android.widget.Space
+            android:id="@id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

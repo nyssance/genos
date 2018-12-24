@@ -52,13 +52,21 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        refreshControl = view.findViewById(R.id.swipe_refresh)
+        refreshControl?.isEnabled = false // 默认为开启，将其关闭
+        if (call == null) { // 如果call为空, 刷新模式自动为never
+            refreshMode = RefreshMode.Never
+            refreshControlMode = RefreshControlMode.Never
+        }
         // 下拉刷新
         if (refreshControlMode == RefreshControlMode.Always) {
-            refreshControl = view.findViewById(R.id.swipe_refresh)
-            refreshControl?.setColorSchemeResources(R.color.app_color)
-            refreshControl?.setOnRefreshListener {
-                refreshControl?.isRefreshing = true
-                onPerform(R.id.action_view_refresh)
+            refreshControl?.apply {
+                isEnabled = true
+                setColorSchemeResources(R.color.app_color)
+                setOnRefreshListener {
+                    isRefreshing = true
+                    onPerform(R.id.action_view_refresh)
+                }
             }
         }
     }
@@ -70,10 +78,6 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner, Observer {
             onDataChanged(it)
         })
-        if (call == null) { // 如果call为空, 刷新模式自动为never
-            refreshMode = RefreshMode.Never
-            refreshControlMode = RefreshControlMode.Never
-        }
         if (refreshMode == RefreshMode.DidLoad) {
             refresh()
         }

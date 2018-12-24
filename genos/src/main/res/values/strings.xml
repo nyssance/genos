@@ -23,6 +23,8 @@
     <string name="home">Home</string>
     <string name="discover">Discover</string>
     <string name="me">Me</string>
+    <string name="main">Main</string>
+    <string name="web">Web</string>
 
     <!-- action -->
     <string name="settings">Settings</string>

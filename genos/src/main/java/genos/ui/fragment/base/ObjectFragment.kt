@@ -23,12 +23,4 @@ abstract class ObjectFragment<D : Any> : LoaderFragment<D>() {
         super.onDataChanged(data)
         this.data = data
     }
-
-    override fun onPerform(action: Int): Boolean {
-        return onPerform(action, null)
-    }
-
-    protected fun onPerform(action: Int, data: D?): Boolean {
-        return false
-    }
 }

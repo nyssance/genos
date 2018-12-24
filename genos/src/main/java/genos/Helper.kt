@@ -16,16 +16,13 @@
 
 package genos
 
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.telephony.TelephonyManager
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import com.orhanobut.logger.Logger
 
 object Helper {
@@ -65,60 +62,43 @@ object Helper {
         return false
     }
 
-    // @IdRes
     @JvmStatic
-    fun getResId(context: Context, name: String, defType: String): Int {
+    fun getApplicationName(context: Context): String {
+        val info = context.applicationInfo
+        val resId = info.labelRes
+        return if (resId != 0) context.getString(resId) else info.nonLocalizedLabel.toString()
+    }
+
+    @JvmStatic
+    fun getActivityName(activity: Activity): String? {
+        try {
+            val pm = activity.packageManager
+            return pm.getActivityInfo(activity.componentName, 0).loadLabel(pm).toString()
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    @JvmStatic
+    fun getResId(context: Context, name: String, defType: String, log: Boolean = true): Int {
         val id = context.resources.getIdentifier(name, defType, context.packageName)
-        if (id == 0) {
+        if (log && id == 0) {
             Logger.t("helper").wtf("R.$defType.$name 不存在")
         }
         return id
-    }
-
-    // Color
-    @JvmStatic
-    @ColorInt
-    fun getColor(context: Context, @ColorRes id: Int): Int {
-        return ContextCompat.getColor(context, id)
-    }
-
-    // Drawable
-    // SO: https://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
-    @JvmStatic
-    fun getDrawable(context: Context, @DrawableRes id: Int): Drawable? {
-        return ContextCompat.getDrawable(context, id)
-        // return ResourcesCompat.getDrawable(context.getResources(), id,
-        // theme)
     }
 
     // 其他
     @JvmStatic
     fun getColorFromIdentifier(context: Context, id: Int): Int {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
-        return if (resId != 0) getColor(context, resId) else 0
+        return if (resId != 0) ContextCompat.getColor(context, resId) else 0
     }
 
     @JvmStatic
     fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
-        return if (resId != 0) getDrawable(context, resId) else null
-    }
-
-    @JvmStatic
-    fun getApplicationName(context: Context): String {
-        val applicationInfo = context.applicationInfo
-        val stringId = applicationInfo.labelRes
-        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
-    }
-
-    @JvmStatic
-    fun getActivityName(activity: FragmentActivity): CharSequence? {
-        try {
-            val pm = activity.packageManager
-            return pm.getActivityInfo(activity.componentName, 0).loadLabel(pm)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-        return null
+        return if (resId != 0) context.getDrawable(resId) else null
     }
 }

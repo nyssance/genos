@@ -19,7 +19,9 @@ package genos.ui.fragment.base
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.core.util.contains
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -30,15 +32,22 @@ import genos.ui.BaseAdapter
 import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType
 
+enum class ListViewStyle {
+    Plain, Grouped
+}
+
 abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
     protected lateinit var listView: RecyclerView
     protected lateinit var layoutManager: RecyclerView.LayoutManager
     protected lateinit var adapter: BaseAdapter<T, VH>
     @JvmField
-    @LayoutRes
-    protected var tileId = R.layout.list_item_default
+    protected var listViewStyle = ListViewStyle.Plain
     @JvmField
     protected var canSelectMultiple = false
+
+    @JvmField
+    @LayoutRes
+    protected var tileId = R.layout.list_item_default
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_recylcer_view, container, false)
@@ -56,6 +65,9 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
 
             override fun onBindViewHolder(holder: VH, position: Int) {
+                if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position) && holder is BaseHolder) {
+                    holder.setText(R.id.header_title, adapter.sections[position])
+                }
                 onDisplayItem(getItem(position), holder, getItemViewType(position))
             }
 
@@ -64,6 +76,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
         }
         listView.adapter = adapter
+        // NY: 不设为 false 的话, 在有NestedScrollView时, 滚动不平滑, 没有上下边界处水波效果; 无NestedScrollView设为 true/false 无影响
+        listView.isNestedScrollingEnabled = false
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
         val tracker = SelectionTracker.Builder<Long>(
@@ -143,16 +157,23 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     protected abstract fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager
 
     /**
-     * 获取子类的ViewHolder
+     * 获取子类的 ViewHolder
      */
     protected open fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val superClassType = javaClass.genericSuperclass as ParameterizedType
-        val vhClass = superClassType.actualTypeArguments.last() as Class<VH>
-        try {
-            val constructor = vhClass.getDeclaredConstructor(View::class.java)
-            return constructor.newInstance(LayoutInflater.from(parent.context).inflate(tileId, parent, false))
-        } catch (e: Exception) {
-            Logger.t("recycler viewholder").e(e, "Exception")
+        superClassType.actualTypeArguments.lastOrNull()?.let {
+            it as Class<VH>
+            try {
+                val constructor = it.getDeclaredConstructor(View::class.java)
+                val resource = viewType
+                val view = LayoutInflater.from(parent.context).inflate(resource, parent, false)
+                if (resource == R.layout.list_section) {
+                    setViewStub(view, R.id.stub, tileId)
+                }
+                return constructor.newInstance(view)
+            } catch (e: Exception) {
+                Logger.t("recycler viewholder").e(e, "Exception")
+            }
         }
         val v = View(requireContext())
         return BaseHolder(v) as VH
@@ -181,7 +202,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     protected abstract fun onDisplayItem(item: T, holder: VH, viewType: Int)
 
     protected open fun onGetItemViewType(position: Int): Int {
-        return 0
+        return if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position)) R.layout.list_section else tileId
     }
 
     /**
@@ -194,5 +215,20 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     // TODO:
     protected fun setSelection(position: Int, offset: Int) {
         layoutManager.scrollToPosition(position)
+    }
+
+    protected fun setHeader(view: View, @LayoutRes layout: Int): View? {
+        return setViewStub(view, R.id.header, layout)
+    }
+
+    protected fun setFooter(view: View, @LayoutRes layout: Int): View? {
+        return setViewStub(view, R.id.footer, layout)
+    }
+
+    private fun setViewStub(view: View, @IdRes id: Int, @LayoutRes layout: Int): View? {
+        return view.findViewById<ViewStub>(id)?.run {
+            layoutResource = layout
+            inflate()
+        }
     }
 }

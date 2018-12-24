@@ -16,13 +16,10 @@
 
 package genos.ui.fragment.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -88,30 +85,4 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     protected abstract fun onPerform(action: Int): Boolean
-
-    /**
-     * 工具方法
-     */
-    @JvmOverloads
-    fun startActivitySafely(intent: Intent, isNewTask: Boolean = false) { // 默认为不开启外部Activity
-        if (isNewTask) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 该句决定是否在同一进程中
-        }
-        try {
-            startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    fun setTitle(title: CharSequence) {
-        val activity = requireActivity()
-        if (activity is AppCompatActivity) {
-            activity.supportActionBar?.let {
-                it.title = title
-            } ?: run {
-                Logger.t("base").w("No action bar!")
-            }
-        }
-    }
 }

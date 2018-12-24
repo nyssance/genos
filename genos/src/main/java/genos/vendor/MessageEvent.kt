@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package genos.libs
+package genos.vendor
 
 import androidx.collection.SimpleArrayMap
 import androidx.fragment.app.Fragment

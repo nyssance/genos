@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package genos.models
+package genos.model
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 
 abstract class BaseItem {
     var id = 0
     var name: String
-    var icon: Drawable? = null
+    var icon: Any? = null
     var title: String
     var subtitle: String? = null
     var enabled = false
 
-    constructor(context: Context, @StringRes id: Int, name: String? = null, icon: Drawable? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
+    @JvmOverloads
+    constructor(context: Context, @StringRes id: Int, name: String? = null, icon: Any? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
         this.id = id
         this.name = name ?: context.resources.getResourceEntryName(id)
         this.icon = icon

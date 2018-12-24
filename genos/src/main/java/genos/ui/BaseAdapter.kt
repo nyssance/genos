@@ -16,6 +16,7 @@
 
 package genos.ui
 
+import android.util.SparseArray
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.ItemKeyProvider
@@ -27,6 +28,11 @@ abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView
         private set
     lateinit var detailsLookup: ItemDetailsLookup<Long>
         private set
+    val sections = SparseArray<String?>()
+
+    init {
+        sections.put(0, null)
+    }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         // KeyProvider & DetailsLookup
@@ -42,10 +48,8 @@ abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView
         }
         detailsLookup = object : ItemDetailsLookup<Long>() {
             override fun getItemDetails(e: MotionEvent): ItemDetails<Long>? {
-                val view = recyclerView.findChildViewUnder(e.x, e.y)
-                if (view != null) {
-                    val holder = recyclerView.getChildViewHolder(view)
-                    val position = holder.adapterPosition
+                recyclerView.findChildViewUnder(e.x, e.y)?.let {
+                    val position = recyclerView.getChildViewHolder(it).adapterPosition
                     return object : ItemDetails<Long>() {
                         override fun getPosition(): Int {
                             return position

@@ -22,4 +22,5 @@
         android:layout_height="@dimen/list_icon_size"
         android:contentDescription="@string/icon"/>
 
+        <!--android:padding="4dp"-->
         <!-- 一定不能加layout_margin Top/Bottom，否则include该icon的相对布局中TextView永远无法上下居中对齐 -->

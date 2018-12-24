@@ -20,30 +20,25 @@
       tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-                android:id="@id/navigation_home"
-                android:icon="@android:drawable/ic_menu_camera"
-                android:title="@string/home"/>
-        <item
-                android:id="@id/navigation_discover"
-                android:icon="@android:drawable/ic_menu_gallery"
-                android:title="@string/discover"/>
-        <item
-                android:id="@id/navigation_me"
-                android:icon="@android:drawable/ic_menu_slideshow"
-                android:title="@string/me"/>
+        <item android:id="@id/navigation_home"
+              android:icon="@android:drawable/ic_menu_camera"
+              android:title="@string/home"/>
+        <item android:id="@id/navigation_discover"
+              android:icon="@android:drawable/ic_menu_gallery"
+              android:title="@string/discover"/>
+        <item android:id="@id/navigation_me"
+              android:icon="@android:drawable/ic_menu_slideshow"
+              android:title="@string/me"/>
     </group>
 
     <item android:title="@string/settings">
         <menu>
-            <item
-                    android:id="@id/action_settings"
-                    android:icon="@android:drawable/ic_menu_manage"
-                    android:title="@string/settings"/>
-            <item
-                    android:id="@id/action_help"
-                    android:icon="@android:drawable/ic_menu_call"
-                    android:title="@string/help"/>
+            <item android:id="@id/action_settings"
+                  android:icon="@android:drawable/ic_menu_manage"
+                  android:title="@string/settings"/>
+            <item android:id="@id/action_help"
+                  android:icon="@android:drawable/ic_menu_call"
+                  android:title="@string/help"/>
         </menu>
     </item>
 

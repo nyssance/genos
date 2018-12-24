@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.4.0-alpha07")
+        classpath("com.android.tools.build:gradle:3.4.0-alpha08")
         classpath(kotlin("gradle-plugin", "1.3.11"))
         classpath("com.novoda:bintray-release:0.9")
 

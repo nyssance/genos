@@ -43,8 +43,8 @@ class PlaceholderFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.let {
-            text1.text = it.getString(ARG_SECTION_TEXT)
+        arguments?.apply {
+            text1.text = getString(ARG_SECTION_TEXT)
         }
     }
 }

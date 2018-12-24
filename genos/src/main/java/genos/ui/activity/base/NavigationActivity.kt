@@ -40,9 +40,8 @@ abstract class NavigationActivity : BaseActivity() {
         currentFragment?.let(transaction::hide)
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         fragment?.let(transaction::show) ?: run {
-            fragments[key]?.let {
-                fragment = it
-                transaction.add(R.id.container_for_add, it, currentTag)
+            fragment = fragments[key]?.apply {
+                transaction.add(R.id.container_for_add, this, currentTag)
             }
         }
         fragment?.let {

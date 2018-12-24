@@ -29,7 +29,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.Helper
-import genos.libs.MessageEvent
+import genos.vendor.MessageEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -61,18 +61,16 @@ abstract class BaseActivity : AppCompatActivity() {
                 .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
                 .toLowerCase(Locale.ENGLISH)
         onSetContentView(name)
-        menuRes = Helper.getResId(this, name, "menu")
+        menuRes = Helper.getResId(this, name, "menu", false)
         // 可折叠顶栏
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         // 顶部导航栏
-        navigationBar = findViewById(R.id.navigation_bar)
-        navigationBar?.let(this::setSupportActionBar)
+        navigationBar = findViewById<Toolbar>(R.id.navigation_bar)?.apply(this::setSupportActionBar)
         // 底部工具栏
-        toolbar = findViewById(R.id.toolbar)
-        toolbar?.let {
-            val id = Helper.getResId(this, "${name}_toolbar", "menu")
+        toolbar = findViewById<Toolbar>(R.id.toolbar)?.apply {
+            val id = Helper.getResId(this@BaseActivity, "${name}_toolbar", "menu")
             if (id > 0) {
-                it.inflateMenu(id)
+                inflateMenu(id)
             }
         }
         // 默认显示 Up button

@@ -44,18 +44,19 @@
              app:layout_constraintTop_toTopOf="parent"
              app:layout_constraintBottom_toTopOf="@id/subtitle"/>
 
-    <TextView android:id="@id/subtitle"
-              android:ellipsize="end"
-              android:lines="1"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="@dimen/default_margin"
-              android:layout_marginEnd="@dimen/default_margin"
-              app:layout_constraintStart_toEndOf="@android:id/icon"
-              app:layout_constraintEnd_toStartOf="@id/accessory"
-              app:layout_constraintHorizontal_bias="0"
-              app:layout_constraintTop_toBottomOf="@android:id/title"
-              app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+            android:id="@id/subtitle"
+            android:ellipsize="end"
+            android:lines="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintStart_toEndOf="@android:id/icon"
+            app:layout_constraintEnd_toStartOf="@id/accessory"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@android:id/title"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include layout="@layout/image_accessory"
              android:layout_width="24dp"

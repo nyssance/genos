@@ -15,16 +15,8 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    <include layout="@layout/section_header"/>
-
-    <include layout="@layout/list_item_default"/>
-
-    <include layout="@layout/list_divider_horizontal"/>
-
-</LinearLayout>
+<resources>
+    <dimen name="default_margin">24dp</dimen>
+    <dimen name="default_gutter">24dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+</resources>

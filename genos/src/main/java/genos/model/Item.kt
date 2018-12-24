@@ -14,28 +14,35 @@
  * limitations under the License.
  */
 
-package genos.models
+package genos.model
 
+import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
-import androidx.fragment.app.FragmentActivity
+import androidx.collection.SimpleArrayMap
 import genos.BaseAppManager.Companion.APP_SCHEME
 
-class Item : BaseItem {
-    var choices = HashMap<String, String>()
-    var dest: FragmentActivity? = null
+open class Item : BaseItem {
+    var choices = SimpleArrayMap<String, String>()
+    var dest: Class<out Activity>? = null
     var link = ""
+        set(value) {
+            field = value
+            enabled = (dest != null || link.isNotBlank())
+        }
+    var isSection = false
 
+    @JvmOverloads
     constructor(context: Context, @StringRes id: Int, name: String? = null,
-                icon: Drawable? = null, title: String? = null, subtitle: String? = null,
-                dest: FragmentActivity? = null, link: String = "", enabled: Boolean = false,
-                choices: HashMap<String, String> = HashMap()) : super(context, id, name, icon, title, subtitle, enabled) {
+                icon: Any? = null, title: String? = null, subtitle: String? = null,
+                dest: Class<out Activity>? = null, link: String = "", enabled: Boolean = false,
+                choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
+                isSection: Boolean = false) : super(context, id, name, icon, title, subtitle, enabled) {
         this.choices = choices
         this.dest = dest
         if (link.isBlank()) {
             dest?.let {
-                var str = dest.javaClass.simpleName.toLowerCase()
+                var str = it.javaClass.simpleName.toLowerCase()
                 str = when {
                     str.endsWith("list") -> str.replace("list", "s")
                     str.endsWith("detail") -> str.removeSuffix("detail")
@@ -48,5 +55,6 @@ class Item : BaseItem {
             this.link = link.trim()
         }
         this.enabled = enabled || this.link.isNotBlank()
+        this.isSection = isSection
     }
 }

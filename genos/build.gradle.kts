@@ -52,27 +52,27 @@ android {
 }
 
 dependencies {
-    val ktxCoreVersion = "1.0.1"
+    val ktxVersion = "1.0.1"
     val ktxFragmentVersion = "1.0.0"
 
     val materialVersion = "1.0.0"
-    // https://developer.android.com/topic/libraries/support-library/features.html
     val constraintVersion = "1.1.2"
     val lifecycleVersion = "2.0.0"
     // https://developer.android.com/topic/libraries/architecture/adding-components.html
     val pagingVersion = "2.0.0"
-    val workVersion = "1.0.0-alpha11"
+    val workVersion = "1.0.0-alpha13"
     // vendor
     val loggerVersion = "2.2.0"                 // https://github.com/orhanobut/logger
     val retrofitVersion = "2.5.0"               // https://square.github.io/retrofit/
     val glideVersion = "4.8.0"                  // https://github.com/bumptech/glide
     val eventbusVersion = "3.1.1"               // https://github.com/greenrobot/EventBus
+    val agentWebVersion = "4.0.2"               // https://github.com/Justson/AgentWeb
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation(kotlin("reflect", KotlinCompilerVersion.VERSION))
     // KTX
-    api("androidx.core:core-ktx:$ktxCoreVersion")
+    api("androidx.core:core-ktx:$ktxVersion")
     api("androidx.fragment:fragment-ktx:$ktxFragmentVersion")
     //
     api("com.google.android.material:material:$materialVersion")
@@ -99,9 +99,12 @@ dependencies {
         isTransitive = false
     }
     api("org.greenrobot:eventbus:$eventbusVersion")
+    api("com.just.agentweb:agentweb:$agentWebVersion")
+    api("com.just.agentweb:download:$agentWebVersion")
+    api("com.just.agentweb:filechooser:$agentWebVersion")
     // Test
     testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.0.0")
-    androidTestImplementation("androidx.test:runner:1.1.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestImplementation("androidx.test:runner:1.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
 }

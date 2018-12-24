@@ -25,9 +25,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_pager.*
 
-open class PagerFragment : Fragment() {
+class PagerFragment : Fragment() {
     @JvmField
-    protected var fragments = ArrayList<Pair<CharSequence, Fragment>>()
+    protected var fragments = ArrayList<Pair<String, Fragment>>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_pager, container, false)

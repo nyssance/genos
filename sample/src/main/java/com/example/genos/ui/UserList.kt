@@ -20,6 +20,7 @@ import android.content.Intent
 import com.example.genos.AppManager.Companion.API
 import com.example.genos.R
 import com.example.genos.models.User
+import genos.startActivitySafely
 import genos.ui.fragment.TableList
 import genos.ui.viewholder.SubtitleHolder
 

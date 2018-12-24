@@ -104,6 +104,7 @@ genos
   * [Glide](https://github.com/bumptech/glide)
   * [EventBus](https://github.com/greenrobot/EventBus)
   * [Logger](https://github.com/orhanobut/logger)
+  * [AgentWeb](https://github.com/Justson/AgentWeb)
 
 Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
 

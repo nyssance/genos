@@ -41,7 +41,7 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } as V
     }
 
-    fun setText(@IdRes id: Int, text: CharSequence) {
+    fun setText(@IdRes id: Int, text: CharSequence?) {
         getView<TextView>(id).text = text
     }
 

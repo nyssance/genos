@@ -20,7 +20,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="@android:color/white"
+        android:foreground="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:minHeight="@dimen/list_item_height">
@@ -37,24 +38,25 @@
              android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_marginStart="@dimen/default_margin"
+             android:layout_marginEnd="@dimen/default_margin"
              app:layout_constraintStart_toEndOf="@android:id/icon"
-             app:layout_constraintEnd_toStartOf="@id/subtitle"
+             app:layout_constraintEnd_toStartOf="@id/accessory"
+             app:layout_constraintHorizontal_bias="0"
              app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintBottom_toBottomOf="parent"/>
+             app:layout_constraintBottom_toTopOf="@id/subtitle"/>
 
     <TextView
             android:id="@id/subtitle"
             android:ellipsize="end"
             android:lines="1"
-            android:gravity="end"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            app:layout_constraintStart_toEndOf="@android:id/title"
+            app:layout_constraintStart_toEndOf="@android:id/icon"
             app:layout_constraintEnd_toStartOf="@id/accessory"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@android:id/title"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include layout="@layout/image_accessory"

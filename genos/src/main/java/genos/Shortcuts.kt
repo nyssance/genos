@@ -18,6 +18,8 @@ package genos
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
+import genos.ui.activity.WebActivity
 
 object Shortcuts {
     @JvmStatic
@@ -31,5 +33,20 @@ object Shortcuts {
 
     @JvmStatic
     fun showActionSheet() {
+    }
+
+    @JvmStatic
+    fun openLink(context: Context, url: String, title: String? = null) {
+        if (url.isBlank()) {
+            return
+        }
+        val intent = Intent(context, WebActivity::class.java)
+        intent.putExtra("url", url)
+        intent.putExtra("title", title)
+        try {
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(context, e.localizedMessage, Toast.LENGTH_LONG).show()
+        }
     }
 }
