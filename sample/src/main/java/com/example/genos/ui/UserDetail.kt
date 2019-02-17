@@ -41,10 +41,6 @@ class UserDetail : DetailFragment<User>() {
     override fun onDisplay(data: User) {
         textView?.text = data.name
     }
-
-    override fun onPerform(action: Int): Boolean {
-        return false
-    }
 }
 
 class UserDetailActivity : CollapsingActivity() {

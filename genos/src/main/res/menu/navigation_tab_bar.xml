@@ -17,14 +17,17 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@id/navigation_home"
-          android:icon="@android:drawable/star_big_off"
-          android:title="@string/home"/>
-    <item android:id="@id/navigation_discover"
-          android:icon="@android:drawable/ic_search_category_default"
-          android:title="@string/discover"/>
-    <item android:id="@id/navigation_me"
-          android:icon="@android:drawable/ic_popup_reminder"
-          android:title="@string/me"/>
+    <item
+            android:id="@id/navigation_home"
+            android:icon="@android:drawable/star_big_off"
+            android:title="@string/home"/>
+    <item
+            android:id="@id/navigation_discover"
+            android:icon="@android:drawable/ic_search_category_default"
+            android:title="@string/discover"/>
+    <item
+            android:id="@id/navigation_me"
+            android:icon="@android:drawable/ic_popup_reminder"
+            android:title="@string/me"/>
 
 </menu>

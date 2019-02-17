@@ -179,7 +179,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         return BaseHolder(v) as VH
     }
 
-    override fun onPerform(action: Int): Boolean {
+    final override fun onPerform(action: Int): Boolean {
         return onPerform(action, null)
     }
 

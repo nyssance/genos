@@ -32,9 +32,9 @@
 
             <LinearLayout
                     android:id="@id/container_for_add"
-                    android:background="@color/recycler_grouped_background_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/recycler_grouped_background_color"
                     android:orientation="vertical">
 
                 <ViewStub

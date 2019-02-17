@@ -85,7 +85,7 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
             if (item.icon == null) {
                 holder.icon.visibility = View.GONE
             } else {
-                Glide.with(requireContext()).load(item.icon).into(holder.icon)
+                Glide.with(this).load(item.icon).into(holder.icon)
             }
             holder.title.text = item.title
             holder.accessory.visibility = if (item.enabled) View.VISIBLE else View.GONE
@@ -115,7 +115,7 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
 //    }
 
     private fun readProperty(instance: Any, propertyName: String): Any? {
-        instance::class.memberProperties.firstOrNull {
+        instance::class.memberProperties.asSequence().firstOrNull {
             it.visibility == KVisibility.PUBLIC && it.name == propertyName
         }?.apply {
             return call(instance)

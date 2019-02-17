@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_pager.*
 
-class PagerFragment : Fragment() {
+abstract class PagerFragment : Fragment() {
     @JvmField
     protected var fragments = ArrayList<Pair<String, Fragment>>()
 

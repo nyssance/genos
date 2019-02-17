@@ -21,34 +21,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:foreground="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:minHeight="@dimen/list_item_height">
 
-    <include layout="@layout/image_icon"
-             android:layout_width="@dimen/list_icon_size"
-             android:layout_height="@dimen/list_icon_size"
-             android:layout_marginStart="@dimen/default_margin"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintBottom_toBottomOf="parent"/>
+    <include
+            layout="@layout/image_icon"
+            android:layout_width="@dimen/list_icon_size"
+            android:layout_height="@dimen/list_icon_size"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <include layout="@layout/text_item_title"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_marginStart="@dimen/default_margin"
-             android:layout_marginEnd="@dimen/default_margin"
-             app:layout_constraintStart_toEndOf="@android:id/icon"
-             app:layout_constraintEnd_toStartOf="@id/accessory"
-             app:layout_constraintHorizontal_bias="0"
-             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintBottom_toTopOf="@id/subtitle"/>
-
-    <TextView
-            android:id="@id/subtitle"
-            android:ellipsize="end"
-            android:lines="1"
+    <include
+            layout="@layout/text_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
@@ -56,15 +44,30 @@
             app:layout_constraintStart_toEndOf="@android:id/icon"
             app:layout_constraintEnd_toStartOf="@id/accessory"
             app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/subtitle"/>
+
+    <TextView
+            android:id="@id/subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:ellipsize="end"
+            android:lines="1"
+            app:layout_constraintStart_toEndOf="@android:id/icon"
+            app:layout_constraintEnd_toStartOf="@id/accessory"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintTop_toBottomOf="@android:id/title"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <include layout="@layout/image_accessory"
-             android:layout_width="24dp"
-             android:layout_height="24dp"
-             android:layout_marginEnd="8dp"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintBottom_toBottomOf="parent"/>
+    <include
+            layout="@layout/image_accessory"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,11 +16,23 @@
 
 package genos.ui.fragment.base
 
+import com.nyssance.genos.R
+
 abstract class ObjectFragment<D : Any> : LoaderFragment<D>() {
     protected var data: D? = null
 
     override fun onDataChanged(data: D) {
         super.onDataChanged(data)
         this.data = data
+    }
+
+    override fun onPerform(action: Int): Boolean {
+        return when (action) {
+            R.id.action_view_refresh -> {
+                refresh()
+                true
+            }
+            else -> false
+        }
     }
 }

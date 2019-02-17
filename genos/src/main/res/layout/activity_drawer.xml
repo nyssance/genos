@@ -25,9 +25,10 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-    <include layout="@layout/activity_app_bar"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"/>
+    <include
+            layout="@layout/activity_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     <com.google.android.material.navigation.NavigationView
             android:id="@id/navigation"
