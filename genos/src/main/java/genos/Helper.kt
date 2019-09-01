@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat
 import com.orhanobut.logger.Logger
 
 object Helper {
-    // https://developer.android.com/guide/topics/data/data-storage.html#filesExternal
+    // https://developer.android.com/guide/topics/data/data-storage#filesExternal
     val isExternalStorageReadable: Boolean
         get() {
             val state = Environment.getExternalStorageState()
@@ -40,10 +40,9 @@ object Helper {
         val resourceIDFields = dataClass.fields
         val resourceIDs = IntArray(resourceIDFields.size)
         val count = resourceIDFields.size
-        try {
-            for (i in 0 until count) {
-                // pass 'null' because class is static
-                resourceIDs[i] = resourceIDFields[i].getInt(null)
+        try { // pass 'null' because class is static
+            (0 until count).forEach {
+                resourceIDs[it] = resourceIDFields[it].getInt(null)
             }
         } catch (e: IllegalAccessException) {
             Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")

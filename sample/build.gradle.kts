@@ -22,21 +22,23 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
+    buildToolsVersion = "29.0.2"
     defaultConfig {
         applicationId = "com.example.genos"
         minSdkVersion(21)
-        targetSdkVersion(28)
-        versionCode = 116
-        versionName = "1.1.6"
+        targetSdkVersion(29)
+        versionCode = 117
+        versionName = "1.1.7"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    useLibrary("android.test.runner")
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,7 +49,6 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
     testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.1.0")
-    androidTestImplementation("androidx.test:runner:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 }

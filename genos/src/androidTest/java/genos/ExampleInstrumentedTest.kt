@@ -25,7 +25,7 @@ import org.junit.runner.RunWith
 /**
  * Instrumented test, which will execute on an Android device.
  *
- * See [testing documentation](https://d.android.com/tools/testing).
+ * See [testing documentation](https://developer.android.com/studio/test).
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {

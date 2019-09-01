@@ -15,26 +15,7 @@
   ~ limitations under the License.
   -->
 
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <androidx.viewpager.widget.ViewPager
-            android:id="@id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@android:id/tabs">
-
-        <com.google.android.material.tabs.TabLayout
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/Theme.Genos.TabLayout"
-                app:tabIndicatorColor="?attr/colorPrimary"
-                app:tabSelectedTextColor="?attr/colorPrimary"/>
-
-    </androidx.viewpager.widget.ViewPager>
-
-</RelativeLayout>
+<androidx.viewpager2.widget.ViewPager2 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

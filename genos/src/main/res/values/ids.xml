@@ -17,43 +17,43 @@
 
 <resources>
     <!-- 🔯 layout -->
-    <item name="container_for_add" type="id"/>
-    <item name="drawer_layout" type="id"/>
-    <item name="stub" type="id"/>
+    <item name="container_for_add" type="id" />
+    <item name="drawer_layout" type="id" />
+    <item name="stub" type="id" />
     <!-- NavigationView & BottomNavigationView -->
-    <item name="navigation" type="id"/>
-    <item name="pager" type="id"/>
-    <item name="swipe_refresh" type="id"/>
+    <item name="navigation" type="id" />
+    <item name="pager" type="id" />
+    <item name="swipe_refresh" type="id" />
     <!-- AppBar -->
-    <item name="collapsing_toolbar" type="id"/>
-    <item name="navigation_bar" type="id"/>
-    <item name="toolbar" type="id"/>
+    <item name="collapsing_toolbar" type="id" />
+    <item name="navigation_bar" type="id" />
+    <item name="toolbar" type="id" />
     <!-- Fab & WebView -->
-    <item name="fab" type="id"/>
-    <item name="web_view" type="id"/>
+    <item name="fab" type="id" />
+    <item name="web_view" type="id" />
     <!-- android.R.id.list用于表示list和通用指代, grid用于ListView和GridView能切换的场景 -->
-    <item name="header" type="id"/>
-    <item name="footer" type="id"/>
-    <item name="list_divider" type="id"/>
-    <item name="subtitle" type="id"/>
-    <item name="accessory" type="id"/>
-    <item name="badge" type="id"/>
-    <item name="header_title" type="id"/>
+    <item name="header" type="id" />
+    <item name="footer" type="id" />
+    <item name="list_divider" type="id" />
+    <item name="subtitle" type="id" />
+    <item name="accessory" type="id" />
+    <item name="badge" type="id" />
+    <item name="header_title" type="id" />
 
     <!-- 🔯 navigation -->
-    <item name="navigation_home" type="id"/>
-    <item name="navigation_discover" type="id"/>
-    <item name="navigation_me" type="id"/>
+    <item name="navigation_home" type="id" />
+    <item name="navigation_discover" type="id" />
+    <item name="navigation_me" type="id" />
 
     <!-- 🔯 action -->
     <!-- Item -->
-    <item name="action_item_open" type="id"/>
+    <item name="action_item_open" type="id" />
     <!-- View -->
-    <item name="action_view_refresh" type="id"/>
+    <item name="action_view_refresh" type="id" />
     <!-- Others -->
-    <item name="action_play_store" type="id"/>
-    <item name="action_search" type="id"/>
-    <item name="action_settings" type="id"/>
-    <item name="action_help" type="id"/>
-    <item name="action_quit" type="id"/>
+    <item name="action_play_store" type="id" />
+    <item name="action_search" type="id" />
+    <item name="action_settings" type="id" />
+    <item name="action_help" type="id" />
+    <item name="action_quit" type="id" />
 </resources>

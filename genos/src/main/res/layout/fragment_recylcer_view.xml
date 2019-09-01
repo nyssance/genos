@@ -15,42 +15,41 @@
   ~ limitations under the License.
   -->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@id/swipe_refresh"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
             <LinearLayout
-                    android:id="@id/container_for_add"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/recycler_grouped_background_color"
-                    android:orientation="vertical">
+                android:id="@id/container_for_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/recycler_grouped_background_color"
+                android:orientation="vertical">
 
                 <ViewStub
-                        android:id="@id/header"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                    android:id="@id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@android:id/list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                    android:id="@android:id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <ViewStub
-                        android:id="@id/footer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                    android:id="@id/footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -59,12 +58,12 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:visibility="gone"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+        android:id="@id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="gone"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

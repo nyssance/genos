@@ -15,11 +15,10 @@
   ~ limitations under the License.
   -->
 
-<View
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@id/list_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:drawable/divider_horizontal_bright"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"/>
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/list_divider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_bright"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd" />

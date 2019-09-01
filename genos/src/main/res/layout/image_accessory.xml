@@ -15,11 +15,10 @@
   ~ limitations under the License.
   -->
 
-<ImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@id/accessory"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:contentDescription="@string/image"
-        app:srcCompat="@mipmap/ic_arrow_right"/>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/accessory"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:contentDescription="@string/image"
+    app:srcCompat="@mipmap/ic_arrow_right" />

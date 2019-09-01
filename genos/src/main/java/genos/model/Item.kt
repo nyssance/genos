@@ -21,6 +21,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.collection.SimpleArrayMap
 import genos.BaseAppManager.Companion.APP_SCHEME
+import java.util.*
 
 open class Item : BaseItem {
     var choices = SimpleArrayMap<String, String>()
@@ -42,7 +43,7 @@ open class Item : BaseItem {
         this.dest = dest
         if (link.isBlank()) {
             dest?.let {
-                var str = it.javaClass.simpleName.toLowerCase()
+                var str = it.javaClass.simpleName.toLowerCase(Locale.ROOT)
                 str = when {
                     str.endsWith("list") -> str.replace("list", "s")
                     str.endsWith("detail") -> str.removeSuffix("detail")

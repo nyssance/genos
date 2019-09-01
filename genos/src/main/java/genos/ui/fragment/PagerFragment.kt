@@ -21,11 +21,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_pager.*
 
-abstract class PagerFragment : Fragment() {
+abstract class PagerFragment(var orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL) : Fragment() {
     @JvmField
     protected var fragments = ArrayList<Pair<String, Fragment>>()
 
@@ -34,21 +37,21 @@ abstract class PagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // pager.pageMargin = 16
-        // pager.setPageMarginDrawable(android.R.color.black)
-        pager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
-            override fun getCount(): Int {
+        pager.orientation = orientation
+        pager.adapter = object : FragmentStateAdapter(requireActivity()) {
+            override fun getItemCount(): Int {
                 return fragments.size
             }
 
-            override fun getItem(position: Int): Fragment {
+            override fun createFragment(position: Int): Fragment {
                 return fragments[position].second
             }
-
-            override fun getPageTitle(position: Int): CharSequence? {
-                return fragments[position].first
-            }
         }
-        tabs.setupWithViewPager(pager)
+        requireActivity().findViewById<TabLayout>(android.R.id.tabs)?.let {
+            it.visibility = View.VISIBLE
+            TabLayoutMediator(it, pager, TabLayoutMediator.OnConfigureTabCallback { tab, position ->
+                tab.text = fragments[position].first
+            }).attach()
+        }
     }
 }

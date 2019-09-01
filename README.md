@@ -2,18 +2,25 @@
 [ ![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg) ](https://bintray.com/nyssance/maven/genos/_latestVersion)
 
 Genos makes it very easy to build better Android apps more quickly and with less code.
-For more information please see [the website][1].
+For more information please see [the website][genos].
 
 * [Genos Samples](https://github.com/nyssance/genos-samples)
 
-### Download
-Gradle:
-```gradle
-implementation 'com.nyssance.genos:genos:1.1.6'
+## Installation
+
+### bulid.gradle
+
+```groovy
+implementation 'com.nyssance.genos:genos:1.1.7'
+```
+### bulid.gradle.kts
+
+```kotlin
+implementation("com.nyssance.genos:genos:1.1.7")
 ```
 
-### Featured
-Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture/index.html)
+## Features
+Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture)
 
 1. Rules
 
@@ -21,7 +28,7 @@ Genos integrate google architecture. just use. if your need learn more info abou
 - Fragment have two type: list and detail.
   - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `listView`, `adapter`
   - detail for REST detail api, like https://www.yourdomain,com/api/v1/users/{:user_id}/
-  - call in fragment is a call of it, it's a [Retrofit](http://square.github.io/retrofit/) call 
+  - call in fragment is a call of it, it's a [Retrofit][retrofit] call
 - Repository is for load data.
 - ViewModel is for bind data and view.
 
@@ -63,10 +70,10 @@ class MainActivity : TabBarActivity(1) { // If you need a drawer navigation, jus
 }
 ```
 
-### Tutorial
-[Develop an app in 10 minutes][1].
+## Tutorial
+[Develop an app in 10 minutes][genos].
 
-### Architecture
+## Architecture
 ```
 genos
 ├── BaseAppManager.kt                 extends it for config your app.
@@ -96,11 +103,11 @@ genos
         └── SubtitleHolder.kt         A holder with icon / title / subtitle
 ```
 
-### Vendor
+## Vendor
 * Android
   * [Android Jetpack](https://developer.android.com/jetpack/)
 * Others
-  * [Retrofit](https://square.github.io/retrofit/)
+  * [Retrofit][retrofit]
   * [Glide](https://github.com/bumptech/glide)
   * [EventBus](https://github.com/greenrobot/EventBus)
   * [Logger](https://github.com/orhanobut/logger)
@@ -108,7 +115,7 @@ genos
 
 Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
 
-### License
+## License
     Copyright 2018 NY <nyssance@icloud.com>
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,6 +130,7 @@ Special thanks [bintray-release](https://github.com/novoda/bintray-release), you
     See the License for the specific language governing permissions and
     limitations under the License.
 
-[1]: https://nyssance.github.io/genos
+[genos]: https://nyssance.github.io/genos
+[retrofit]: https://square.github.io/retrofit/
 [2]: https://search.maven.org/remote_content?g=com.nyssance.genos&a=genos&v=LATEST
-[10]: https://developer.android.com/studio/projects/create-project.html
+[10]: https://developer.android.com/studio/projects/create-project

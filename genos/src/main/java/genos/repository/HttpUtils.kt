@@ -52,7 +52,7 @@ object HttpUtils {
             }
 
             override fun onFailure(call: Call<D>, t: Throwable) {
-                failure(666, t.localizedMessage)
+                failure(666, t.localizedMessage ?: "")
                 val request = call.request()
                 Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
             }

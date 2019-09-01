@@ -22,7 +22,7 @@ import org.junit.Test
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
- * See [testing documentation](https://d.android.com/tools/testing).
+ * See [testing documentation](https://developer.android.com/studio/test).
  */
 class ExampleUnitTest {
     @Test

@@ -19,12 +19,12 @@ package genos.ui.activity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
+import com.just.agentweb.WebChromeClient
+import com.just.agentweb.WebViewClient
 import com.nyssance.genos.R
 import genos.ui.activity.base.BaseActivity
 

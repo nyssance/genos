@@ -14,6 +14,7 @@
 bin/
 gen/
 out/
+release/
 
 # Gradle files
 .gradle/
@@ -36,14 +37,17 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+# Android Studio 3 in .gitignore file.
 .idea/caches
+.idea/modules.xml
+# Comment next line if keeping position of elements in Navigation Editor is relevant for you
+.idea/navEditor.xml
 
 # Keystore files
 *.jks
@@ -53,7 +57,7 @@ captures/
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# google-services.json
 
 # Freeline
 freeline.py
@@ -66,6 +70,16 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+# Version control
+vcs.xml
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+# lint/reports/
 
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 # General
@@ -94,9 +108,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# __Fabric__
-*.py[cod]
 
 # Jekyll
 _site

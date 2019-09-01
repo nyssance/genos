@@ -29,7 +29,7 @@ class UserDetail : DetailFragment<User>() {
     private var textView: TextView? = null
 
     override fun onPrepare() {
-        call = API.userDetail(requireActivity().intent.getStringExtra("login"))
+        call = API.userDetail(requireActivity().intent.getStringExtra("login") ?: "")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -80,7 +80,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         listView.isNestedScrollingEnabled = false
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
-        val tracker = SelectionTracker.Builder<Long>(
+        val tracker = SelectionTracker.Builder(
                 "my-selection-id",
                 listView,
                 adapter.keyProvider,
@@ -143,8 +143,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 } else {
                     //                    setMenuItemTitle(tracker.selection.size())
                 }
-                //                for (T item : tracker.getSelection()) {
-                //                    Logger.w(item)
+                //                tracker.selection.forEach {
+                //                    Logger.w(it.toString())
                 //                }
             }
         })

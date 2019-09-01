@@ -19,8 +19,8 @@ package com.example.genos.models
 import com.google.gson.annotations.SerializedName
 
 data class User(
-    var login: String?,
-    var id: Long,
-    @SerializedName("avatar_url") var avatarUrl: String?,
-    var name: String?
+        var login: String?,
+        var id: Long,
+        @SerializedName("avatar_url") var avatarUrl: String?,
+        var name: String?
 )

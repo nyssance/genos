@@ -29,12 +29,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Genos theme. -->
-    <style name="Theme.Genos" parent="BaseTheme.NoActionBar"/>
+    <style name="Theme.Genos" parent="BaseTheme.NoActionBar" />
 
     <style name="Theme.Genos.Drawer" parent="BaseTheme.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>

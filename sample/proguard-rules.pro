@@ -3,7 +3,7 @@
 # proguardFiles setting in build.gradle.kts.
 #
 # For more details, see
-#   https://developer.android.com/guide/developing/tools/proguard.html
+#   https://developer.android.com/studio/build/shrink-code
 
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface

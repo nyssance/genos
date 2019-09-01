@@ -3,7 +3,7 @@
 # proguardFiles setting in build.gradle.kts.
 #
 # For more details, see
-#   https://developer.android.com/guide/developing/tools/proguard.html
+#   https://developer.android.com/studio/build/shrink-code
 
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
@@ -25,6 +25,9 @@
 # EnclosingMethod is required to use InnerClasses.
 -keepattributes Signature, InnerClasses, EnclosingMethod
 
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
 # Retain service method parameters when optimizing.
 -keepclassmembers,allowshrinking,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
@@ -40,7 +43,13 @@
 -dontwarn kotlin.Unit
 
 # Top-level functions that can only be used by Kotlin.
--dontwarn retrofit2.-KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
 
 # [Glide](https://bumptech.github.io/glide/doc/download-setup.html#proguard)
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -55,7 +64,7 @@
 
 # [EventBus](https://greenrobot.org/eventbus/documentation/proguard)
 -keepattributes *Annotation*
--keepclassmembers class ** {
+-keepclassmembers class * {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }

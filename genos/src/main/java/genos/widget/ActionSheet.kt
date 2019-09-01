@@ -31,6 +31,6 @@ class ActionSheet : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window.setSoftInputMode(SOFT_INPUT_STATE_HIDDEN)
+        dialog?.window?.setSoftInputMode(SOFT_INPUT_STATE_HIDDEN)
     }
 }

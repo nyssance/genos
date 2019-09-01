@@ -15,35 +15,34 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
-            android:id="@id/header_title"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:textIsSelectable="false"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:textIsSelectable="false"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ViewStub
-            android:id="@id/stub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/header_title"
-            app:layout_constraintBottom_toTopOf="@id/footer"/>
+        android:id="@id/stub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header_title"
+        app:layout_constraintBottom_toTopOf="@id/footer" />
 
     <android.widget.Space
-            android:id="@id/footer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        android:id="@id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

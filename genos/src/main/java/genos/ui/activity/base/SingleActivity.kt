@@ -18,7 +18,7 @@ package genos.ui.activity.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.transaction
+import androidx.fragment.app.commit
 import com.nyssance.genos.R
 
 abstract class SingleActivity : BaseActivity() {
@@ -31,7 +31,7 @@ abstract class SingleActivity : BaseActivity() {
         if (savedInstanceState == null && fragment == null) {
             fragment = onCreateFragment()
             fragment?.let {
-                supportFragmentManager.transaction(allowStateLoss = true) {
+                supportFragmentManager.commit {
                     add(R.id.container_for_add, it)
                 }
             }
