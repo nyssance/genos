@@ -21,9 +21,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.genos.AppManager.Companion.API
-import com.example.genos.models.User
+import com.example.genos.model.User
 import genos.ui.activity.CollapsingActivity
 import genos.ui.fragment.DetailFragment
+//import kotlinx.android.synthetic.main.fragment_detail.*
 
 class UserDetail : DetailFragment<User>() {
     private var textView: TextView? = null
@@ -36,6 +37,7 @@ class UserDetail : DetailFragment<User>() {
         super.onViewCreated(view, savedInstanceState)
         textView = view.findViewById(android.R.id.text1)
         textView?.text = ""
+//        text1.text = ""
     }
 
     override fun onDisplay(data: User) {

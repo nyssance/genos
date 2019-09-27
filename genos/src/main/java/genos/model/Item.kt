@@ -25,25 +25,25 @@ import java.util.*
 
 open class Item : BaseItem {
     var choices = SimpleArrayMap<String, String>()
-    var dest: Class<out Activity>? = null
+    var destination: Class<out Activity>? = null
     var link = ""
         set(value) {
             field = value
-            enabled = (dest != null || link.isNotBlank())
+            enabled = (destination != null || link.isNotBlank())
         }
     var isSection = false
 
     @JvmOverloads
     constructor(context: Context, @StringRes id: Int, name: String? = null,
                 icon: Any? = null, title: String? = null, subtitle: String? = null,
-                dest: Class<out Activity>? = null, link: String = "", enabled: Boolean = false,
+                destination: Class<out Activity>? = null, link: String = "", enabled: Boolean = false,
                 choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
                 isSection: Boolean = false) : super(context, id, name, icon, title, subtitle, enabled) {
         this.choices = choices
-        this.dest = dest
+        this.destination = destination
         if (link.isBlank()) {
-            dest?.let {
-                var str = it.javaClass.simpleName.toLowerCase(Locale.ROOT)
+            destination?.let {
+                var str = (it::class.simpleName ?: "unknown").toLowerCase(Locale.ROOT)
                 str = when {
                     str.endsWith("list") -> str.replace("list", "s")
                     str.endsWith("detail") -> str.removeSuffix("detail")

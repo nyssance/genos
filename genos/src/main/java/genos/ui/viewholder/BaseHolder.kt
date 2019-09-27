@@ -35,7 +35,7 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             view?.let {
                 views.put(id, it)
             } ?: run {
-                Logger.t("viewholder").e("itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(id)}")
+                Logger.t(this::class.simpleName).e("itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(id)}")
             }
             view
         } as V

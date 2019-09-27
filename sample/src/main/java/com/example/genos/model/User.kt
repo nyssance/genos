@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.genos.models
+package com.example.genos.model
 
 import com.google.gson.annotations.SerializedName
 

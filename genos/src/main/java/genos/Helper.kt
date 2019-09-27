@@ -45,9 +45,9 @@ object Helper {
                 resourceIDs[it] = resourceIDFields[it].getInt(null)
             }
         } catch (e: IllegalAccessException) {
-            Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")
+            Logger.t(this::class.simpleName).e(e, "IllegalAccessException | IllegalArgumentException")
         } catch (e: IllegalArgumentException) {
-            Logger.t("helper").e(e, "IllegalAccessException | IllegalArgumentException")
+            Logger.t(this::class.simpleName).e(e, "IllegalAccessException | IllegalArgumentException")
         }
         return resourceIDs
     }
@@ -83,7 +83,7 @@ object Helper {
     fun getResId(context: Context, name: String, defType: String, log: Boolean = true): Int {
         val id = context.resources.getIdentifier(name, defType, context.packageName)
         if (log && id == 0) {
-            Logger.t("helper").wtf("R.$defType.$name 不存在")
+            Logger.t(this::class.simpleName).wtf("R.$defType.$name 不存在")
         }
         return id
     }

@@ -16,7 +16,6 @@
 
 package genos.ui.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -49,8 +48,9 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
         listViewStyle = ListViewStyle.Grouped
     }
 
-    override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
+    override fun onUpdateLayoutManager() {
         // SO: https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
+        val context = requireContext()
         val attrs = context.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
         val divider = attrs.getDrawable(0)
         val inset = resources.getDimensionPixelSize(R.dimen.start_keyline)
@@ -60,7 +60,7 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
         val decor = DividerItemDecoration(context, layoutManager.orientation)
         decor.setDrawable(insetDivider)
         listView.addItemDecoration(decor)
-        return layoutManager
+        listView.layoutManager = layoutManager
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -81,29 +81,31 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
     }
 
     override fun onDisplayItem(item: T, holder: VH, viewType: Int) {
-        if (holder is DefaultHolder) {
-            if (item.icon == null) {
-                holder.icon.visibility = View.GONE
-            } else {
-                Glide.with(this).load(item.icon).into(holder.icon)
+        with(holder) {
+            if (this is DefaultHolder) {
+                if (item.icon == null) {
+                    icon.visibility = View.GONE
+                } else {
+                    Glide.with(this@GroupedTableDetail).load(item.icon).into(icon)
+                }
+                title.text = item.title
+                accessory.visibility = if (item.enabled) View.VISIBLE else View.GONE
             }
-            holder.title.text = item.title
-            holder.accessory.visibility = if (item.enabled) View.VISIBLE else View.GONE
-        }
-        if (holder is SubtitleHolder) {
-            data?.let {
-                holder.subtitle.text = "${readProperty(it, item.name) ?: ""}"
+            if (this is SubtitleHolder) {
+                data?.let {
+                    subtitle.text = "${readProperty(it, item.name) ?: ""}"
+                }
             }
         }
     }
 
     override fun onOpenItem(item: T) {
-        item.dest?.let {
+        item.destination?.let {
             startActivitySafely(Intent(requireContext(), it))
             return
         }
         when (item.link.toUri().scheme) {
-            "http" -> Toast.makeText(context, "为了安全不支持http, 请使用https链接。", Toast.LENGTH_LONG).show()
+            "http" -> Toast.makeText(requireContext(), "为了安全不支持http, 请使用https链接。", Toast.LENGTH_LONG).show()
             "https" -> openLink(requireContext(), item.link, item.title)
         }
         // route(item.link)
@@ -124,11 +126,13 @@ abstract class GroupedTableDetail<D : Any, T : Item, VH : RecyclerView.ViewHolde
     }
 
     private fun setupUI() {
-        adapter.removeAll()
-        adapter.append(items)
-        // 同步调用notifyDataSetChanged RecyclerView会报错
-        val handler = Handler()
-        val r = Runnable { adapter.notifyDataSetChanged() }
-        handler.post(r)
+        with(adapter) {
+            removeAll()
+            append(items)
+            // 同步调用notifyDataSetChanged RecyclerView会报错
+            val handler = Handler()
+            val r = Runnable { notifyDataSetChanged() }
+            handler.post(r)
+        }
     }
 }

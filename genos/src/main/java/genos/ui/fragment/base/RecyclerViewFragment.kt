@@ -16,7 +16,6 @@
 
 package genos.ui.fragment.base
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.IdRes
@@ -38,7 +37,6 @@ enum class ListViewStyle {
 
 abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
     protected lateinit var listView: RecyclerView
-    protected lateinit var layoutManager: RecyclerView.LayoutManager
     protected lateinit var adapter: BaseAdapter<T, VH>
     @JvmField
     protected var listViewStyle = ListViewStyle.Plain
@@ -50,15 +48,14 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     protected var tileId = R.layout.list_item_default
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_recylcer_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_recylcer_view, container, false)
+        listView = view.findViewById(android.R.id.list)
+        onUpdateLayoutManager()
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listView = view.findViewById(android.R.id.list)
-        layoutManager = onCreateLayoutManager(requireContext())
-        listView.layoutManager = layoutManager
-        listView.itemAnimator = DefaultItemAnimator()
         adapter = object : BaseAdapter<T, VH>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
                 return this@RecyclerViewFragment.onCreateViewHolder(parent, viewType)
@@ -75,9 +72,12 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 return onGetItemViewType(position)
             }
         }
-        listView.adapter = adapter
-        // NY: 不设为 false 的话, 在有NestedScrollView时, 滚动不平滑, 没有上下边界处水波效果; 无NestedScrollView设为 true/false 无影响
-        listView.isNestedScrollingEnabled = false
+        with(listView) {
+            itemAnimator = DefaultItemAnimator()
+            adapter = this@RecyclerViewFragment.adapter
+            // NY: 不设为 false 的话, 在有NestedScrollView时, 滚动不平滑, 没有上下边界处水波效果; 无NestedScrollView设为 true/false 无影响
+            isNestedScrollingEnabled = false
+        }
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
         val tracker = SelectionTracker.Builder(
@@ -150,14 +150,15 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         })
     }
 
-    /**
-     * @param context
-     * @return LayoutManager
-     */
-    protected abstract fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager
+    protected abstract fun onUpdateLayoutManager()
 
     /**
      * 获取子类的 ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     *
+     * @return VH
      */
     protected open fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val superClassType = javaClass.genericSuperclass as ParameterizedType
@@ -172,7 +173,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 }
                 return constructor.newInstance(view)
             } catch (e: Exception) {
-                Logger.t("recycler viewholder").e(e, "Exception")
+                Logger.t(this::class.simpleName).e(e, "Exception")
             }
         }
         val v = View(requireContext())
@@ -187,7 +188,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         return when (action) {
             R.id.action_item_open -> {
                 item?.let(this::onOpenItem) ?: run {
-                    Logger.t("recycler").w("item is null.")
+                    Logger.t(this::class.simpleName).w("item is null.")
                 }
                 true
             }
@@ -214,7 +215,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
 
     // TODO:
     protected fun setSelection(position: Int, offset: Int) {
-        layoutManager.scrollToPosition(position)
+        listView.layoutManager?.scrollToPosition(position)
     }
 
     protected fun setHeader(view: View, @LayoutRes layout: Int): View? {

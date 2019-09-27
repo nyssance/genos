@@ -16,14 +16,13 @@
 
 package genos.ui.fragment
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import genos.ui.fragment.base.ListFragment
 
-abstract class CollectionList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
-    override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
-        return StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+abstract class CollectionList<T : Any, VH : RecyclerView.ViewHolder>(private val spanCount: Int = 2) : ListFragment<List<T>, T, VH>() {
+    override fun onUpdateLayoutManager() {
+        listView.layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
     }
 
     override fun transformListFromData(data: List<T>): List<T> {

@@ -32,7 +32,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     // https://developer.android.com/guide/components/fragments#Lifecycle
 
     /**
-     * onAttach() : 绑定Activity的callback
+     * onAttach() - 绑定Activity的callback
      */
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,17 +41,14 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     /**
-     * onPrepare() : 初始化, call, tileId, setHasOptionsMenu
+     * 初始化 call, tileId, setHasOptionsMenu
      */
     protected abstract fun onPrepare()
 
     /**
-     * onCreateView() : 布局, Fragment会被混淆, 所以都需要手动设置
+     * onCreateView() - 布局, Fragment会被混淆, 所以都需要手动设置
      */
 
-    /**
-     * onViewCreated() : ensureList()，各种findViewById获取View
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_SHORT).show()
@@ -59,11 +56,11 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     /**
-     * onActivityCreated() : 设置Adapter，List选中样式等在这里添加，加载数据前的最终初始化
+     * onActivityCreated() - 设置Adapter，List选中样式等在这里添加，加载数据前的最终初始化
      */
 
     /**
-     * onPause() : 需要持久化纪录状态的写在这里, 因为用户可能不返回了
+     * onPause() - 需要持久化纪录状态的写在这里, 因为用户可能不返回了
      */
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,7 +68,7 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        Logger.t("base").i("onKeyUp keyCode: $keyCode")
+        Logger.t(this::class.simpleName).i("onKeyUp keyCode - $keyCode")
         return when (keyCode) { // KEYCODE_SEARCH 处理一些设备的专用search按钮
             KeyEvent.KEYCODE_F1 -> onPerform(R.id.action_help)
             KeyEvent.KEYCODE_F5 -> onPerform(R.id.action_view_refresh)

@@ -93,7 +93,6 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
     protected open fun onViewModelCreated() {}
 
     protected open fun onDataChanged(data: D) {
-        // Logger.t("loader").d("onDataChanged")
         isLoading = false
         if (refreshControlMode == RefreshControlMode.Always) {
             refreshControl?.isRefreshing = false
@@ -104,11 +103,11 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
     protected abstract fun onDisplay(data: D)
 
     protected open fun onLoadSuccess(code: Int) {
-        Logger.t("base").d("onLoadSuccess code $code")
+        Logger.t(this::class.simpleName).d("onLoadSuccess code $code")
     }
 
     protected open fun onLoadFailure(code: Int, message: String) {
-        Logger.t("base").w(message)
+        Logger.t(this::class.simpleName).w(message)
     }
 
     // MARK: - 💛 Action

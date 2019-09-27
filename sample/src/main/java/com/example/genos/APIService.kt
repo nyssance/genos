@@ -16,7 +16,7 @@
 
 package com.example.genos
 
-import com.example.genos.models.User
+import com.example.genos.model.User
 
 import retrofit2.Call
 import retrofit2.http.GET

@@ -16,17 +16,13 @@
 
 package genos.ui.fragment
 
-import android.content.Context
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
 abstract class TableList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
-    override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
-        val layoutManager = LinearLayoutManager(context)
-        listView.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
-        return layoutManager
+    override fun onUpdateLayoutManager() {
+        listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 
     override fun transformListFromData(data: List<T>): List<T> {

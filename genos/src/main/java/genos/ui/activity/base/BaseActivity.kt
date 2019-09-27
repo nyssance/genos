@@ -55,8 +55,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val className = javaClass.simpleName
-        Logger.t("base").i("$className : onCreate()")
+        val className = this::class.simpleName ?: "BaseActivity"
+        Logger.t(className).i("$className :: onCreate()")
         val name = className.replace("Activity", "")
                 .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
                 .toLowerCase(Locale.ENGLISH)
@@ -91,7 +91,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (id > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
             setContentView(id)
         } else {
-            Logger.t("base").wtf("$layoutName.xml not exist!")
+            Logger.t(this::class.simpleName).wtf("$layoutName.xml not exist!")
         }
     }
 
@@ -156,7 +156,7 @@ abstract class BaseActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onEventReceived(event: MessageEvent) {
         Logger.t("EventBus")
-                .w("Activity: ${javaClass.simpleName} 收到了 Fragment: ${event.sender.javaClass.simpleName} 的消息: ${event.message}")
+                .w("【Activity】${this::class.simpleName} 收到了【Fragment】${event.sender::class.simpleName} 的消息: ${event.message}")
     }
 
     interface OnBackPressedListener {

@@ -11,12 +11,12 @@ For more information please see [the website][genos].
 ### bulid.gradle
 
 ```groovy
-implementation 'com.nyssance.genos:genos:1.1.7'
+implementation 'com.nyssance.genos:genos:1.1.8'
 ```
 ### bulid.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:1.1.7")
+implementation("com.nyssance.genos:genos:1.1.8")
 ```
 
 ## Features

@@ -16,14 +16,13 @@
 
 package genos.ui.fragment
 
-import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
-abstract class GridList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
-    override fun onCreateLayoutManager(context: Context): RecyclerView.LayoutManager {
-        return GridLayoutManager(context, 3)
+abstract class GridList<T : Any, VH : RecyclerView.ViewHolder>(private val spanCount: Int = 3) : ListFragment<List<T>, T, VH>() {
+    override fun onUpdateLayoutManager() {
+        listView.layoutManager = GridLayoutManager(requireContext(), spanCount)
     }
 
     override fun transformListFromData(data: List<T>): List<T> {
