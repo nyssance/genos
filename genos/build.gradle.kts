@@ -30,7 +30,7 @@ configure<PublishExtension> {
     userOrg = "nyssance"
     groupId = "com.nyssance.genos"
     artifactId = "genos"
-    publishVersion = "1.1.8"
+    publishVersion = "1.2.0"
     desc = "The BEST high-level framework for Android by NY."
     website = "https://github.com/nyssance/genos"
 }
@@ -54,10 +54,9 @@ android {
 }
 
 dependencies {
-    val ktxVersion = "1.2.0-alpha03"
-    val ktxFragmentVersion = "1.2.0-alpha02"
+    val ktxVersion = "1.2.0-alpha04"
 
-    val materialVersion = "1.1.0-alpha09"
+    val materialVersion = "1.1.0-alpha10"
     val recyclerviewSelectionVersion = "1.1.0-alpha06"
     val swipeRefreshVersion = "1.1.0-alpha02"
     val constraintVersion = "2.0.0-beta2"
@@ -67,18 +66,18 @@ dependencies {
     // Vendor
     val loggerVersion = "2.2.0"                 // https://github.com/orhanobut/logger
     val retrofitVersion = "2.6.1"               // https://square.github.io/retrofit/
-    val glideVersion = "4.9.0"                  // https://github.com/bumptech/glide
+    val glideVersion = "4.10.0"                 // https://github.com/bumptech/glide
     val eventbusVersion = "3.1.1"               // https://github.com/greenrobot/EventBus
     val agentWebVersion = "4.1.2"               // https://github.com/Justson/AgentWeb
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation(kotlin("reflect", KotlinCompilerVersion.VERSION))
-    // Material Components for Android https://material.io/develop/android/
-    api("com.google.android.material:material:$materialVersion")
     // Android KTX https://developer.android.com/kotlin/ktx
     api("androidx.core:core-ktx:$ktxVersion")
-    api("androidx.fragment:fragment-ktx:$ktxFragmentVersion")
+    api("androidx.fragment:fragment-ktx:$ktxVersion")
+    // Material Components for Android https://material.io/develop/android/
+    api("com.google.android.material:material:$materialVersion")
     // https://developer.android.com/jetpack/androidx/versions
     api("androidx.recyclerview:recyclerview-selection:$recyclerviewSelectionVersion")
     api("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")

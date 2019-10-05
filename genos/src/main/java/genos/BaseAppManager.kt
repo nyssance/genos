@@ -41,7 +41,7 @@ abstract class BaseAppManager {
         @JvmField
         var AUTH_HEADER = "Authorization"
         @JvmField
-        var AUTH_PREFIX = "JWT" // JWT / Bearer
+        var AUTH_PREFIX = "Bearer" // {Bearer,JWT}
         @JvmField
         var AUTH_TOKEN = ""
     }
@@ -119,9 +119,7 @@ abstract class BaseAppManager {
             }
         }).build()
         //      .cache(cache)
-
-        //
-        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create() // TODO: 是否必须
+        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create() //TODO 是否必须
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .callFactory(httpClient) // 官方建议使用callFactory而不使用client方法

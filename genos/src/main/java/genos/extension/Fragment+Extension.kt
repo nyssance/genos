@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package genos
+package genos.extension
 
 import android.content.Intent
 import android.widget.Toast
@@ -28,6 +28,12 @@ import androidx.fragment.app.Fragment
 @ColorInt
 fun Fragment.getColor(@ColorRes id: Int): Int {
     return ContextCompat.getColor(requireContext(), id)
+}
+
+
+@JvmOverloads
+fun Fragment.navigateTo(intent: Intent) {
+    startActivitySafely(intent)
 }
 
 @JvmOverloads

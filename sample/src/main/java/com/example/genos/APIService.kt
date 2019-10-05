@@ -25,8 +25,8 @@ import retrofit2.http.Query
 
 interface APIService {
     @GET("repos/square/retrofit/contributors")
-    fun userList(@Query("page") page: Int): Call<List<User>>
+    fun userList(@Query("page") page: Int): Call<ArrayList<User>>
 
-    @GET("users/{login}")
-    fun userDetail(@Path("login") login: String): Call<User>
+    @GET("users/{username}")
+    fun userDetail(@Path("username") username: String): Call<User>
 }

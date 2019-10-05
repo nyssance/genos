@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright 2018 NY <nyssance@icloud.com>
   ~
@@ -36,8 +37,8 @@
         android:id="@id/stub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/header_title"
-        app:layout_constraintBottom_toTopOf="@id/footer" />
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintTop_toBottomOf="@id/header_title" />
 
     <android.widget.Space
         android:id="@id/footer"

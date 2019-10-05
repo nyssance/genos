@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package genos.ui.viewholder
+package genos.ui.fragment.generic
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.nyssance.genos.R
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import genos.ui.fragment.base.ListFragment
 
-open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
-    @JvmField
-    val icon: ImageView = getView(android.R.id.icon)
-    @JvmField
-    val title: TextView = getView(android.R.id.title)
-    @JvmField
-    val accessory: ImageView = getView(R.id.accessory)
+abstract class StaggeredGridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 2) : ListFragment<ArrayList<T>, T, VH>(spanCount) {
+    override fun onUpdateLayoutManager() {
+        listView.layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
+    }
+
+    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
+        return data
+    }
 }

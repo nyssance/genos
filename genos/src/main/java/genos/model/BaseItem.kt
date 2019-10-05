@@ -19,21 +19,14 @@ package genos.model
 import android.content.Context
 import androidx.annotation.StringRes
 
-abstract class BaseItem {
-    var id = 0
-    var name: String
-    var icon: Any? = null
-    var title: String
-    var subtitle: String? = null
-    var enabled = false
-
-    @JvmOverloads
-    constructor(context: Context, @StringRes id: Int, name: String? = null, icon: Any? = null, title: String? = null, subtitle: String? = null, enabled: Boolean = false) {
-        this.id = id
-        this.name = name ?: context.resources.getResourceEntryName(id)
-        this.icon = icon
-        this.title = title ?: context.getString(id)
-        this.subtitle = subtitle
-        this.enabled = enabled
-    }
+abstract class BaseItem @JvmOverloads constructor(
+        context: Context,
+        @StringRes val id: Int,
+        name: String? = null,
+        val icon: Any? = null,
+        title: String? = null,
+        val subtitle: String? = null,
+        var enabled: Boolean = false) {
+    val name: String = name ?: context.resources.getResourceEntryName(id)
+    val title = title ?: context.getString(id)
 }

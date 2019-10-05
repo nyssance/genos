@@ -23,22 +23,22 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.core.util.getOrElse
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
+import genos.extension.setImage
 
 open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views = SparseArray<View>()
 
-    fun <V : View> getView(@IdRes id: Int): V {
+    fun <T : View> getView(@IdRes id: Int): T {
         return views.getOrElse(id) {
-            val view = itemView.findViewById<V>(id)
+            val view = itemView.findViewById<T>(id)
             view?.let {
                 views.put(id, it)
             } ?: run {
                 Logger.t(this::class.simpleName).e("itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(id)}")
             }
             view
-        } as V
+        } as T
     }
 
     fun setText(@IdRes id: Int, text: CharSequence?) {
@@ -46,10 +46,6 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun setImage(@IdRes id: Int, string: String) {
-        setImage(getView<ImageView>(id), string)
-    }
-
-    fun setImage(imageView: ImageView, string: String) {
-        Glide.with(itemView.context).load(string).into(imageView)
+        getView<ImageView>(id).setImage(string)
     }
 }

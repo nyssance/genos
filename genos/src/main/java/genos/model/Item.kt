@@ -23,24 +23,26 @@ import androidx.collection.SimpleArrayMap
 import genos.BaseAppManager.Companion.APP_SCHEME
 import java.util.*
 
-open class Item : BaseItem {
-    var choices = SimpleArrayMap<String, String>()
-    var destination: Class<out Activity>? = null
+open class Item @JvmOverloads constructor(
+        context: Context,
+        @StringRes id: Int,
+        name: String? = null,
+        icon: Any? = null,
+        title: String? = null,
+        subtitle: String? = null,
+        val destination: Class<out Activity>? = null,
+        link: String = "",
+        enabled: Boolean = false,
+        val choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
+        val isSection: Boolean = false
+) : BaseItem(context, id, name, icon, title, subtitle, enabled) {
     var link = ""
         set(value) {
             field = value
             enabled = (destination != null || link.isNotBlank())
         }
-    var isSection = false
 
-    @JvmOverloads
-    constructor(context: Context, @StringRes id: Int, name: String? = null,
-                icon: Any? = null, title: String? = null, subtitle: String? = null,
-                destination: Class<out Activity>? = null, link: String = "", enabled: Boolean = false,
-                choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
-                isSection: Boolean = false) : super(context, id, name, icon, title, subtitle, enabled) {
-        this.choices = choices
-        this.destination = destination
+    init {
         if (link.isBlank()) {
             destination?.let {
                 var str = (it::class.simpleName ?: "unknown").toLowerCase(Locale.ROOT)
@@ -56,6 +58,5 @@ open class Item : BaseItem {
             this.link = link.trim()
         }
         this.enabled = enabled || this.link.isNotBlank()
-        this.isSection = isSection
     }
 }

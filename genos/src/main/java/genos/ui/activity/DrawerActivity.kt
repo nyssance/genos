@@ -26,7 +26,7 @@ import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_drawer.*
 
-abstract class DrawerActivity(private val index: Int = 0) : NavigationActivity() {
+abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
     protected lateinit var drawerLayout: DrawerLayout
     protected lateinit var currentItem: MenuItem
 

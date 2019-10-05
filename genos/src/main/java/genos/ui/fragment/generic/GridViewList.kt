@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package genos.ui.fragment
+package genos.ui.fragment.generic
 
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
-abstract class TableList<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<List<T>, T, VH>() {
+abstract class GridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 3) : ListFragment<ArrayList<T>, T, VH>(spanCount) {
     override fun onUpdateLayoutManager() {
-        listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        listView.layoutManager = GridLayoutManager(requireContext(), spanCount)
     }
 
-    override fun transformListFromData(data: List<T>): List<T> {
+    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
         return data
     }
 }

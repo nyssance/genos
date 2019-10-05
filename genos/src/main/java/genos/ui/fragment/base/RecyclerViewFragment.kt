@@ -21,6 +21,7 @@ import android.view.*
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.core.util.contains
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -50,6 +51,9 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recylcer_view, container, false)
         listView = view.findViewById(android.R.id.list)
+        view.findViewById<NestedScrollView>(R.id.nested)?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            onScrollChange(v, scrollX, scrollY, oldScrollX, oldScrollY)
+        })
         onUpdateLayoutManager()
         return view
     }
@@ -57,6 +61,10 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = object : BaseAdapter<T, VH>() {
+            override fun getItemViewType(position: Int): Int {
+                return onGetItemViewType(position)
+            }
+
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
                 return this@RecyclerViewFragment.onCreateViewHolder(parent, viewType)
             }
@@ -67,16 +75,10 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 }
                 onDisplayItem(getItem(position), holder, getItemViewType(position))
             }
-
-            override fun getItemViewType(position: Int): Int {
-                return onGetItemViewType(position)
-            }
         }
         with(listView) {
             itemAnimator = DefaultItemAnimator()
             adapter = this@RecyclerViewFragment.adapter
-            // NY: 不设为 false 的话, 在有NestedScrollView时, 滚动不平滑, 没有上下边界处水波效果; 无NestedScrollView设为 true/false 无影响
-            isNestedScrollingEnabled = false
         }
         // SelectionTracker
         // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
@@ -150,6 +152,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         })
     }
 
+    protected abstract fun onScrollChange(v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int)
+
     protected abstract fun onUpdateLayoutManager()
 
     /**
@@ -200,11 +204,11 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         }
     }
 
-    protected abstract fun onDisplayItem(item: T, holder: VH, viewType: Int)
-
     protected open fun onGetItemViewType(position: Int): Int {
         return if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position)) R.layout.list_section else tileId
     }
+
+    protected abstract fun onDisplayItem(item: T, view: VH, viewType: Int)
 
     /**
      * Call on click list item
@@ -213,8 +217,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
      */
     protected abstract fun onOpenItem(item: T)
 
-    // TODO:
     protected fun setSelection(position: Int, offset: Int) {
+        TODO("scroll offset")
         listView.layoutManager?.scrollToPosition(position)
     }
 

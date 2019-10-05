@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.nyssance.genos.R
 
-abstract class NavigationActivity : BaseActivity() {
+abstract class NavigationActivity(val index: Int) : BaseActivity() {
     @JvmField
     protected var fragments = SparseArray<Fragment>()
     private var currentFragment: Fragment? = null

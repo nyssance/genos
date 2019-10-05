@@ -23,14 +23,15 @@ import androidx.fragment.app.Fragment
 import com.example.genos.AppManager.Companion.API
 import com.example.genos.model.User
 import genos.ui.activity.CollapsingActivity
-import genos.ui.fragment.DetailFragment
+import genos.ui.fragment.generic.Detail
+
 //import kotlinx.android.synthetic.main.fragment_detail.*
 
-class UserDetail : DetailFragment<User>() {
+class UserDetail : Detail<User>() {
     private var textView: TextView? = null
 
-    override fun onPrepare() {
-        call = API.userDetail(requireActivity().intent.getStringExtra("login") ?: "")
+    override fun onCreate() {
+        call = API.userDetail(requireActivity().intent.getStringExtra("username") ?: "")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +42,7 @@ class UserDetail : DetailFragment<User>() {
     }
 
     override fun onDisplay(data: User) {
-        textView?.text = data.name
+        textView?.text = data.username
     }
 }
 

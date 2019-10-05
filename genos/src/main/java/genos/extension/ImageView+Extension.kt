@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package genos.ui.fragment
+package genos.extension
 
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import genos.ui.fragment.base.ListFragment
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
-abstract class GridList<T : Any, VH : RecyclerView.ViewHolder>(private val spanCount: Int = 3) : ListFragment<List<T>, T, VH>() {
-    override fun onUpdateLayoutManager() {
-        listView.layoutManager = GridLayoutManager(requireContext(), spanCount)
-    }
-
-    override fun transformListFromData(data: List<T>): List<T> {
-        return data
-    }
+fun ImageView.setImage(image: Any) {
+    Glide.with(context).load(image).into(this)
 }

@@ -37,13 +37,13 @@ abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, Ba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onPrepare()
+        onCreate()
     }
 
     /**
      * 初始化 call, tileId, setHasOptionsMenu
      */
-    protected abstract fun onPrepare()
+    protected abstract fun onCreate()
 
     /**
      * onCreateView() - 布局, Fragment会被混淆, 所以都需要手动设置

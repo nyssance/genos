@@ -21,7 +21,7 @@ import android.content.Intent
 import android.widget.Toast
 import genos.ui.activity.WebActivity
 
-object Shortcuts {
+object Utils {
     @JvmStatic
     fun showLoginUI(context: Context, cls: Class<*>) {
         context.startActivity(Intent(context, cls))

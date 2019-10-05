@@ -73,17 +73,21 @@ abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView
         return data[position]
     }
 
-    fun append(items: Collection<T>) {
-        data += items
+    fun addAll(items: Collection<T>) {
+        data.addAll(items)
+        notifyDataSetChanged()
     }
 
-    fun removeAll() {
-        data.clear()
+    fun removeAll(items: Collection<T>? = null, notify: Boolean = false) {
+        items?.let(data::removeAll) ?: run(data::clear)
+        if (notify) {
+            notifyDataSetChanged()
+        }
     }
 
-    fun add(index: Int, item: T) {
+    fun insert(index: Int, item: T) {
         data.add(index, item)
-        notifyItemInserted(index) // TODO: 同步调用会不会出错
+        notifyItemInserted(index)
     }
 
     fun remove(index: Int) {

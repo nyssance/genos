@@ -23,7 +23,7 @@ import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_tab_bar.*
 
-abstract class TabBarActivity(private val index: Int = 0) : NavigationActivity() {
+abstract class TabBarActivity(index: Int = 0) : NavigationActivity(index) {
     override fun onSetContentView(name: String) {
         setContentView(R.layout.activity_tab_bar)
     }

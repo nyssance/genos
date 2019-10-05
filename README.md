@@ -4,19 +4,19 @@
 Genos makes it very easy to build better Android apps more quickly and with less code.
 For more information please see [the website][genos].
 
-* [Genos Samples](https://github.com/nyssance/genos-samples)
+- [Genos Samples](https://github.com/nyssance/genos-samples)
 
 ## Installation
 
 ### bulid.gradle
 
 ```groovy
-implementation 'com.nyssance.genos:genos:1.1.8'
+implementation 'com.nyssance.genos:genos:1.2.0'
 ```
 ### bulid.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:1.1.8")
+implementation("com.nyssance.genos:genos:1.2.0")
 ```
 
 ## Features
@@ -36,35 +36,37 @@ Genos integrate google architecture. just use. if your need learn more info abou
 
 Create a list fragment, override three methods, 20 lines code, that's all you need to do.
 ```kotlin
-class UserList : TableList<User, SubtitleHolder>() {
-    override fun onPrepare() {
-        call = API.userList(page)  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // the layout res id of list item.
+...
+import genos.ui.fragment.generic.List
+import genos.ui.viewholder.SubtitleHolder
+
+class UserList : List<User, SubtitleHolder>() {
+    override fun onCreate() {
+        call = API.userList(page)  // A retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle  // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, holder: SubtitleHolder, viewType: Int) {
-        holder.title.text = item.login
-        holder.subtitle.text = item.id.toString()
-        item.avatarUrl?.let {
-            holder.setImage(holder.icon, it)
-        }
+    override fun onDisplayItem(item: User, view: SubtitleHolder, viewType: Int) {
+        view.title.text = item.username
+        view.subtitle.text = item.id.toString()
+        view.setImage(holder.icon, item.avatarUrl)
     }
 
     override fun onOpenItem(item: User) {
-        // startActivity or do anything when click item
+        // StartActivity or do anything when click item.
     }
 }
 ```
 
-Create a bottom navigation with three buttons, 10 lines
+Create a bottom navigation with three buttons, 10 lines.
 ```kotlin
-class MainActivity : TabBarActivity(1) { // If you need a drawer navigation, just use DrawerActivity
+class MainActivity : TabBarActivity() { // If you need a drawer navigation, just use DrawerActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(fragments) {
             append(R.id.navigation_home, UserList())
-            append(R.id.navigation_discover, PlaceholderFragment.newInstance(2))
-            append(R.id.navigation_me, PlaceholderFragment.newInstance(3))
+            append(R.id.navigation_discover, PlaceholderFragment.instance("2"))
+            append(R.id.navigation_me, PlaceholderFragment.instance("3"))
         }
     }
 }
@@ -76,42 +78,67 @@ class MainActivity : TabBarActivity(1) { // If you need a drawer navigation, jus
 ## Architecture
 ```
 genos
-├── BaseAppManager.kt                 extends it for config your app.
-├── libs
-│   └── MessageEvent.kt               util for EventBus.
+├── BaseAppManager.kt                       Extends it for config your app.
+├── Helper.kt
+├── Utils.kt
+├── extension
+│   ├── Fragment+Extension.kt
+│   └── ImageView+Extension.kt
+├── model
+│   ├── BaseItem.kt
+│   └── Item.kt
 ├── repository
-│   └── HttpRepository.kt             Default Http repository.
-└─── ui
-    ├── BaseAdapter.kt                Default Adapter for list fragment.
-    ├── BaseViewModel.kt              Default ViewModel for list and detail fragment.
-    ├── activity
-    │   ├── AppBarActivity.kt         Activity with an app bar.
-    │   ├── CollapsingActivity.kt     Activity with a collapsing app bar.
-    │   ├── DrawerActivity.kt         Activity with drawer.
-    │   ├── TabBarActivity.kt         Activity with bottom navigation.
-    │   └── base                      (design your activity by extends activities in base.)
-    ├── fragment
-    │   ├── CollectionList.kt         Fragment with a staggered grid layout, use for waterfall list.
-    │   ├── DetailFragment.kt         Fragment for detail.
-    │   ├── GridList.kt               Fragment with a grid layout, user for grid list.
-    │   ├── PagerFragment.kt          Fragment with a pager.
-    │   ├── TableList.kt              Fragment with a linear layout, use for stand list, one item per line.
-    │   └── base                      (design your fragemnt by extends fragments in base.)
-    └── viewholder
-        ├── BaseHolder.kt             Base holder.
-        ├── DefaultHolder.kt          A holder with icon / title
-        └── SubtitleHolder.kt         A holder with icon / title / subtitle
+│   ├── HttpRepository.kt                   Default http repository.
+│   ├── HttpUtils.kt
+│   ├── IRepository.kt
+│   ├── NetworkState.kt
+│   └── Status.kt
+├── ui
+│   ├── BaseAdapter.kt                      Default Adapter for list fragment.
+│   ├── BaseViewModel.kt                    Default ViewModel for list and detail fragment.
+│   ├── activity
+│   │   ├── AppBarActivity.kt               Activity with an app bar.
+│   │   ├── CollapsingActivity.kt           Activity with a collapsing app bar.
+│   │   ├── DrawerActivity.kt               Activity with drawer.
+│   │   ├── TabBarActivity.kt               Activity with bottom navigation.
+│   │   ├── WebActivity.kt
+│   │   ├── base                            Design your activity by extends activity in base.
+│   │   │   ├── BaseActivity.kt
+│   │   │   ├── NavigationActivity.kt
+│   │   │   └── SingleActivity.kt
+│   ├── fragment
+│   │   ├── ActionSheet.kt
+│   │   ├── PlaceholderFragment.kt
+│   │   ├── ViewPagerFragment.kt            Fragment with a view pager.
+│   │   ├── base                            Design your fragment by extends fragment in base.
+│   │   │   ├── BaseFragment.kt
+│   │   │   ├── ListFragment.kt
+│   │   │   ├── LoaderFragment.kt
+│   │   │   ├── ObjectFragment.kt
+│   │   │   └── RecyclerViewFragment.kt
+│   │   └── generic
+│   │       ├── Detail.kt                   Fragment for detail.
+│   │       ├── List.kt                     Fragment with a linear layout, use for stand list, one item per line.
+│   │       ├── GridViewList.kt             Fragment with a grid layout, user for grid list.
+│   │       ├── StaggeredGridViewList.kt    Fragment with a staggered grid layout, use for waterfall list.
+│   │       └── TableViewDetail.kt
+│   └── viewholder
+│       ├── BaseHolder.kt                   Base holder.
+│       ├── DefaultHolder.kt                A holder with icon, title.
+│       └── SubtitleHolder.kt               A holder with icon, title, subtitle.
+├── vendor
+│   └── MessageEvent.kt                     Utils for EventBus.
 ```
 
 ## Vendor
-* Android
-  * [Android Jetpack](https://developer.android.com/jetpack/)
-* Others
-  * [Retrofit][retrofit]
-  * [Glide](https://github.com/bumptech/glide)
-  * [EventBus](https://github.com/greenrobot/EventBus)
-  * [Logger](https://github.com/orhanobut/logger)
-  * [AgentWeb](https://github.com/Justson/AgentWeb)
+- Android
+  - [Android Jetpack](https://developer.android.com/jetpack/)
+- Others
+  - [Retrofit][retrofit]
+  - [Glide](https://github.com/bumptech/glide)
+  - [EventBus](https://github.com/greenrobot/EventBus)
+  - [Logger](https://github.com/orhanobut/logger)
+  - [AgentWeb](https://github.com/Justson/AgentWeb)
 
 Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
 

@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package genos.widget
+package genos.ui.fragment.generic
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nyssance.genos.R
+import genos.ui.fragment.base.ObjectFragment
 
-class ActionSheet : BottomSheetDialogFragment() {
+abstract class Detail<D : Any> : ObjectFragment<D>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        // return inflater.inflate(R.layout.fragment_action_sheet, container, false)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setSoftInputMode(SOFT_INPUT_STATE_HIDDEN)
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 }

@@ -26,14 +26,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nyssance.genos.R
-import kotlinx.android.synthetic.main.fragment_pager.*
+import kotlinx.android.synthetic.main.fragment_view_pager.*
 
-abstract class PagerFragment(var orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL) : Fragment() {
+abstract class ViewPagerFragment(private val orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL) : Fragment() {
     @JvmField
     protected var fragments = ArrayList<Pair<String, Fragment>>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_pager, container, false)
+        return inflater.inflate(R.layout.fragment_view_pager, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ abstract class PagerFragment(var orientation: Int = ViewPager2.ORIENTATION_HORIZ
         }
         requireActivity().findViewById<TabLayout>(android.R.id.tabs)?.let {
             it.visibility = View.VISIBLE
-            TabLayoutMediator(it, pager, TabLayoutMediator.OnConfigureTabCallback { tab, position ->
+            TabLayoutMediator(it, pager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.text = fragments[position].first
             }).attach()
         }

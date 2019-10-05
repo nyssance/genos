@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package genos.ui.fragment
+package genos.ui.fragment.generic
 
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import genos.ui.fragment.base.ListFragment
 
-abstract class CollectionList<T : Any, VH : RecyclerView.ViewHolder>(private val spanCount: Int = 2) : ListFragment<List<T>, T, VH>() {
+abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<ArrayList<T>, T, VH>(1) {
+    // https://kotlinlang.org/docs/reference/classes.html
     override fun onUpdateLayoutManager() {
-        listView.layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
+        listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 
-    override fun transformListFromData(data: List<T>): List<T> {
+    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
         return data
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Copyright 2018 NY <nyssance@icloud.com>
   ~
@@ -24,4 +25,4 @@
     android:padding="16dp"
     android:text="@string/help_fragment_detail"
     android:textIsSelectable="true"
-    tools:context="genos.ui.fragment.DetailFragment" />
+    tools:context="genos.ui.fragment.generic.Detail" />

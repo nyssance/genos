@@ -20,28 +20,29 @@ import android.content.Intent
 import com.example.genos.AppManager.Companion.API
 import com.example.genos.R
 import com.example.genos.model.User
-import genos.startActivitySafely
-import genos.ui.fragment.TableList
+import genos.extension.navigateTo
+import genos.extension.setImage
+import genos.ui.fragment.generic.List
 import genos.ui.viewholder.SubtitleHolder
 
-class UserList : TableList<User, SubtitleHolder>() {
-    override fun onPrepare() {
-        call = API.userList(page)  // a retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // the layout res id of list item.
+class UserList : List<User, SubtitleHolder>() {
+    override fun onCreate() {
+        call = API.userList(page)  // A retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle  // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, holder: SubtitleHolder, viewType: Int) {
-        holder.title.text = item.login
-        holder.subtitle.text = item.id.toString()
-        item.avatarUrl?.let {
-            holder.setImage(holder.icon, it)
+    override fun onDisplayItem(item: User, view: SubtitleHolder, viewType: Int) {
+        with(view) {
+            icon.setImage(item.avatarUrl)
+            title.text = item.username
+            subtitle.text = item.id.toString()
         }
     }
 
     override fun onOpenItem(item: User) {
-        val intent = Intent()
-        intent.putExtra("login", item.login)
-        intent.setClass(requireContext(), UserDetailActivity::class.java)
-        startActivitySafely(intent)
+        val intent = Intent(requireContext(), UserDetailActivity::class.java).apply {
+            putExtra("username", item.username)
+        }
+        navigateTo(intent)
     }
 }

@@ -20,11 +20,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nyssance.genos.R
-import genos.ui.fragment.base.ObjectFragment
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class DetailFragment<D : Any> : ObjectFragment<D>() {
+class ActionSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return super.onCreateView(inflater, container, savedInstanceState)
+        // return inflater.inflate(R.layout.fragment_action_sheet, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog.window?.setSoftInputMode(SOFT_INPUT_STATE_HIDDEN)
     }
 }

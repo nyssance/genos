@@ -27,8 +27,8 @@ import java.io.IOException
 
 object HttpUtils {
     @JvmStatic
-    fun <D : Any> enqueue(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
-        // SO: https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
+    fun <D : Any> request(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
+        //SO https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
         (if (call.isExecuted) call.clone() else call).enqueue(object : Callback<D> {
             override fun onResponse(call: Call<D>, response: Response<D>) {
                 val request = call.request()

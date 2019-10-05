@@ -76,7 +76,10 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         viewModel = onCreateViewModel()
         onViewModelCreated()
         (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner, Observer {
-            onDataChanged(it)
+            isLoading = false
+            this@LoaderFragment.activity?.runOnUiThread {
+                onDataChanged(it)
+            }
         })
         if (refreshMode == RefreshMode.DidLoad) {
             refresh()
@@ -84,7 +87,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
     }
 
     protected open fun onCreateViewModel(): ViewModel {
-        // SO: https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
+        //SO https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
         // ViewModelProviders.of(this).get<BaseViewModel<D>>(BaseViewModel<D>().javaClass)
         // BaseViewModel<D>::class.java 不行
         return ViewModelProviders.of(this).get(BaseViewModel::class.java)
@@ -92,8 +95,15 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
 
     protected open fun onViewModelCreated() {}
 
+    protected open fun onDataLoadSuccess(code: Int) {
+        Logger.t(this::class.simpleName).d("onDataLoadSuccess code $code")
+    }
+
+    protected open fun onDataLoadFailure(code: Int, message: String) {
+        Logger.t(this::class.simpleName).w(message)
+    }
+
     protected open fun onDataChanged(data: D) {
-        isLoading = false
         if (refreshControlMode == RefreshControlMode.Always) {
             refreshControl?.isRefreshing = false
         }
@@ -102,14 +112,6 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
 
     protected abstract fun onDisplay(data: D)
 
-    protected open fun onLoadSuccess(code: Int) {
-        Logger.t(this::class.simpleName).d("onLoadSuccess code $code")
-    }
-
-    protected open fun onLoadFailure(code: Int, message: String) {
-        Logger.t(this::class.simpleName).w(message)
-    }
-
     // MARK: - 💛 Action
 
     protected open fun refresh() {
@@ -117,7 +119,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
             isLoading = true
             (viewModel as? BaseViewModel<D>)?.let {
                 val c = call as Call<D>
-                it.loadData(c, this::onLoadSuccess, this::onLoadFailure)
+                it.loadData(c, this::onDataLoadSuccess, this::onDataLoadFailure)
             }
         }
     }
