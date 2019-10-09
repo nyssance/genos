@@ -23,9 +23,11 @@ import com.nyssance.genos.R
 
 open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
     @JvmField
-    val icon: ImageView = getView(android.R.id.icon)
+    val icon: ImageView? = getView(android.R.id.icon)
     @JvmField
-    val title: TextView = getView(android.R.id.title)
+    val title: TextView? = getView(android.R.id.title)
     @JvmField
-    val accessory: ImageView = getView(R.id.accessory)
+    val subtitle: TextView? = getView(R.id.subtitle)
+    @JvmField
+    val accessory: ImageView? = getView(R.id.accessory)
 }

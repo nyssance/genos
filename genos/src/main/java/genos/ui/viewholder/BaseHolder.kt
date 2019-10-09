@@ -21,7 +21,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.IdRes
-import androidx.core.util.getOrElse
 import androidx.recyclerview.widget.RecyclerView
 import com.orhanobut.logger.Logger
 import genos.extension.setImage
@@ -29,23 +28,26 @@ import genos.extension.setImage
 open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views = SparseArray<View>()
 
-    fun <T : View> getView(@IdRes id: Int): T {
-        return views.getOrElse(id) {
-            val view = itemView.findViewById<T>(id)
+    fun <T : View> getView(@IdRes id: Int): T? {
+        var view = views.get(id)
+        return if (view != null) {
+            view as T
+        } else {
+            view = itemView.findViewById<T>(id)
             view?.let {
                 views.put(id, it)
             } ?: run {
-                Logger.t(this::class.simpleName).e("itemView.findViewById return null. check your tile id, IdRes: ${itemView.context.resources.getResourceName(id)}")
+                Logger.t(this::class.simpleName).d("itemView.findViewById(${itemView.context.resources.getResourceName(id)}) return null")
             }
             view
-        } as T
+        }
     }
 
     fun setText(@IdRes id: Int, text: CharSequence?) {
-        getView<TextView>(id).text = text
+        getView<TextView>(id)?.text = null
     }
 
     fun setImage(@IdRes id: Int, string: String) {
-        getView<ImageView>(id).setImage(string)
+        getView<ImageView>(id)?.setImage(string)
     }
 }

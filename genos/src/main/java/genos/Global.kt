@@ -16,7 +16,6 @@
 
 package genos
 
-import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -30,21 +29,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
-abstract class BaseAppManager {
-    companion object {
-        @JvmField
-        var LIST_START_PAGE = 1
-        @JvmField
-        var BASE_URL = "https://www.必填.com"
-        @JvmField
-        var APP_SCHEME = "genos"
-        @JvmField
-        var AUTH_HEADER = "Authorization"
-        @JvmField
-        var AUTH_PREFIX = "Bearer" // {Bearer,JWT}
-        @JvmField
-        var AUTH_TOKEN = ""
-    }
+object Global {
+    @JvmField
+    var LIST_START_PAGE = 1
+    @JvmField
+    var BASE_URL = "https://www.必填.com"
+    @JvmField
+    var APP_SCHEME = "genos"
+    @JvmField
+    var AUTH_HEADER = "Authorization"
+    @JvmField
+    var AUTH_PREFIX = "Bearer" // {Bearer,JWT}
+    @JvmField
+    var AUTH_TOKEN = ""
 
     init {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
@@ -58,14 +55,11 @@ abstract class BaseAppManager {
         //                return BuildConfig.DEBUG
         //            }
         //        })
-        this.settings()
     }
 
-    abstract fun settings()
-
-    abstract fun route(fragment: Fragment, uri: String)
-
-    protected fun onCreateRetrofit(): Retrofit {
+    fun retrofit(baseUrl: String): Retrofit {
+        Logger.d("retrofit")
+        BASE_URL = baseUrl
         // val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
         // val cache = Cache(File("/data/user/0/com.nyssance.android/cache", "http"), SIZE_OF_CACHE)
         val httpClient = OkHttpClient.Builder().addInterceptor(object : Interceptor {

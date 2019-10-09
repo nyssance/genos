@@ -29,8 +29,7 @@ abstract class SingleActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null && fragment == null) {
-            fragment = onCreateFragment()
-            fragment?.let {
+            fragment = onCreateFragment().also {
                 supportFragmentManager.commit {
                     add(R.id.container_for_add, it)
                 }

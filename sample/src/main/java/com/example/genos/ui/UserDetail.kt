@@ -20,12 +20,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.genos.AppManager.Companion.API
+import com.example.genos.API
 import com.example.genos.model.User
 import genos.ui.activity.CollapsingActivity
 import genos.ui.fragment.generic.Detail
-
-//import kotlinx.android.synthetic.main.fragment_detail.*
 
 class UserDetail : Detail<User>() {
     private var textView: TextView? = null
@@ -42,7 +40,8 @@ class UserDetail : Detail<User>() {
     }
 
     override fun onDisplay(data: User) {
-        textView?.text = data.username
+        (activity as UserDetailActivity).collapsingToolbar?.title = data.username
+        textView?.text = data.id.toString()
     }
 }
 

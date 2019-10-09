@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -45,10 +47,18 @@ android {
     }
 }
 
+//androidExtensions { isExperimental = true }
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
     testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

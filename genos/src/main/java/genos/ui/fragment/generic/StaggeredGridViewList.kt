@@ -20,12 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import genos.ui.fragment.base.ListFragment
 
-abstract class StaggeredGridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 2) : ListFragment<ArrayList<T>, T, VH>(spanCount) {
+abstract class StaggeredGridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 2) : ListFragment<kotlin.collections.List<T>, T, VH>(spanCount) {
     override fun onUpdateLayoutManager() {
         listView.layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
     }
 
-    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
+    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
         return data
     }
 }

@@ -41,7 +41,7 @@ object Helper {
         val resourceIDs = IntArray(resourceIDFields.size)
         val count = resourceIDFields.size
         try { // pass 'null' because class is static
-            (0 until count).forEach {
+            repeat(count) {
                 resourceIDs[it] = resourceIDFields[it].getInt(null)
             }
         } catch (e: IllegalAccessException) {

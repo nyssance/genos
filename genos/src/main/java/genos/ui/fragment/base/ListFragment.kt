@@ -18,13 +18,13 @@ package genos.ui.fragment.base
 
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import genos.BaseAppManager.Companion.LIST_START_PAGE
+import genos.Global.LIST_START_PAGE
 
 abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val spanCount: Int) : RecyclerViewFragment<D, T, VH>() {
     @JvmField
     protected var page = LIST_START_PAGE
 
-    protected abstract fun transformListFromData(data: D): ArrayList<T>
+    protected abstract fun transformListFromData(data: D): List<T>
 
     protected open fun hasNext(): Boolean {
         return true

@@ -32,7 +32,7 @@ fun Fragment.getColor(@ColorRes id: Int): Int {
 
 
 @JvmOverloads
-fun Fragment.navigateTo(intent: Intent) {
+fun Fragment.navigate(intent: Intent) {
     startActivitySafely(intent)
 }
 

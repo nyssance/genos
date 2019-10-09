@@ -20,7 +20,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.collection.SimpleArrayMap
-import genos.BaseAppManager.Companion.APP_SCHEME
+import genos.Global.APP_SCHEME
 import java.util.*
 
 open class Item @JvmOverloads constructor(

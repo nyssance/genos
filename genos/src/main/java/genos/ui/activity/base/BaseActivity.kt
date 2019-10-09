@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 abstract class BaseActivity : AppCompatActivity() {
-    protected var collapsingToolbar: CollapsingToolbarLayout? = null
+    var collapsingToolbar: CollapsingToolbarLayout? = null
     var navigationBar: Toolbar? = null
         protected set
     var toolbar: Toolbar? = null

@@ -20,12 +20,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
-abstract class GridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 3) : ListFragment<ArrayList<T>, T, VH>(spanCount) {
+abstract class GridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 3) : ListFragment<kotlin.collections.List<T>, T, VH>(spanCount) {
     override fun onUpdateLayoutManager() {
         listView.layoutManager = GridLayoutManager(requireContext(), spanCount)
     }
 
-    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
+    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
         return data
     }
 }

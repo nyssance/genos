@@ -24,6 +24,8 @@ import genos.ui.fragment.PlaceholderFragment
 class MainActivity : TabBarActivity(1) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        config()
+        supportActionBar?.setTitle(R.string.app_name)
         with(fragments) {
             append(R.id.navigation_home, UserList())
             append(R.id.navigation_discover, PlaceholderFragment.instance("2"))

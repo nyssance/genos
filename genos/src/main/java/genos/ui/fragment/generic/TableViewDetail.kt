@@ -27,13 +27,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nyssance.genos.R
 import genos.Utils.openLink
-import genos.extension.navigateTo
+import genos.extension.navigate
 import genos.extension.setImage
 import genos.model.Item
 import genos.ui.fragment.base.ListViewStyle
 import genos.ui.fragment.base.RecyclerViewFragment
 import genos.ui.viewholder.DefaultHolder
-import genos.ui.viewholder.SubtitleHolder
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
@@ -83,24 +82,22 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
         with(view) {
             if (this is DefaultHolder) {
                 if (item.icon == null) {
-                    icon.visibility = View.GONE
+                    icon?.visibility = View.GONE
                 } else {
-                    icon.setImage(item.icon)
+                    icon?.setImage(item.icon)
                 }
-                title.text = item.title
-                accessory.visibility = if (item.enabled) View.VISIBLE else View.GONE
-            }
-            if (this is SubtitleHolder) {
+                title?.text = item.title
                 data?.let {
-                    subtitle.text = "${readProperty(it, item.name) ?: ""}"
+                    subtitle?.text = "${readProperty(it, item.name) ?: ""}"
                 }
+                accessory?.visibility = if (item.enabled) View.VISIBLE else View.GONE
             }
         }
     }
 
     override fun onOpenItem(item: T) {
         item.destination?.let {
-            navigateTo(Intent(requireContext(), it))
+            navigate(Intent(requireContext(), it))
             return
         }
         when (item.link.toUri().scheme) {

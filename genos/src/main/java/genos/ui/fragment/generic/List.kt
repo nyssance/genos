@@ -20,13 +20,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
-abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<ArrayList<T>, T, VH>(1) {
+abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<kotlin.collections.List<T>, T, VH>(1) {
     // https://kotlinlang.org/docs/reference/classes.html
     override fun onUpdateLayoutManager() {
         listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 
-    final override fun transformListFromData(data: ArrayList<T>): ArrayList<T> {
+    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
         return data
     }
 }

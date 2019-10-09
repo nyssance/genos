@@ -1,8 +1,11 @@
 # Genos
-[ ![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg) ](https://bintray.com/nyssance/maven/genos/_latestVersion)
 
-Genos makes it very easy to build better Android apps more quickly and with less code.
+[![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg)](https://bintray.com/nyssance/maven/genos/_latestVersion)
+
+👊 Genos makes it very easy to build better mobile apps more quickly and with less code.
 For more information please see [the website][genos].
+
+[Genos for iOS](https://github.com/nyssance/genos)
 
 - [Genos Samples](https://github.com/nyssance/genos-samples)
 
@@ -13,6 +16,7 @@ For more information please see [the website][genos].
 ```groovy
 implementation 'com.nyssance.genos:genos:1.2.0'
 ```
+
 ### bulid.gradle.kts
 
 ```kotlin
@@ -20,6 +24,7 @@ implementation("com.nyssance.genos:genos:1.2.0")
 ```
 
 ## Features
+
 Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture)
 
 1. Rules
@@ -34,22 +39,20 @@ Genos integrate google architecture. just use. if your need learn more info abou
 
 2. How to use
 
-Create a list fragment, override three methods, 20 lines code, that's all you need to do.
+Create a list fragment, override three methods, 15 lines code, that's all you need to do.
 ```kotlin
 ...
 import genos.ui.fragment.generic.List
-import genos.ui.viewholder.SubtitleHolder
+import genos.ui.viewholder.DefaultHolder
 
-class UserList : List<User, SubtitleHolder>() {
+class UserList : List<User, DefaultHolder>() {
     override fun onCreate() {
         call = API.userList(page)  // A retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, view: SubtitleHolder, viewType: Int) {
-        view.title.text = item.username
-        view.subtitle.text = item.id.toString()
+    override fun onDisplayItem(item: User, view: DefaultHolder, viewType: Int) {
         view.setImage(holder.icon, item.avatarUrl)
+        view.title.text = item.username
     }
 
     override fun onOpenItem(item: User) {
@@ -73,12 +76,14 @@ class MainActivity : TabBarActivity() { // If you need a drawer navigation, just
 ```
 
 ## Tutorial
+
 [Develop an app in 10 minutes][genos].
 
 ## Architecture
+
 ```
 genos
-├── BaseAppManager.kt                       Extends it for config your app.
+├── Global.kt                               Global config.
 ├── Helper.kt
 ├── Utils.kt
 ├── extension
@@ -124,13 +129,13 @@ genos
 │   │       └── TableViewDetail.kt
 │   └── viewholder
 │       ├── BaseHolder.kt                   Base holder.
-│       ├── DefaultHolder.kt                A holder with icon, title.
-│       └── SubtitleHolder.kt               A holder with icon, title, subtitle.
+│       └── DefaultHolder.kt                A holder with icon, title, subtitle, accessory.
 ├── vendor
 │   └── MessageEvent.kt                     Utils for EventBus.
 ```
 
 ## Vendor
+
 - Android
   - [Android Jetpack](https://developer.android.com/jetpack/)
 - Others
@@ -140,22 +145,11 @@ genos
   - [Logger](https://github.com/orhanobut/logger)
   - [AgentWeb](https://github.com/Justson/AgentWeb)
 
-Special thanks [bintray-release](https://github.com/novoda/bintray-release), you save my life.
+Special thanks [bintray-release](https://github.com/novoda/bintray-release), who save my life.
 
 ## License
-    Copyright 2018 NY <nyssance@icloud.com>
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Genos is released under the Apache license. [See LICENSE](https://github.com/nyssance/genos/blob/master/LICENSE) for details.
 
 [genos]: https://nyssance.github.io/genos
 [retrofit]: https://square.github.io/retrofit/

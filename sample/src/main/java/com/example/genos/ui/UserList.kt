@@ -17,25 +17,25 @@
 package com.example.genos.ui
 
 import android.content.Intent
-import com.example.genos.AppManager.Companion.API
+import com.example.genos.API
 import com.example.genos.R
 import com.example.genos.model.User
-import genos.extension.navigateTo
+import genos.extension.navigate
 import genos.extension.setImage
 import genos.ui.fragment.generic.List
-import genos.ui.viewholder.SubtitleHolder
+import genos.ui.viewholder.DefaultHolder
 
-class UserList : List<User, SubtitleHolder>() {
+class UserList : List<User, DefaultHolder>() {
     override fun onCreate() {
         call = API.userList(page)  // A retrofit call of this fragment.
         tileId = R.layout.list_item_subtitle  // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, view: SubtitleHolder, viewType: Int) {
+    override fun onDisplayItem(item: User, view: DefaultHolder, viewType: Int) {
         with(view) {
-            icon.setImage(item.avatarUrl)
-            title.text = item.username
-            subtitle.text = item.id.toString()
+            icon?.setImage(item.avatarUrl)
+            title?.text = item.username
+            subtitle?.text = item.id.toString()
         }
     }
 
@@ -43,6 +43,6 @@ class UserList : List<User, SubtitleHolder>() {
         val intent = Intent(requireContext(), UserDetailActivity::class.java).apply {
             putExtra("username", item.username)
         }
-        navigateTo(intent)
+        navigate(intent)
     }
 }
