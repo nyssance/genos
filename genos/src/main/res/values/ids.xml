@@ -23,8 +23,8 @@
     <item name="stub" type="id" />
     <!-- NavigationView & BottomNavigationView -->
     <item name="navigation" type="id" />
-    <item name="pager" type="id" />
     <item name="swipe_refresh" type="id" />
+    <item name="view_pager" type="id" />
     <!-- AppBar -->
     <item name="collapsing_toolbar" type="id" />
     <item name="navigation_bar" type="id" />
@@ -35,7 +35,6 @@
     <!-- android.R.id.list用于表示list和通用指代, grid用于ListView和GridView能切换的场景 -->
     <item name="header" type="id" />
     <item name="footer" type="id" />
-    <item name="list_divider" type="id" />
     <item name="subtitle" type="id" />
     <item name="accessory" type="id" />
     <item name="badge" type="id" />

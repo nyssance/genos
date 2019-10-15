@@ -16,12 +16,16 @@
 
 package genos.extension
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import genos.model.Item
+import genos.ui.fragment.ActionSheet
+import genos.ui.fragment.Dialog
 
 // NY: ContextCompat, ViewCompat里有很多版本兼容方法, 不用自己写
 
@@ -30,10 +34,17 @@ fun Fragment.getColor(@ColorRes id: Int): Int {
     return ContextCompat.getColor(requireContext(), id)
 }
 
-
-@JvmOverloads
 fun Fragment.navigate(intent: Intent) {
     startActivitySafely(intent)
+}
+
+fun Fragment.showActionSheet(title: String, items: List<Item>, action: (Item) -> Unit) {
+    ActionSheet.instance(title, items, action).show(requireActivity().supportFragmentManager, null)
+}
+
+@JvmOverloads
+fun Fragment.showAlert(title: String, message: String? = null, action: ((DialogInterface, Int) -> Unit)? = null) {
+    Dialog(title, message, action).show(requireActivity().supportFragmentManager, null)
 }
 
 @JvmOverloads

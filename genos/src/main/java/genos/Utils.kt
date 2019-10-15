@@ -28,14 +28,6 @@ object Utils {
     }
 
     @JvmStatic
-    fun showAlert() {
-    }
-
-    @JvmStatic
-    fun showActionSheet() {
-    }
-
-    @JvmStatic
     fun openLink(context: Context, url: String, title: String? = null) {
         if (url.isBlank()) {
             return

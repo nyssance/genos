@@ -20,12 +20,11 @@ import android.util.SparseArray
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.nyssance.genos.R
 
 abstract class NavigationActivity(val index: Int) : BaseActivity() {
     @JvmField
-    protected var fragments = SparseArray<Fragment>()
+    protected val fragments = SparseArray<Fragment>()
     private var currentFragment: Fragment? = null
     private var currentTag = ""
 
@@ -45,11 +44,11 @@ abstract class NavigationActivity(val index: Int) : BaseActivity() {
             }
         }
         fragment?.let {
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            // transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             transaction.commit()
             currentFragment = it
         } ?: run {
-            Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(key)} not exist!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(key)} not exists!", Toast.LENGTH_LONG).show()
         }
         return true
     }

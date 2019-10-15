@@ -37,8 +37,8 @@ abstract class ViewPagerFragment(private val orientation: Int = ViewPager2.ORIEN
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        pager.orientation = orientation
-        pager.adapter = object : FragmentStateAdapter(requireActivity()) {
+        view_pager.orientation = orientation
+        view_pager.adapter = object : FragmentStateAdapter(requireActivity()) {
             override fun getItemCount(): Int {
                 return fragments.size
             }
@@ -49,7 +49,7 @@ abstract class ViewPagerFragment(private val orientation: Int = ViewPager2.ORIEN
         }
         requireActivity().findViewById<TabLayout>(android.R.id.tabs)?.let {
             it.visibility = View.VISIBLE
-            TabLayoutMediator(it, pager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            TabLayoutMediator(it, view_pager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.text = fragments[position].first
             }).attach()
         }

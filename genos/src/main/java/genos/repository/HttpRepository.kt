@@ -17,13 +17,14 @@
 package genos.repository
 
 import androidx.lifecycle.MutableLiveData
+import genos.repository.HttpUtils.request
 import retrofit2.Call
 
 class HttpRepository<D : Any> : IRepository<D> {
     override fun getData(
             call: Call<D>, data: MutableLiveData<D>,
             success: (Int) -> Unit, failure: (Int, String) -> Unit): MutableLiveData<D> {
-        HttpUtils.request(call, { code, response ->
+        request(call, { code, response ->
             data.postValue(response.body())
             success(code)
         }, failure)

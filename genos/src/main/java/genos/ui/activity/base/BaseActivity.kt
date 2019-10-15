@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
@@ -60,7 +61,7 @@ abstract class BaseActivity : AppCompatActivity() {
         val name = className.replace("Activity", "")
                 .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
                 .toLowerCase(Locale.ENGLISH)
-        onSetContentView(name)
+        onCreateView(name)
         menuRes = Helper.getResId(this, name, "menu", false)
         // 可折叠顶栏
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
@@ -85,14 +86,12 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected open fun onSetContentView(name: String) {
+    protected open fun onCreateView(name: String) {
         val layoutName = "activity_$name"
         val id = Helper.getResId(this, layoutName, "layout")
         if (id > 0) { // NY: 如果子类重新setContentView并且和此处同名，同时包含fragment的话，会报错
             setContentView(id)
-        } else {
-            Logger.t(this::class.simpleName).wtf("$layoutName.xml not exist!")
-        }
+        } else Toast.makeText(this, "$layoutName.xml not exists!", Toast.LENGTH_LONG).show()
     }
 
     override fun onStart() {

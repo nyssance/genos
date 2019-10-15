@@ -29,7 +29,7 @@ import genos.ui.activity.base.BaseActivity
 
 abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, BaseActivity.OnKeyUpListener {
     // 💖 Lifecycle
-    // https://developer.android.com/guide/components/fragments#Lifecycle
+    // Android https://developer.android.com/guide/components/fragments#Lifecycle
 
     /**
      * onAttach() - 绑定Activity的callback

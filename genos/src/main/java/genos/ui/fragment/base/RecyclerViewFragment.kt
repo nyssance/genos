@@ -76,19 +76,13 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 onDisplayItem(getItem(position), holder, getItemViewType(position))
             }
         }
-        with(listView) {
-            itemAnimator = DefaultItemAnimator()
-            adapter = this@RecyclerViewFragment.adapter
-        }
+        listView.itemAnimator = DefaultItemAnimator()
+        listView.adapter = adapter
         // SelectionTracker
-        // Android: https://developer.android.com/guide/topics/ui/layout/recyclerview
-        val tracker = SelectionTracker.Builder(
-                "my-selection-id",
-                listView,
-                adapter.keyProvider,
-                adapter.detailsLookup,
-                StorageStrategy.createLongStorage()
-        )
+        // Android https://developer.android.com/guide/topics/ui/layout/recyclerview
+        val tracker = SelectionTracker.Builder("selection-id",
+                listView, adapter.keyProvider, adapter.detailsLookup,
+                StorageStrategy.createLongStorage())
                 .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
                     override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
                         return canSelectMultiple
@@ -104,7 +98,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
 
                 })
                 .withOnItemActivatedListener { item, _ ->
-                    this@RecyclerViewFragment.onOpenItem(adapter.getItem(item.position))
+                    onOpenItem(adapter.getItem(item.position))
                     Logger.w("单击 onItemActivated: ")
                     true
                 }

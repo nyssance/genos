@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat
 import com.orhanobut.logger.Logger
 
 object Helper {
-    // https://developer.android.com/guide/topics/data/data-storage#filesExternal
+    // Android https://developer.android.com/guide/topics/data/data-storage#filesExternal
     val isExternalStorageReadable: Boolean
         get() {
             val state = Environment.getExternalStorageState()

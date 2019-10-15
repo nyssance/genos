@@ -24,6 +24,7 @@ import okhttp3.*
 import okio.BufferedSink
 import okio.GzipSink
 import okio.Okio
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -57,7 +58,11 @@ object Global {
         //        })
     }
 
-    fun retrofit(baseUrl: String): Retrofit {
+    fun retrofit(
+            baseUrl: String,
+            converter: Converter.Factory = GsonConverterFactory.create(
+                    GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()))
+            : Retrofit {
         Logger.d("retrofit")
         BASE_URL = baseUrl
         // val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB
@@ -113,11 +118,10 @@ object Global {
             }
         }).build()
         //      .cache(cache)
-        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create() //TODO 是否必须
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .callFactory(httpClient) // 官方建议使用callFactory而不使用client方法
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(converter)
                 .build()
     }
 }

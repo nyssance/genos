@@ -32,7 +32,7 @@ import genos.extension.setImage
 import genos.model.Item
 import genos.ui.fragment.base.ListViewStyle
 import genos.ui.fragment.base.RecyclerViewFragment
-import genos.ui.viewholder.DefaultHolder
+import genos.ui.viewholder.Holder
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
@@ -80,7 +80,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
 
     override fun onDisplayItem(item: T, view: VH, viewType: Int) {
         with(view) {
-            if (this is DefaultHolder) {
+            if (this is Holder) {
                 if (item.icon == null) {
                     icon?.visibility = View.GONE
                 } else {

@@ -17,6 +17,7 @@
 package com.example.genos
 
 import android.os.Bundle
+import com.example.genos.ui.Discover
 import com.example.genos.ui.UserList
 import genos.ui.activity.TabBarActivity
 import genos.ui.fragment.PlaceholderFragment
@@ -28,7 +29,7 @@ class MainActivity : TabBarActivity(1) {
         supportActionBar?.setTitle(R.string.app_name)
         with(fragments) {
             append(R.id.navigation_home, UserList())
-            append(R.id.navigation_discover, PlaceholderFragment.instance("2"))
+            append(R.id.navigation_discover, Discover())
             append(R.id.navigation_me, PlaceholderFragment.instance("3"))
         }
     }

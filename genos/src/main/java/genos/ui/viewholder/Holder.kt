@@ -21,7 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.nyssance.genos.R
 
-open class DefaultHolder(itemView: View) : BaseHolder(itemView) {
+open class Holder(itemView: View) : BaseHolder(itemView) {
     @JvmField
     val icon: ImageView? = getView(android.R.id.icon)
     @JvmField

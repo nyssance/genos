@@ -30,7 +30,7 @@ abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
     protected lateinit var drawerLayout: DrawerLayout
     protected lateinit var currentItem: MenuItem
 
-    override fun onSetContentView(name: String) {
+    override fun onCreateView(name: String) {
         setContentView(R.layout.activity_drawer)
         drawerLayout = drawer_layout
     }
@@ -43,7 +43,7 @@ abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
                 navigationBar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
-        ) // 不能onSetContentView中调用, navigationBar还未获取为null
+        ) // 不能onCreateView中调用, navigationBar还未获取为null
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navigation.setNavigationItemSelectedListener {
@@ -63,10 +63,7 @@ abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START)
+        else super.onBackPressed()
     }
 }

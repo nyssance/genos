@@ -30,8 +30,8 @@ android {
         applicationId = "com.example.genos"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 118
-        versionName = "1.2.0"
+        versionCode = 121
+        versionName = "1.2.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,6 +52,11 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
+    // Anko Commons
+    implementation("org.jetbrains.anko:anko-commons:0.10.8")
+    // Anko Layouts
+    implementation("org.jetbrains.anko:anko-sdk21:0.10.8")
+    implementation("org.jetbrains.anko:anko-appcompat-v7:0.10.8")
     testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")

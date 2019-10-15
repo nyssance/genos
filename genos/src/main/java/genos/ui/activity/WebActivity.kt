@@ -41,7 +41,7 @@ class WebActivity : BaseActivity() {
         }
     }
 
-    override fun onSetContentView(name: String) {
+    override fun onCreateView(name: String) {
         setContentView(R.layout.activity_app_bar)
     }
 

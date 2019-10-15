@@ -77,7 +77,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
         onViewModelCreated()
         (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner, Observer {
             isLoading = false
-            this@LoaderFragment.activity?.runOnUiThread {
+            activity?.runOnUiThread {
                 onDataChanged(it)
             }
         })

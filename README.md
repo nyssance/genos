@@ -14,13 +14,13 @@ For more information please see [the website][genos].
 ### bulid.gradle
 
 ```groovy
-implementation 'com.nyssance.genos:genos:1.2.0'
+implementation 'com.nyssance.genos:genos:1.2.1'
 ```
 
 ### bulid.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:1.2.0")
+implementation("com.nyssance.genos:genos:1.2.1")
 ```
 
 ## Features
@@ -113,6 +113,7 @@ genos
 │   │   │   └── SingleActivity.kt
 │   ├── fragment
 │   │   ├── ActionSheet.kt
+│   │   ├── Dialog.kt
 │   │   ├── PlaceholderFragment.kt
 │   │   ├── ViewPagerFragment.kt            Fragment with a view pager.
 │   │   ├── base                            Design your fragment by extends fragment in base.
@@ -129,7 +130,7 @@ genos
 │   │       └── TableViewDetail.kt
 │   └── viewholder
 │       ├── BaseHolder.kt                   Base holder.
-│       └── DefaultHolder.kt                A holder with icon, title, subtitle, accessory.
+│       └── Holder.kt                       A holder with icon, title, subtitle, accessory.
 ├── vendor
 │   └── MessageEvent.kt                     Utils for EventBus.
 ```

@@ -23,15 +23,15 @@ import com.example.genos.model.User
 import genos.extension.navigate
 import genos.extension.setImage
 import genos.ui.fragment.generic.List
-import genos.ui.viewholder.DefaultHolder
+import genos.ui.viewholder.Holder
 
-class UserList : List<User, DefaultHolder>() {
+class UserList : List<User, Holder>() {
     override fun onCreate() {
         call = API.userList(page)  // A retrofit call of this fragment.
         tileId = R.layout.list_item_subtitle  // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, view: DefaultHolder, viewType: Int) {
+    override fun onDisplayItem(item: User, view: Holder, viewType: Int) {
         with(view) {
             icon?.setImage(item.avatarUrl)
             title?.text = item.username
