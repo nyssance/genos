@@ -51,7 +51,7 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val 
     }
 
     override fun onScrollChange(v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
-        //SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
+        // SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
         if (scrollY == listView.measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
             loadMore()
         }

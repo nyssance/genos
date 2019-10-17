@@ -61,8 +61,9 @@ object Global {
     fun retrofit(
             baseUrl: String,
             converter: Converter.Factory = GsonConverterFactory.create(
-                    GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()))
-            : Retrofit {
+                    GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()
+            )
+    ): Retrofit {
         Logger.d("retrofit")
         BASE_URL = baseUrl
         // val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong() // 10 MiB

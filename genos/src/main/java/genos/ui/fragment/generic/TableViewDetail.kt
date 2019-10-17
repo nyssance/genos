@@ -47,7 +47,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
     }
 
     override fun onUpdateLayoutManager() {
-        //SO https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
+        // SO https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
         val context = requireContext()
         val attrs = context.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
         val divider = attrs.getDrawable(0)

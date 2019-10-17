@@ -30,7 +30,7 @@ configure<PublishExtension> {
     userOrg = "nyssance"
     groupId = "com.nyssance.genos"
     artifactId = "genos"
-    publishVersion = "1.2.1"
+    publishVersion = "1.2.2"
     desc = "The BEST high-level framework for Android by NY."
     website = "https://github.com/nyssance/genos"
 }
@@ -40,9 +40,9 @@ android {
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 121
-        versionName = "1.2.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 122
+        versionName = "1.2.2"
     }
     buildTypes {
         getByName("release") {
@@ -64,11 +64,11 @@ dependencies {
     val pagingVersion = "2.1.0"
     val workVersion = "1.0.1"
     // Vendor
-    val loggerVersion = "2.2.0"                 // https://github.com/orhanobut/logger
-    val retrofitVersion = "2.6.1"               // https://square.github.io/retrofit/
-    val glideVersion = "4.10.0"                 // https://github.com/bumptech/glide
-    val eventbusVersion = "3.1.1"               // https://github.com/greenrobot/EventBus
-    val agentWebVersion = "4.1.2"               // https://github.com/Justson/AgentWeb
+    val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
+    val retrofitVersion = "2.6.1" // https://square.github.io/retrofit/
+    val glideVersion = "4.10.0" // https://github.com/bumptech/glide
+    val eventbusVersion = "3.1.1" // https://github.com/greenrobot/EventBus
+    val agentWebVersion = "4.1.2" // https://github.com/Justson/AgentWeb
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))

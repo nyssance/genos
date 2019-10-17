@@ -32,9 +32,11 @@ import kotlinx.android.synthetic.main.fragment_action_sheet.*
 
 // https://material.io/develop/android/components/bottom-sheet-dialog-fragment/
 
-class ActionSheet(private val title: String,
-                  private val items: List<Item>,
-                  private val action: (Item) -> Unit) : BottomSheetDialogFragment() {
+class ActionSheet(
+        private val title: String,
+        private val items: List<Item>,
+        private val action: (Item) -> Unit
+) : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun instance(title: String, items: List<Item>, action: (Item) -> Unit): ActionSheet {

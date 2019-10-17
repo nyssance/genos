@@ -113,7 +113,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //SO https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
+        // SO https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
         return when (item.itemId) {
             android.R.id.home -> {
                 NavUtils.getParentActivityIntent(this)?.let {

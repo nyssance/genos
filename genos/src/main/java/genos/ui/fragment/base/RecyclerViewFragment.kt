@@ -95,7 +95,6 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                     override fun canSelectMultiple(): Boolean {
                         return canSelectMultiple
                     }
-
                 })
                 .withOnItemActivatedListener { item, _ ->
                     onOpenItem(adapter.getItem(item.position))

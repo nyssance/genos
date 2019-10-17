@@ -5,7 +5,7 @@
 👊 Genos makes it very easy to build better mobile apps more quickly and with less code.
 For more information please see [the website][genos].
 
-[Genos for iOS](https://github.com/nyssance/genos)
+[Genos for iOS](https://github.com/nyssance/GenosSwift)
 
 - [Genos Samples](https://github.com/nyssance/genos-samples)
 
@@ -14,13 +14,13 @@ For more information please see [the website][genos].
 ### bulid.gradle
 
 ```groovy
-implementation 'com.nyssance.genos:genos:1.2.1'
+implementation 'com.nyssance.genos:genos:1.2.2'
 ```
 
 ### bulid.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:1.2.1")
+implementation("com.nyssance.genos:genos:1.2.2")
 ```
 
 ## Features
@@ -47,7 +47,7 @@ import genos.ui.viewholder.DefaultHolder
 
 class UserList : List<User, DefaultHolder>() {
     override fun onCreate() {
-        call = API.userList(page)  // A retrofit call of this fragment.
+        call = API.userList(page) // A retrofit call of this fragment.
     }
 
     override fun onDisplayItem(item: User, view: DefaultHolder, viewType: Int) {

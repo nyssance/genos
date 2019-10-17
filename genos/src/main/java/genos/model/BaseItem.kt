@@ -26,7 +26,8 @@ abstract class BaseItem @JvmOverloads constructor(
         val icon: Any? = null,
         title: String? = null,
         val subtitle: String? = null,
-        var enabled: Boolean = false) {
+        var enabled: Boolean = false
+) {
     val name: String = name ?: context.resources.getResourceEntryName(id)
     val title = title ?: context.getString(id)
 }

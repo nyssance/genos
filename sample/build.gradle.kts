@@ -30,9 +30,10 @@ android {
         applicationId = "com.example.genos"
         minSdkVersion(21)
         targetSdkVersion(29)
-        versionCode = 121
-        versionName = "1.2.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 122
+        versionName = "1.2.2"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         getByName("release") {
@@ -47,7 +48,7 @@ android {
     }
 }
 
-//androidExtensions { isExperimental = true }
+// androidExtensions { isExperimental = true }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))

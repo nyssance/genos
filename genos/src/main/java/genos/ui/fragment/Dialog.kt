@@ -24,9 +24,11 @@ import androidx.fragment.app.DialogFragment
 
 // Android https://developer.android.com/guide/topics/ui/dialogs
 
-class Dialog(private val title: String,
-             private val message: String?,
-             private val action: ((DialogInterface, Int) -> Unit)?) : DialogFragment() {
+class Dialog(
+        private val title: String,
+        private val message: String?,
+        private val action: ((DialogInterface, Int) -> Unit)?
+) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)

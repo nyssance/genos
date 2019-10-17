@@ -27,8 +27,8 @@ import genos.ui.viewholder.Holder
 
 class UserList : List<User, Holder>() {
     override fun onCreate() {
-        call = API.userList(page)  // A retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // The layout res id of list item.
+        call = API.userList(page) // A retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle // The layout res id of list item.
     }
 
     override fun onDisplayItem(item: User, view: Holder, viewType: Int) {

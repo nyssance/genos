@@ -15,6 +15,10 @@ buildscript {
     }
 }
 
+plugins {
+    id("com.diffplug.gradle.spotless") version "3.25.0"
+}
+
 allprojects {
     repositories {
         google()
@@ -22,6 +26,13 @@ allprojects {
     }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint()
+    }
+    kotlinGradle {
+        target("**/*.gradle.kts")
+        ktlint()
+    }
 }

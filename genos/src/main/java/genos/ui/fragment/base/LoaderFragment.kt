@@ -87,7 +87,7 @@ abstract class LoaderFragment<D : Any> : BaseFragment() {
     }
 
     protected open fun onCreateViewModel(): ViewModel {
-        //SO https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
+        // SO https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
         // ViewModelProviders.of(this).get<BaseViewModel<D>>(BaseViewModel<D>().javaClass)
         // BaseViewModel<D>::class.java 不行
         return ViewModelProviders.of(this).get(BaseViewModel::class.java)
