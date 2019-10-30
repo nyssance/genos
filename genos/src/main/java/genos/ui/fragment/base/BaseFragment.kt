@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -27,7 +28,7 @@ import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.ui.activity.base.BaseActivity
 
-abstract class BaseFragment : Fragment(), BaseActivity.OnBackPressedListener, BaseActivity.OnKeyUpListener {
+abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), BaseActivity.OnBackPressedListener, BaseActivity.OnKeyUpListener {
     // 💖 Lifecycle
     // Android https://developer.android.com/guide/components/fragments#Lifecycle
 

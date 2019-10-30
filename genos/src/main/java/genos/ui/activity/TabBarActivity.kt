@@ -23,11 +23,7 @@ import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_tab_bar.*
 
-abstract class TabBarActivity(index: Int = 0) : NavigationActivity(index) {
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_tab_bar)
-    }
-
+abstract class TabBarActivity(index: Int = 0) : NavigationActivity(index, R.layout.activity_tab_bar) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED

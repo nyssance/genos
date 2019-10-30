@@ -35,19 +35,13 @@ enum class RefreshControlMode {
     Always, Never
 }
 
-@JvmSuppressWildcards
-abstract class LoaderFragment<D : Any> : BaseFragment() {
+abstract class LoaderFragment<D : Any>(contentLayoutId: Int) : BaseFragment(contentLayoutId) {
     protected lateinit var viewModel: ViewModel
-    @JvmField
     protected var call: Call<out D>? = null // out防止java中出现List<? extends T>
-    @JvmField
     protected var refreshMode = RefreshMode.DidLoad
-    @JvmField
     protected var refreshControlMode = RefreshControlMode.Always
-    @JvmField
     protected var isLoading = false
 
-    @JvmField
     protected var refreshControl: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

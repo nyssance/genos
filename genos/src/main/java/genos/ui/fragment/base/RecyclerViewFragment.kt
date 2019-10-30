@@ -36,15 +36,12 @@ enum class ListViewStyle {
     Plain, Grouped
 }
 
-abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
+abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>(0) {
     protected lateinit var listView: RecyclerView
     protected lateinit var adapter: BaseAdapter<T, VH>
-    @JvmField
     protected var listViewStyle = ListViewStyle.Plain
-    @JvmField
     protected var canSelectMultiple = false
 
-    @JvmField
     @LayoutRes
     protected var tileId = R.layout.list_item_default
 
@@ -114,29 +111,33 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             override fun onSelectionChanged() {
                 Logger.w("多选 onSelectionChanged: ")
                 var actionMode: ActionMode? = null
-                if (tracker.hasSelection() && actionMode == null) {
-                    actionMode = requireActivity().startActionMode(object : ActionMode.Callback {
-                        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                            return false
-                        }
+                when {
+                    tracker.hasSelection() && actionMode == null -> {
+                        actionMode = requireActivity().startActionMode(object : ActionMode.Callback {
+                            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                                return false
+                            }
 
-                        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                            return false
-                        }
+                            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                                return false
+                            }
 
-                        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                            return false
-                        }
+                            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                                return false
+                            }
 
-                        override fun onDestroyActionMode(mode: ActionMode) {
-                            tracker.clearSelection()
-                        }
-                    })
-                    //                    setMenuItemTitle(tracker.selection.size())
-                } else if (!tracker.hasSelection() && actionMode != null) {
-                    actionMode.finish()
-                } else {
-                    //                    setMenuItemTitle(tracker.selection.size())
+                            override fun onDestroyActionMode(mode: ActionMode) {
+                                tracker.clearSelection()
+                            }
+                        })
+                        //                    setMenuItemTitle(tracker.selection.size())
+                    }
+                    !tracker.hasSelection() && actionMode != null -> {
+                        actionMode.finish()
+                    }
+                    else -> {
+                        //                    setMenuItemTitle(tracker.selection.size())
+                    }
                 }
                 //                tracker.selection.forEach {
                 //                    Logger.w(it.toString())

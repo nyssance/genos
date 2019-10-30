@@ -31,17 +31,11 @@ import java.io.IOException
 import java.util.*
 
 object Global {
-    @JvmField
     var LIST_START_PAGE = 1
-    @JvmField
     var BASE_URL = "https://www.必填.com"
-    @JvmField
     var APP_SCHEME = "genos"
-    @JvmField
     var AUTH_HEADER = "Authorization"
-    @JvmField
     var AUTH_PREFIX = "Bearer" // {Bearer,JWT}
-    @JvmField
     var AUTH_TOKEN = ""
 
     init {
@@ -80,10 +74,10 @@ object Global {
                 }
                 val request = builder.build()
                 // 发送数据的时候GZip压缩 https://github.com/square/okhttp/wiki/Interceptors
-                if (request.body() == null || request.header("Content-Encoding") != null) {
+                if (request.body() == null || !request.header("Content-Encoding").isNullOrBlank()) {
                     //                    val response = chain.proceed(request)
                     //                    val cacheControl = request.cacheControl().toString()
-                    //                    if (cacheControl.isBlank()) {
+                    //                    cacheControl.ifBlank() {
                     //                        cacheControl = "public, max-age=60"
                     //                    }
                     //                    return response.newBuilder()

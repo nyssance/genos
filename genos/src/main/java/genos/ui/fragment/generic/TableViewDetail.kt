@@ -37,9 +37,7 @@ import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
 abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
-    @JvmField
     protected var items = ArrayList<T>()
-    @JvmField
     protected var data: D? = null
 
     init {
@@ -81,14 +79,10 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
     override fun onDisplayItem(item: T, view: VH, viewType: Int) {
         with(view) {
             if (this is Holder) {
-                if (item.icon == null) {
-                    icon?.visibility = View.GONE
-                } else {
-                    icon?.setImage(item.icon)
-                }
+                if (item.icon == null) icon?.visibility = View.GONE else icon?.setImage(item.icon)
                 title?.text = item.title
                 data?.let {
-                    subtitle?.text = "${readProperty(it, item.name) ?: ""}"
+                    subtitle?.text = readProperty(it, item.name).toString()
                 }
                 accessory?.visibility = if (item.enabled) View.VISIBLE else View.GONE
             }

@@ -52,7 +52,6 @@ object Helper {
         return resourceIDs
     }
 
-    @JvmStatic
     fun isTablet(context: Context): Boolean {
         val manager = context.getSystemService(Context.TELEPHONY_SERVICE)
         if (manager is TelephonyManager) {
@@ -61,14 +60,12 @@ object Helper {
         return false
     }
 
-    @JvmStatic
     fun getApplicationName(context: Context): String {
         val info = context.applicationInfo
         val resId = info.labelRes
         return if (resId != 0) context.getString(resId) else info.nonLocalizedLabel.toString()
     }
 
-    @JvmStatic
     fun getActivityName(activity: Activity): String? {
         try {
             val pm = activity.packageManager
@@ -79,7 +76,6 @@ object Helper {
         return null
     }
 
-    @JvmStatic
     fun getResId(context: Context, name: String, defType: String, log: Boolean = true): Int {
         val id = context.resources.getIdentifier(name, defType, context.packageName)
         if (log && id == 0) {
@@ -89,13 +85,11 @@ object Helper {
     }
 
     // 其他
-    @JvmStatic
     fun getColorFromIdentifier(context: Context, id: Int): Int {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
         return if (resId != 0) ContextCompat.getColor(context, resId) else 0
     }
 
-    @JvmStatic
     fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
         val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
         return if (resId != 0) context.getDrawable(resId) else null

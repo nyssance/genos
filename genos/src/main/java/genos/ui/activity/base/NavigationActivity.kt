@@ -22,8 +22,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 
-abstract class NavigationActivity(val index: Int) : BaseActivity() {
-    @JvmField
+abstract class NavigationActivity(val index: Int, contentLayoutId: Int) : BaseActivity(contentLayoutId) {
     protected val fragments = SparseArray<Fragment>()
     private var currentFragment: Fragment? = null
     private var currentTag = ""

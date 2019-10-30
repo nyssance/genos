@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import genos.Global.LIST_START_PAGE
 
 abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val spanCount: Int) : RecyclerViewFragment<D, T, VH>() {
-    @JvmField
     protected var page = LIST_START_PAGE
 
     protected abstract fun transformListFromData(data: D): List<T>

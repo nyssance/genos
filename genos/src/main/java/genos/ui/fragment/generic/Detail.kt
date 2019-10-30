@@ -16,15 +16,7 @@
 
 package genos.ui.fragment.generic
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.nyssance.genos.R
 import genos.ui.fragment.base.ObjectFragment
 
-abstract class Detail<D : Any> : ObjectFragment<D>() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
-    }
-}
+abstract class Detail<D : Any>(contentLayoutId: Int = R.layout.fragment_detail) : ObjectFragment<D>(contentLayoutId)

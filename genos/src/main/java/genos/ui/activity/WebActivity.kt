@@ -28,7 +28,7 @@ import com.just.agentweb.WebViewClient
 import com.nyssance.genos.R
 import genos.ui.activity.base.BaseActivity
 
-class WebActivity : BaseActivity() {
+class WebActivity : BaseActivity(R.layout.activity_app_bar) {
     protected var url = ""
     protected lateinit var agentWeb: AgentWeb
 
@@ -41,13 +41,9 @@ class WebActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_app_bar)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        url = intent.getStringExtra("url") ?: url
+        intent.getStringExtra("url").let { url = it }
         title = intent.getStringExtra("title")
         val matchParent = ViewGroup.LayoutParams.MATCH_PARENT
         agentWeb = AgentWeb.with(this)
@@ -83,8 +79,6 @@ class WebActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return if (agentWeb.handleKeyEvent(keyCode, event)) {
-            true
-        } else super.onKeyDown(keyCode, event)
+        return if (agentWeb.handleKeyEvent(keyCode, event)) true else super.onKeyDown(keyCode, event)
     }
 }

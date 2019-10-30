@@ -19,8 +19,4 @@ package genos.ui.activity
 import com.nyssance.genos.R
 import genos.ui.activity.base.SingleActivity
 
-abstract class CollapsingActivity : SingleActivity() {
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_app_bar_collpsing)
-    }
-}
+abstract class CollapsingActivity : SingleActivity(R.layout.activity_app_bar_collpsing)

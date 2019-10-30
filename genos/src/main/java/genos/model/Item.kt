@@ -23,7 +23,7 @@ import androidx.collection.SimpleArrayMap
 import genos.Global.APP_SCHEME
 import java.util.*
 
-open class Item @JvmOverloads constructor(
+open class Item constructor(
         context: Context,
         @StringRes id: Int,
         name: String? = null,

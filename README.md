@@ -1,6 +1,7 @@
 # Genos
 
 [![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg)](https://bintray.com/nyssance/maven/genos/_latestVersion)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
 
 👊 Genos makes it very easy to build better mobile apps more quickly and with less code.
 For more information please see [the website][genos].
@@ -9,37 +10,40 @@ For more information please see [the website][genos].
 
 - [Genos Samples](https://github.com/nyssance/genos-samples)
 
+---
+
 ## Installation
 
-### bulid.gradle
+### build.gradle
 
 ```groovy
-implementation 'com.nyssance.genos:genos:1.2.2'
+implementation 'com.nyssance.genos:genos:2.0.0'
 ```
 
-### bulid.gradle.kts
+### build.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:1.2.2")
+implementation("com.nyssance.genos:genos:2.0.0")
 ```
 
 ## Features
 
 Genos integrate google architecture. just use. if your need learn more info about how genos work, and mvvm, repository , viewmodel etc., see [link](https://developer.android.com/topic/libraries/architecture)
 
-1. Rules
+1.Rules
 
 - Activity just as an container, include app bar and drawer/bottom navigation, and one fragment or more.
 - Fragment have two type: list and detail.
-  - list for REST list api, like https://www.yourdomain.com/api/v1/users/, list include default `listView`, `adapter`
-  - detail for REST detail api, like https://www.yourdomain,com/api/v1/users/{:user_id}/
+  - list for REST list api, like <https://www.yourdomain.com/api/v1/users/,> list include default `listView`, `adapter`
+  - detail for REST detail api, like <https://www.yourdomain,com/api/v1/users/{:user_id}/>
   - call in fragment is a call of it, it's a [Retrofit][retrofit] call
 - Repository is for load data.
 - ViewModel is for bind data and view.
 
-2. How to use
+2.How to use
 
 Create a list fragment, override three methods, 15 lines code, that's all you need to do.
+
 ```kotlin
 ...
 import genos.ui.fragment.generic.List
@@ -62,6 +66,7 @@ class UserList : List<User, DefaultHolder>() {
 ```
 
 Create a bottom navigation with three buttons, 10 lines.
+
 ```kotlin
 class MainActivity : TabBarActivity() { // If you need a drawer navigation, just use DrawerActivity
     override fun onCreate(savedInstanceState: Bundle?) {

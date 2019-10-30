@@ -17,18 +17,15 @@
 package genos.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_placeholder.*
 
-class PlaceholderFragment : Fragment() {
+class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
     companion object {
         const val ARG_SECTION_TEXT = "section_text"
 
-        @JvmStatic
         fun instance(text: String = ""): PlaceholderFragment {
             val fragment = PlaceholderFragment()
             val args = Bundle()
@@ -36,10 +33,6 @@ class PlaceholderFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_placeholder, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

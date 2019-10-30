@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import com.novoda.gradle.release.PublishExtension
+//import com.novoda.gradle.release.PublishExtension
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -23,17 +23,17 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("com.novoda.bintray-release")
+//    id("com.novoda.bintray-release")
 }
 
-configure<PublishExtension> {
-    userOrg = "nyssance"
-    groupId = "com.nyssance.genos"
-    artifactId = "genos"
-    publishVersion = "1.2.2"
-    desc = "The BEST high-level framework for Android by NY."
-    website = "https://github.com/nyssance/genos"
-}
+//configure<PublishExtension> {
+//    userOrg = "nyssance"
+//    groupId = "com.nyssance.genos"
+//    artifactId = "genos"
+//    publishVersion = "2.0.0"
+//    desc = "The BEST high-level framework for Android by NY."
+//    website = "https://github.com/nyssance/genos"
+//}
 
 android {
     compileSdkVersion(29)
@@ -41,31 +41,38 @@ android {
         minSdkVersion(21)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        versionCode = 122
-        versionName = "1.2.2"
+        versionCode = 200
+        versionName = "2.0.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
     useLibrary("android.test.runner")
 }
 
 dependencies {
-    val ktxVersion = "1.2.0-alpha04"
+    val corektxVersion = "1.2.0-beta01"
+    val activityKtxVersion = "1.1.0-rc01"
+    val fragmentKtxVersion = "1.2.0-rc01"
+    val composeVersion = "0.1.0-dev02"
 
-    val materialVersion = "1.1.0-alpha10"
+    val materialVersion = "1.2.0-alpha01"
     val recyclerviewSelectionVersion = "1.1.0-alpha06"
-    val swipeRefreshVersion = "1.1.0-alpha02"
-    val constraintVersion = "2.0.0-beta2"
+    val swipeRefreshVersion = "1.1.0-alpha03"
+    val constraintVersion = "2.0.0-beta3"
     // https://developer.android.com/topic/libraries/architecture/adding-components
     val pagingVersion = "2.1.0"
     val workVersion = "1.0.1"
     // Vendor
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
-    val retrofitVersion = "2.6.1" // https://square.github.io/retrofit/
+    val retrofitVersion = "2.6.2" // https://square.github.io/retrofit/
     val glideVersion = "4.10.0" // https://github.com/bumptech/glide
     val eventbusVersion = "3.1.1" // https://github.com/greenrobot/EventBus
     val agentWebVersion = "4.1.2" // https://github.com/Justson/AgentWeb
@@ -74,8 +81,15 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation(kotlin("reflect", KotlinCompilerVersion.VERSION))
     // Android KTX https://developer.android.com/kotlin/ktx
-    api("androidx.core:core-ktx:$ktxVersion")
-    api("androidx.fragment:fragment-ktx:$ktxVersion")
+    api("androidx.core:core-ktx:$corektxVersion")
+    api("androidx.activity:activity-ktx:$activityKtxVersion")
+    api("androidx.fragment:fragment-ktx:$fragmentKtxVersion")
+    // Jetpack Compose https://developer.android.com/jetpack/compose/
+    api("androidx.compose:compose-runtime:$composeVersion")
+    api("androidx.ui:ui-framework:$composeVersion")
+    api("androidx.ui:ui-layout:$composeVersion")
+    api("androidx.ui:ui-material:$composeVersion")
+    api("androidx.ui:ui-tooling:$composeVersion")
     // Material Components for Android https://material.io/develop/android/
     api("com.google.android.material:material:$materialVersion")
     // https://developer.android.com/jetpack/androidx/versions
@@ -106,7 +120,5 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }

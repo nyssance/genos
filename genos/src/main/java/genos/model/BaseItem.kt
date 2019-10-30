@@ -19,7 +19,7 @@ package genos.model
 import android.content.Context
 import androidx.annotation.StringRes
 
-abstract class BaseItem @JvmOverloads constructor(
+abstract class BaseItem constructor(
         context: Context,
         @StringRes val id: Int,
         name: String? = null,

@@ -17,9 +17,7 @@
 package genos.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -28,13 +26,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_view_pager.*
 
-abstract class ViewPagerFragment(private val orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL) : Fragment() {
-    @JvmField
+abstract class ViewPagerFragment(private val orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL) : Fragment(R.layout.fragment_view_pager) {
     protected var fragments = ArrayList<Pair<String, Fragment>>()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_view_pager, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view_pager.orientation = orientation

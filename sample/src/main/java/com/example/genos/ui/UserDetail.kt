@@ -29,7 +29,7 @@ class UserDetail : Detail<User>() {
     private var textView: TextView? = null
 
     override fun onCreate() {
-        call = API.userDetail(requireActivity().intent.getStringExtra("username") ?: "")
+        call = API.userDetail(requireActivity().intent.getStringExtra("username").orEmpty())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

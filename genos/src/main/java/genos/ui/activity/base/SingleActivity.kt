@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.nyssance.genos.R
 
-abstract class SingleActivity : BaseActivity() {
+abstract class SingleActivity(contentLayoutId: Int) : BaseActivity(contentLayoutId) {
     protected var fragment: Fragment? = null
 
     protected abstract fun onCreateFragment(): Fragment

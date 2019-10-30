@@ -42,12 +42,10 @@ fun Fragment.showActionSheet(title: String, items: List<Item>, action: (Item) ->
     ActionSheet.instance(title, items, action).show(requireActivity().supportFragmentManager, null)
 }
 
-@JvmOverloads
 fun Fragment.showAlert(title: String, message: String? = null, action: ((DialogInterface, Int) -> Unit)? = null) {
     Dialog(title, message, action).show(requireActivity().supportFragmentManager, null)
 }
 
-@JvmOverloads
 fun Fragment.startActivitySafely(intent: Intent, isNewTask: Boolean = false) { // 默认为不开启外部Activity
     if (isNewTask) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 该句决定是否在同一进程中

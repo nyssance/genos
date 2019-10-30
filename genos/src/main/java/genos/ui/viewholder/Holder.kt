@@ -22,12 +22,8 @@ import android.widget.TextView
 import com.nyssance.genos.R
 
 open class Holder(itemView: View) : BaseHolder(itemView) {
-    @JvmField
     val icon: ImageView? = getView(android.R.id.icon)
-    @JvmField
     val title: TextView? = getView(android.R.id.title)
-    @JvmField
     val subtitle: TextView? = getView(R.id.subtitle)
-    @JvmField
     val accessory: ImageView? = getView(R.id.accessory)
 }

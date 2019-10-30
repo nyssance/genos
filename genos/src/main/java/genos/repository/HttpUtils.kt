@@ -26,7 +26,6 @@ import retrofit2.Response
 import java.io.IOException
 
 object HttpUtils {
-    @JvmStatic
     fun <D : Any> request(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
         // SO https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
         (if (call.isExecuted) call.clone() else call).enqueue(object : Callback<D> {
@@ -42,7 +41,7 @@ object HttpUtils {
                     Logger.t(scheme).d("✅ $log")
                     success(code, response)
                 } else {
-                    failure(code, response.errorBody()?.string() ?: "")
+                    failure(code, response.errorBody()?.string().orEmpty())
                     try {
                         Logger.t(scheme).d("❎ $log\n${response.errorBody()?.string()}")
                     } catch (e: IOException) {
@@ -52,7 +51,7 @@ object HttpUtils {
             }
 
             override fun onFailure(call: Call<D>, t: Throwable) {
-                failure(666, t.localizedMessage ?: "")
+                failure(666, t.localizedMessage.orEmpty())
                 val request = call.request()
                 Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
             }

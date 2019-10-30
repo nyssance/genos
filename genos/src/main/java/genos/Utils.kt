@@ -22,14 +22,12 @@ import android.widget.Toast
 import genos.ui.activity.WebActivity
 
 object Utils {
-    @JvmStatic
     fun showLoginUI(context: Context, cls: Class<*>) {
         context.startActivity(Intent(context, cls))
     }
 
-    @JvmStatic
     fun openLink(context: Context, url: String, title: String? = null) {
-        if (url.isBlank()) {
+        url.ifBlank {
             return
         }
         val intent = Intent(context, WebActivity::class.java)

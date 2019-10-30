@@ -38,7 +38,6 @@ class ActionSheet(
         private val action: (Item) -> Unit
 ) : BottomSheetDialogFragment() {
     companion object {
-        @JvmStatic
         fun instance(title: String, items: List<Item>, action: (Item) -> Unit): ActionSheet {
             return ActionSheet(title, items, action)
         }

@@ -19,8 +19,4 @@ package genos.ui.activity
 import com.nyssance.genos.R
 import genos.ui.activity.base.SingleActivity
 
-abstract class AppBarActivity : SingleActivity() {
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_app_bar)
-    }
-}
+abstract class AppBarActivity : SingleActivity(R.layout.activity_app_bar)
