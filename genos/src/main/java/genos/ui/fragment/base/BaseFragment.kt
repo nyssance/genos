@@ -16,8 +16,8 @@
 
 package genos.ui.fragment.base
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.LayoutRes
@@ -25,10 +25,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.nyssance.genos.R
-import com.orhanobut.logger.Logger
-import genos.ui.activity.base.BaseActivity
 
-abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), BaseActivity.OnBackPressedListener, BaseActivity.OnKeyUpListener {
+abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId) {
     // 💖 Lifecycle
     // Android https://developer.android.com/guide/components/fragments#Lifecycle
 
@@ -38,13 +36,13 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onCreate()
+        onCreate(requireActivity().intent)
     }
 
     /**
      * 初始化 call, tileId, setHasOptionsMenu
      */
-    protected abstract fun onCreate()
+    protected abstract fun onCreate(intent: Intent)
 
     /**
      * onCreateView() - 布局, Fragment会被混淆, 所以都需要手动设置
@@ -64,23 +62,7 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
      * onPause() - 需要持久化纪录状态的写在这里, 因为用户可能不返回了
      */
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return onPerform(item.itemId)
-    }
-
-    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        Logger.t(this::class.simpleName).i("onKeyUp keyCode - $keyCode")
-        return when (keyCode) { // KEYCODE_SEARCH 处理一些设备的专用search按钮
-            KeyEvent.KEYCODE_F1 -> onPerform(R.id.action_help)
-            KeyEvent.KEYCODE_F5 -> onPerform(R.id.action_view_refresh)
-            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_ESCAPE, KeyEvent.KEYCODE_SEARCH -> true
-            else -> false
-        }
-    }
-
-    override fun onBackPressed(): Boolean {
-        return false
-    }
+    override fun onOptionsItemSelected(item: MenuItem) = onPerform(item.itemId)
 
     protected abstract fun onPerform(action: Int): Boolean
 }

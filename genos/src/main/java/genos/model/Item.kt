@@ -20,8 +20,6 @@ import android.app.Activity
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.collection.SimpleArrayMap
-import genos.Global.APP_SCHEME
-import java.util.*
 
 open class Item constructor(
         context: Context,
@@ -31,32 +29,19 @@ open class Item constructor(
         title: String? = null,
         subtitle: String? = null,
         val destination: Class<out Activity>? = null,
-        link: String = "",
+        link: String? = null,
         enabled: Boolean = false,
         val choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
         val isSection: Boolean = false
 ) : BaseItem(context, id, name, icon, title, subtitle, enabled) {
-    var link = ""
+    var link: String? = null
         set(value) {
             field = value
-            enabled = (destination != null || link.isNotBlank())
+            enabled = (destination != null || link?.isNotBlank() ?: false)
         }
 
     init {
-        if (link.isBlank()) {
-            destination?.let {
-                var str = (it::class.simpleName ?: "unknown").toLowerCase(Locale.ROOT)
-                str = when {
-                    str.endsWith("list") -> str.replace("list", "s")
-                    str.endsWith("detail") -> str.removeSuffix("detail")
-                    str.endsWith("create") -> str.replace("create", "s/create")
-                    else -> str
-                }
-                this.link = "$APP_SCHEME://$str"
-            }
-        } else {
-            this.link = link.trim()
-        }
-        this.enabled = enabled || this.link.isNotBlank()
+        this.link = link?.trim()
+        this.enabled = enabled || this.destination != null || this.link?.isNotBlank() ?: false
     }
 }

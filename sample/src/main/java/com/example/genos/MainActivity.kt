@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,31 @@
 
 package com.example.genos
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.core.net.toUri
 import com.example.genos.ui.Discover
-import com.example.genos.ui.UserList
+import com.example.genos.ui.Home
+import com.example.genos.ui.Me
+import com.example.genos.ui.Message
+import genos.Global
 import genos.ui.activity.TabBarActivity
-import genos.ui.fragment.PlaceholderFragment
 
-class MainActivity : TabBarActivity(1) {
+class MainActivity : TabBarActivity(mapOf(
+        R.id.navigation_1 to Home(),
+        R.id.navigation_2 to Discover(),
+        R.id.navigation_3 to Message(),
+        R.id.navigation_4 to Me()
+)) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        config()
+        with(Global) {
+            APP_SCHEME = "genos-sample"
+        }
+        router()
         supportActionBar?.setTitle(R.string.app_name)
-        with(fragments) {
-            append(R.id.navigation_home, UserList())
-            append(R.id.navigation_discover, Discover())
-            append(R.id.navigation_me, PlaceholderFragment.instance("3"))
+        if (intent.action == Intent.ACTION_MAIN && intent.data == null) {
+            intent.data = "${Global.APP_SCHEME}://discover".toUri()
         }
     }
 }

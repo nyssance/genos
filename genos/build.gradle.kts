@@ -36,7 +36,7 @@ plugins {
 //}
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion("android-R")
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(29)
@@ -45,37 +45,39 @@ android {
         versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
     }
+    buildToolsVersion = "30.0.0-rc1"
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     useLibrary("android.test.runner")
 }
 
 dependencies {
-    val corektxVersion = "1.2.0-beta01"
-    val activityKtxVersion = "1.1.0-rc01"
-    val fragmentKtxVersion = "1.2.0-rc01"
-    val composeVersion = "0.1.0-dev02"
+    val corektxVersion = "1.3.0-alpha01"
+    val activityKtxVersion = "1.1.0"
+    val fragmentKtxVersion = "1.2.2"
+    val composeVersion = "0.1.0-dev05"
 
-    val materialVersion = "1.2.0-alpha01"
-    val recyclerviewSelectionVersion = "1.1.0-alpha06"
+    val preferenceVersion = "1.1.0"
+    val materialVersion = "1.2.0-alpha05"
+    val recyclerviewSelectionVersion = "1.1.0-rc01"
     val swipeRefreshVersion = "1.1.0-alpha03"
-    val constraintVersion = "2.0.0-beta3"
+    val constraintVersion = "2.0.0-beta4"
     // https://developer.android.com/topic/libraries/architecture/adding-components
-    val pagingVersion = "2.1.0"
+    val pagingVersion = "2.1.1"
     val workVersion = "1.0.1"
     // Vendor
+    val glideVersion = "4.11.0" // https://github.com/bumptech/glide
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
-    val retrofitVersion = "2.6.2" // https://square.github.io/retrofit/
-    val glideVersion = "4.10.0" // https://github.com/bumptech/glide
-    val eventbusVersion = "3.1.1" // https://github.com/greenrobot/EventBus
-    val agentWebVersion = "4.1.2" // https://github.com/Justson/AgentWeb
+    val retrofitVersion = "2.7.2" // https://square.github.io/retrofit/
+    val agentWebVersion = "4.1.3" // https://github.com/Justson/AgentWeb
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
@@ -90,6 +92,8 @@ dependencies {
     api("androidx.ui:ui-layout:$composeVersion")
     api("androidx.ui:ui-material:$composeVersion")
     api("androidx.ui:ui-tooling:$composeVersion")
+    //
+    api("androidx.preference:preference:$preferenceVersion")
     // Material Components for Android https://material.io/develop/android/
     api("com.google.android.material:material:$materialVersion")
     // https://developer.android.com/jetpack/androidx/versions
@@ -100,21 +104,20 @@ dependencies {
     api("androidx.paging:paging-runtime:$pagingVersion")
     api("android.arch.work:work-runtime-ktx:$workVersion")
     // Vendor
-    api("com.orhanobut:logger:$loggerVersion")
-    api("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    api("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     api("com.github.bumptech.glide:glide:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
-    implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
+    api("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
     api("com.github.bumptech.glide:recyclerview-integration:$glideVersion") {
         isTransitive = false
     }
-    api("org.greenrobot:eventbus:$eventbusVersion")
+    api("com.orhanobut:logger:$loggerVersion")
+    api("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    api("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     api("com.just.agentweb:agentweb:$agentWebVersion")
     api("com.just.agentweb:filechooser:$agentWebVersion")
     api("com.download.library:Downloader:$agentWebVersion")
     // Test
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 }

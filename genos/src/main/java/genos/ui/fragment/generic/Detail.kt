@@ -16,7 +16,14 @@
 
 package genos.ui.fragment.generic
 
+import android.content.Intent
 import com.nyssance.genos.R
 import genos.ui.fragment.base.ObjectFragment
 
-abstract class Detail<D : Any>(contentLayoutId: Int = R.layout.fragment_detail) : ObjectFragment<D>(contentLayoutId)
+abstract class Detail<D : Any>(contentLayoutId: Int = R.layout.fragment_detail) : ObjectFragment<D>(contentLayoutId) {
+    final override fun onCreate(intent: Intent) {
+        onCreate(intent, intent.data?.path?.removePrefix("/").orEmpty())
+    }
+
+    abstract fun onCreate(intent: Intent, id: String)
+}

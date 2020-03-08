@@ -21,11 +21,15 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_drawer.*
 
-abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index, R.layout.activity_drawer) {
+abstract class DrawerActivity(
+        fragments: Map<Int, Fragment>,
+        index: Int = 0
+) : NavigationActivity(fragments, index, R.layout.activity_drawer) {
     protected lateinit var currentItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {

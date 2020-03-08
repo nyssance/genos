@@ -34,16 +34,6 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:theme="@style/Theme.Genos.TabLayout"
-            android:visibility="gone"
-            app:tabIndicatorColor="?attr/colorPrimary"
-            app:tabSelectedTextColor="?attr/colorPrimary" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout

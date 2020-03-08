@@ -26,7 +26,5 @@ abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<kotlin
         listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 
-    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
-        return data
-    }
+    final override fun transformListFromData(data: kotlin.collections.List<T>) = data
 }

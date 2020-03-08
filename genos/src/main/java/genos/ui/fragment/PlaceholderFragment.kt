@@ -26,12 +26,10 @@ class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
     companion object {
         const val ARG_SECTION_TEXT = "section_text"
 
-        fun instance(text: String = ""): PlaceholderFragment {
-            val fragment = PlaceholderFragment()
+        fun instance(text: String = "") = PlaceholderFragment().apply {
             val args = Bundle()
             args.putString(ARG_SECTION_TEXT, text)
-            fragment.arguments = args
-            return fragment
+            arguments = args
         }
     }
 

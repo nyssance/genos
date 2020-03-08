@@ -19,15 +19,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/navigation_home"
+        android:id="@id/navigation_1"
         android:icon="@android:drawable/star_big_off"
         android:title="@string/home" />
     <item
-        android:id="@id/navigation_discover"
+        android:id="@id/navigation_2"
         android:icon="@android:drawable/ic_search_category_default"
         android:title="@string/discover" />
     <item
-        android:id="@id/navigation_me"
+        android:id="@id/navigation_3"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="@string/message" />
+    <item
+        android:id="@id/navigation_4"
         android:icon="@android:drawable/ic_popup_reminder"
         android:title="@string/me" />
 

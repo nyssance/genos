@@ -19,23 +19,70 @@ package genos.extension
 import android.content.DialogInterface
 import android.content.Intent
 import android.widget.Toast
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import com.orhanobut.logger.Logger
+import genos.Global.APP_SCHEME
 import genos.model.Item
+import genos.ui.activity.WebActivity
 import genos.ui.fragment.ActionSheet
 import genos.ui.fragment.Dialog
+import java.util.*
+import java.util.regex.Pattern.CASE_INSENSITIVE
+import java.util.regex.Pattern.compile
 
-// NY: ContextCompat, ViewCompat里有很多版本兼容方法, 不用自己写
+typealias Routes = Set<Pair<String, Intent>>
 
-@ColorInt
-fun Fragment.getColor(@ColorRes id: Int): Int {
-    return ContextCompat.getColor(requireContext(), id)
+var routes: Routes = emptySet()
+
+@ExperimentalStdlibApi
+fun Fragment.navigateTo(link: String, title: String = "") {
+    if (link.isBlank()) {
+        return
+    }
+    val uri = (if (link.contains("://")) link else "$APP_SCHEME://$link").trim().toUri()
+    when (uri.scheme) {
+        APP_SCHEME -> {
+            routes.firstOrNull {
+                compile(it.component1(), CASE_INSENSITIVE).matcher(link.removePrefix("$APP_SCHEME://")).find()
+            }?.let {
+                navigateTo(it.component2())
+            } ?: run {
+                val host = uri.host.orEmpty()
+                val name = when (host) {
+                    "" -> "version" // 仿Chrome, chrome://跳转到chrome://version
+                    "about", "credits", "discards", "help",
+                    "settings", "system", "profile", "version" -> host
+                    else -> "${host.singularize()}${if (uri.path.orEmpty().isBlank()) "List" else "Detail"}"
+                }.capitalize(Locale.ENGLISH)
+                try {
+                    val context = requireContext()
+                    navigateTo(Intent(context, Class.forName("${context.packageName}.ui.${name}Activity")).apply {
+                        data = uri
+                    })
+                } catch (cause: Throwable) {
+                    showAlert("ERR_UNKNOWN_URI", cause.localizedMessage)
+                }
+            }
+        }
+        "https" -> navigateTo(Intent(requireContext(), WebActivity::class.java).apply {
+            data = uri
+            putExtra("title", title)
+        })
+        else -> showAlert("ERR_UNKNOWN_URL_SCHEME", link)
+    }
 }
 
-fun Fragment.navigate(intent: Intent) {
-    startActivitySafely(intent)
+fun Fragment.navigateTo(intent: Intent, isNewTask: Boolean = false) { // 默认为不开启外部Activity
+    if (isNewTask) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 该句决定是否在同一进程中
+    }
+    try {
+        Logger.wtf(intent.data.toString())
+        startActivity(intent)
+    } catch (cause: Throwable) {
+        Toast.makeText(requireContext(), cause.localizedMessage, Toast.LENGTH_LONG).show()
+    }
 }
 
 fun Fragment.showActionSheet(title: String, items: List<Item>, action: (Item) -> Unit) {
@@ -44,15 +91,4 @@ fun Fragment.showActionSheet(title: String, items: List<Item>, action: (Item) ->
 
 fun Fragment.showAlert(title: String, message: String? = null, action: ((DialogInterface, Int) -> Unit)? = null) {
     Dialog(title, message, action).show(requireActivity().supportFragmentManager, null)
-}
-
-fun Fragment.startActivitySafely(intent: Intent, isNewTask: Boolean = false) { // 默认为不开启外部Activity
-    if (isNewTask) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 该句决定是否在同一进程中
-    }
-    try {
-        startActivity(intent)
-    } catch (e: Exception) {
-        Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_LONG).show()
-    }
 }

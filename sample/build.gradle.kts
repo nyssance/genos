@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion("android-R")
     defaultConfig {
         applicationId = "com.example.genos"
         minSdkVersion(21)
@@ -34,14 +34,12 @@ android {
         versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
     }
+    buildToolsVersion = "30.0.0-rc1"
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     buildFeatures {
@@ -57,7 +55,7 @@ android {
 dependencies {
     //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 }

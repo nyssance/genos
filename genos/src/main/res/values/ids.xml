@@ -26,6 +26,7 @@
     <item name="swipe_refresh" type="id" />
     <item name="view_pager" type="id" />
     <!-- AppBar -->
+    <item name="app_bar" type="id" />
     <item name="collapsing_toolbar" type="id" />
     <item name="navigation_bar" type="id" />
     <item name="toolbar" type="id" />
@@ -41,9 +42,11 @@
     <item name="header_title" type="id" />
 
     <!-- 🔯 navigation -->
-    <item name="navigation_home" type="id" />
-    <item name="navigation_discover" type="id" />
-    <item name="navigation_me" type="id" />
+    <item name="navigation_1" type="id" />
+    <item name="navigation_2" type="id" />
+    <item name="navigation_3" type="id" />
+    <item name="navigation_4" type="id" />
+    <item name="navigation_5" type="id" />
 
     <!-- 🔯 action -->
     <!-- Item -->
@@ -51,6 +54,7 @@
     <!-- View -->
     <item name="action_view_refresh" type="id" />
     <!-- Others -->
+    <item name="action_open_in_browser" type="id" />
     <item name="action_play_store" type="id" />
     <item name="action_search" type="id" />
     <item name="action_settings" type="id" />

@@ -23,11 +23,15 @@
     <!-- 导航 -->
     <string name="home">ホーム</string>
     <string name="discover">发现</string>
+    <string name="message">消息</string>
     <string name="me">我</string>
     <string name="main">Main</string>
     <string name="web">Web</string>
 
     <!-- action -->
-    <string name="settings">設定</string>
     <string name="help">ヘルプ</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="settings">設定</string>
+    <!-- others -->
+    <string name="exception">Exception</string>
 </resources>

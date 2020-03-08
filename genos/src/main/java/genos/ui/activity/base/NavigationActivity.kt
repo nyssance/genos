@@ -16,19 +16,19 @@
 
 package genos.ui.activity.base
 
-import android.util.SparseArray
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 
-abstract class NavigationActivity(val index: Int, contentLayoutId: Int) : BaseActivity(contentLayoutId) {
-    protected val fragments = SparseArray<Fragment>()
+abstract class NavigationActivity(
+        private val fragments: Map<Int, Fragment>,
+        val index: Int, contentLayoutId: Int
+) : BaseActivity(contentLayoutId) {
     private var currentFragment: Fragment? = null
     private var currentTag = ""
 
     protected open fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val key = item.itemId
         val tag = item.toString()
         if (currentTag == tag) {
             return false
@@ -38,7 +38,7 @@ abstract class NavigationActivity(val index: Int, contentLayoutId: Int) : BaseAc
         currentFragment?.let(transaction::hide)
         var fragment = supportFragmentManager.findFragmentByTag(currentTag) // 目标Fragment
         fragment?.let(transaction::show) ?: run {
-            fragment = fragments[key]?.apply {
+            fragment = fragments[item.itemId]?.apply {
                 transaction.add(R.id.container_for_add, this, currentTag)
             }
         }
@@ -47,7 +47,7 @@ abstract class NavigationActivity(val index: Int, contentLayoutId: Int) : BaseAc
             transaction.commit()
             currentFragment = it
         } ?: run {
-            Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(key)} not exists!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(item.itemId)} not exists!", Toast.LENGTH_LONG).show()
         }
         return true
     }

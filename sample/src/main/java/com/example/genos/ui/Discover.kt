@@ -1,59 +1,55 @@
+/*
+ * Copyright 2018 NY <nyssance@icloud.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.genos.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.content.Intent
 import androidx.compose.Composable
 import androidx.ui.core.Text
-import androidx.ui.core.dp
-import androidx.ui.core.setContent
-import androidx.ui.layout.Padding
+import androidx.ui.layout.LayoutPadding
 import androidx.ui.layout.Table
-import androidx.ui.material.MaterialTheme
-import androidx.ui.tooling.preview.Preview
+import androidx.ui.unit.dp
 import com.example.genos.model.User
 import com.nyssance.genos.R
+import genos.extension.showActionSheet
+import genos.model.Item
 import genos.ui.fragment.generic.Detail
 
 class Discover : Detail<User>() {
-    override fun onCreate() {}
+    override fun onCreate(intent: Intent, id: String) {}
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
-        container?.setContent {
-            Greeting("Android")
-        }
-        return view
+    @Composable
+    override fun onCompose() {
+        Discover("Android")
     }
 
-    override fun onDisplay(data: User) {}
+    override fun onDisplay(data: User) {
+        showActionSheet("aaa", arrayListOf(Item(requireContext(), R.string.home, "1", "2"))) {}
+    }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text("Hello $name!")
-    Padding(2.dp) {
-        Table(columns = 8) {
-            for (i in 0 until 8) {
-                tableRow {
-                    for (j in 0 until 8) {
-                        Padding(2.dp) {
-                            Text("TX")
-                        }
-                    }
+fun Discover(name: String) {
+    Table(8) {
+        repeat(8) {
+            tableRow {
+                repeat(8) {
+                    Text("TX", LayoutPadding(2.dp, 2.dp, 2.dp, 2.dp))
                 }
             }
         }
-    }
-    Text("Hello $name!")
-}
-
-@Preview
-@Composable
-fun PreviewGreeting() {
-    MaterialTheme() {
-        Greeting("Android")
-        Text(text = "Hello!")
     }
 }

@@ -18,7 +18,6 @@ package genos.ui.activity.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
@@ -30,10 +29,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.Helper
-import genos.vendor.MessageEvent
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import genos.extension.pluralize
 import java.util.*
 
 abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
@@ -43,22 +39,12 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
     var toolbar: Toolbar? = null
         protected set
     private var menuRes = 0
-    private var onBackPressedListener: OnBackPressedListener? = null
-    private var onKeyUpListener: OnKeyUpListener? = null
-
-    fun setOnBackPressedListener(listener: OnBackPressedListener) {
-        onBackPressedListener = listener
-    }
-
-    fun setOnKeyUpListener(listener: OnKeyUpListener) {
-        onKeyUpListener = listener
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val className = this::class.simpleName ?: "BaseActivity"
-        Logger.t(className).i("$className :: onCreate()")
-        val name = className.replace("Activity", "")
+        Logger.i("$className :: onCreate()")
+        val name = className.removeSuffix("Activity")
                 .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
                 .toLowerCase(Locale.ENGLISH)
         menuRes = Helper.getResId(this, name, "menu", false)
@@ -77,17 +63,15 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             if (title == Helper.getApplicationName(this)) { // Activity android:label not set
-                val id = Helper.getResId(this, name, "string")
-                if (id > 0) {
-                    it.setTitle(id)
+                val title = when {
+                    name.endsWith("_list") -> name.removeSuffix("_list").pluralize()
+                    name.endsWith("_detail") -> name.removeSuffix("_detail")
+                    else -> name
                 }
+                val id = Helper.getResId(this, title, "string")
+                if (id > 0) it.setTitle(id) else it.title = title
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,60 +82,23 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onStop() {
-        EventBus.getDefault().unregister(this)
-        super.onStop()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         // SO https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
-        return when (item.itemId) {
-            android.R.id.home -> {
-                NavUtils.getParentActivityIntent(this)?.let {
-                    if (NavUtils.shouldUpRecreateTask(this, it) || isTaskRoot) {
-                        TaskStackBuilder.create(this)
-                                .addNextIntentWithParentStack(it)
-                                .startActivities()
-                    } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
-                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        NavUtils.navigateUpTo(this, it)
-                    }
-                } ?: run {
-                    onBackPressed() // 未手动添加 android:parentActivityName 的时候默认等同返回键
+        android.R.id.home -> {
+            NavUtils.getParentActivityIntent(this)?.let {
+                if (NavUtils.shouldUpRecreateTask(this, it) || isTaskRoot) {
+                    TaskStackBuilder.create(this)
+                            .addNextIntentWithParentStack(it)
+                            .startActivities()
+                } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    NavUtils.navigateUpTo(this, it)
                 }
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onBackPressed() {
-        if (onBackPressedListener?.onBackPressed() != true) { // null or false
-            super.onBackPressed()
-        }
-    }
-
-    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        return if (event.isTracking && !event.isCanceled) {
-            onKeyUpListener?.let {
-                it.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event)
             } ?: run {
-                super.onKeyUp(keyCode, event) // 如果为null, 执行系统默认
+                onBackPressed() // 未手动添加 android:parentActivityName 的时候默认等同返回键
             }
-        } else false
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onEventReceived(event: MessageEvent) {
-        Logger.t("EventBus")
-                .w("【Activity】${this::class.simpleName} 收到了【Fragment】${event.sender::class.simpleName} 的消息: ${event.message}")
-    }
-
-    interface OnBackPressedListener {
-        fun onBackPressed(): Boolean
-    }
-
-    interface OnKeyUpListener {
-        fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,13 @@ import com.example.genos.R
 import com.example.genos.model.User
 import genos.extension.navigateTo
 import genos.extension.setImage
-import genos.ui.activity.AppBarActivity
 import genos.ui.fragment.generic.List
 import genos.ui.viewholder.Holder
 
-class UserList : List<User, Holder>() {
+class Home : List<User, Holder>() {
     override fun onCreate(intent: Intent) {
-        call = API.userList(page) // A retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle // The layout res id of list item.
+        call = API.home(page)
+        tileId = R.layout.list_item_value1
     }
 
     override fun onDisplayItem(item: User, view: Holder, viewType: Int) {
@@ -42,10 +41,6 @@ class UserList : List<User, Holder>() {
 
     @ExperimentalStdlibApi
     override fun onOpenItem(item: User) {
-        navigateTo(item.link)
+        navigateTo(User.listLink)
     }
-}
-
-class UserListActivity : AppBarActivity() {
-    override fun onCreateFragment() = UserList()
 }

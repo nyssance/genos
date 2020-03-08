@@ -16,7 +16,6 @@
 
 package genos.ui.fragment
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -29,20 +28,18 @@ class Dialog(
         private val message: String?,
         private val action: ((DialogInterface, Int) -> Unit)?
 ) : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok) { dialog, which ->
-                        action?.let {
-                            it(dialog, which)
-                        }
+    override fun onCreateDialog(savedInstanceState: Bundle?) = requireActivity().let {
+        val builder = AlertDialog.Builder(it)
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok) { dialog, which ->
+                    action?.let {
+                        it(dialog, which)
                     }
-            action?.let {
-                builder.setNegativeButton(android.R.string.cancel, null)
-            }
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+                }
+        action?.let {
+            builder.setNegativeButton(android.R.string.cancel, null)
+        }
+        builder.create()
     }
 }

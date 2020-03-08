@@ -20,24 +20,20 @@ import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nyssance.genos.R
-import genos.Utils.openLink
-import genos.extension.navigate
+import genos.extension.navigateTo
 import genos.extension.setImage
 import genos.model.Item
-import genos.ui.fragment.base.ListViewStyle
 import genos.ui.fragment.base.RecyclerViewFragment
 import genos.ui.viewholder.Holder
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
 abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> : RecyclerViewFragment<D, T, VH>() {
-    protected var items = ArrayList<T>()
+    protected val items = ArrayList<T>()
     protected var data: D? = null
 
     init {
@@ -57,6 +53,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
         decor.setDrawable(insetDivider)
         listView.addItemDecoration(decor)
         listView.layoutManager = layoutManager
+        listView.setHasFixedSize(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,7 +68,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
 
     override fun onGetItemViewType(position: Int): Int {
         if (items[position].isSection) {
-            adapter.sections.put(position, null)
+            adapter.sections[position] = null
         }
         return super.onGetItemViewType(position)
     }
@@ -89,20 +86,23 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
         }
     }
 
+    @ExperimentalStdlibApi
     override fun onOpenItem(item: T) {
         item.destination?.let {
-            navigate(Intent(requireContext(), it))
-            return
+            navigateTo(Intent(requireContext(), it).apply {
+                if (item.title.isNotBlank()) {
+                    putExtra("title", item.title)
+                }
+            })
+        } ?: item.link?.let {
+            if (it.isNotBlank()) {
+                navigateTo(it, item.title)
+            }
         }
-        when (item.link.toUri().scheme) {
-            "http" -> Toast.makeText(requireContext(), "为了安全不支持http, 请使用https链接。", Toast.LENGTH_LONG).show()
-            "https" -> openLink(requireContext(), item.link, item.title)
-        }
-        // route(item.link)
     }
 
 //    override fun refresh() {
-//        onCreate()  // 不做onCreate()重新赋值call的话, HttpUtils里call不clone是会报错的
+//        onCreate()  // 不做onCreate()重新赋值call的话, HttpUtil里call不clone是会报错的
 //        super.refresh()
 //    }
 
@@ -117,8 +117,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
 
     private fun setupUI() {
         with(adapter) {
-            removeAll()
-            addAll(items)
+            submitList(items)
         }
     }
 }

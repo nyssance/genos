@@ -16,25 +16,36 @@
 
 package genos.ui.fragment.base
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
+import com.nyssance.genos.R
 import genos.Global.LIST_START_PAGE
 
-abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val spanCount: Int) : RecyclerViewFragment<D, T, VH>() {
+abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(
+        val spanCount: Int
+) : RecyclerViewFragment<D, T, VH>() {
     protected var page = LIST_START_PAGE
 
     protected abstract fun transformListFromData(data: D): List<T>
 
-    protected open fun hasNext(): Boolean {
-        return true
+    protected open fun hasNext() = true
+
+    protected open fun hasPrevious() = page > LIST_START_PAGE
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState)?.apply {
+        // SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
+        findViewById<NestedScrollView>(R.id.nested)?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+            if (scrollY == listView.measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
+                loadMore()
+            }
+        })
     }
 
-    protected open fun hasPrevious(): Boolean {
-        return page > LIST_START_PAGE
-    }
-
-    override fun onDataLoadFailure(code: Int, message: String) {
-        super.onDataLoadFailure(code, message)
+    override fun onDataLoadFailure(status: Int, message: String) {
+        super.onDataLoadFailure(status, message)
         if (page > LIST_START_PAGE) {
             page--
         }
@@ -42,23 +53,14 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val 
 
     override fun onDisplay(data: D) {
         with(adapter) {
-            if (!hasPrevious()) { // 如果无上一页, 完全重载
-                removeAll()
-            }
-            addAll(transformListFromData(data))
-        }
-    }
-
-    override fun onScrollChange(v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
-        // SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
-        if (scrollY == listView.measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
-            loadMore()
+            val items = transformListFromData(data)
+            if (hasPrevious()) addList(items) else submitList(items) // 如果无上一页, 完全重载
         }
     }
 
     override fun refresh() {
         page = LIST_START_PAGE
-        onCreate()
+        onCreate(requireActivity().intent)
         super.refresh()
     }
 
@@ -68,7 +70,7 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(val 
         }
         isLoading = true
         page++
-        onCreate()
+        onCreate(requireActivity().intent)
         super.refresh()
     }
 }

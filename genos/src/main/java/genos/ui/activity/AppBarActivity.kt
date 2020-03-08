@@ -17,6 +17,6 @@
 package genos.ui.activity
 
 import com.nyssance.genos.R
-import genos.ui.activity.base.SingleActivity
+import genos.ui.activity.base.ContainerActivity
 
-abstract class AppBarActivity : SingleActivity(R.layout.activity_app_bar)
+abstract class AppBarActivity : ContainerActivity(R.layout.activity_app_bar)

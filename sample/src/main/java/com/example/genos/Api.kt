@@ -16,10 +16,23 @@
 
 package com.example.genos
 
-import genos.Global
+import com.example.genos.model.User
+import genos.vendor.retrofit
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-lateinit var API: APIService
+const val BASE_URL = "https://api.github.com"
+val API: Api = retrofit(BASE_URL).create(Api::class.java)
 
-fun config() {
-    API = Global.retrofit("https://api.github.com").create(APIService::class.java)
+interface Api {
+    @GET("repos/square/retrofit/contributors")
+    fun home(@Query("page") page: Int): Call<List<User>>
+
+    @GET("repos/square/retrofit/contributors")
+    fun userList(@Query("page") page: Int): Call<List<User>>
+
+    @GET("users/{username}")
+    fun userDetail(@Path("username") username: String): Call<User>
 }

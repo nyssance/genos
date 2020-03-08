@@ -16,37 +16,35 @@
 
 package com.example.genos.ui
 
-import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.content.Intent
+import androidx.compose.Composable
+import androidx.ui.core.Text
 import com.example.genos.API
+import com.example.genos.R
 import com.example.genos.model.User
 import genos.ui.activity.CollapsingActivity
 import genos.ui.fragment.generic.Detail
 
 class UserDetail : Detail<User>() {
-    private var textView: TextView? = null
-
-    override fun onCreate() {
-        call = API.userDetail(requireActivity().intent.getStringExtra("username").orEmpty())
+    override fun onCreate(intent: Intent, id: String) {
+        call = API.userDetail(id)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        textView = view.findViewById(android.R.id.text1)
-        textView?.text = ""
-//        text1.text = ""
+    @Composable
+    override fun onCompose() {
+        UserDetail(getString(R.string.large_text))
     }
 
     override fun onDisplay(data: User) {
-        (activity as UserDetailActivity).collapsingToolbar?.title = data.username
-        textView?.text = data.id.toString()
+        (requireActivity() as UserDetailActivity).collapsingToolbar?.title = data.username
     }
 }
 
 class UserDetailActivity : CollapsingActivity() {
-    override fun onCreateFragment(): Fragment {
-        return UserDetail()
-    }
+    override fun onCreateFragment() = UserDetail()
+}
+
+@Composable
+fun UserDetail(name: String) {
+    Text(name)
 }

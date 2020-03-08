@@ -38,26 +38,17 @@ class ActionSheet(
         private val action: (Item) -> Unit
 ) : BottomSheetDialogFragment() {
     companion object {
-        fun instance(title: String, items: List<Item>, action: (Item) -> Unit): ActionSheet {
-            return ActionSheet(title, items, action)
-        }
+        fun instance(title: String, items: List<Item>, action: (Item) -> Unit) = ActionSheet(title, items, action)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_action_sheet, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_action_sheet, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = object : BaseAdapter<Item, Holder>() {
-            override fun getItemViewType(position: Int): Int {
-                return R.layout.list_item_default
-            }
+            override fun getItemViewType(position: Int) = R.layout.list_item_default
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-                val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-                return Holder(view)
-            }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
 
             override fun onBindViewHolder(holder: Holder, position: Int) {
                 val item = getItem(position)
@@ -74,13 +65,13 @@ class ActionSheet(
         }
         list.adapter = adapter
         SelectionTracker.Builder("selection-id",
-                list, adapter.keyProvider, adapter.detailsLookup,
-                StorageStrategy.createLongStorage())
+                        list, adapter.keyProvider, adapter.detailsLookup,
+                        StorageStrategy.createLongStorage())
                 .withOnItemActivatedListener { item, _ ->
                     action(adapter.getItem(item.position))
                     true
                 }
                 .build()
-        adapter.addAll(items)
+        adapter.addList(items)
     }
 }

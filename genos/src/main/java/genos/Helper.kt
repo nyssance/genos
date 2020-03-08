@@ -19,11 +19,10 @@ package genos
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.os.Environment
-import android.telephony.TelephonyManager
-import androidx.core.content.ContextCompat
 import com.orhanobut.logger.Logger
+
+// NY: ContextCompat, ViewCompat里有很多版本兼容方法, 不用自己写
 
 object Helper {
     // Android https://developer.android.com/guide/topics/data/data-storage#filesExternal
@@ -44,20 +43,10 @@ object Helper {
             repeat(count) {
                 resourceIDs[it] = resourceIDFields[it].getInt(null)
             }
-        } catch (e: IllegalAccessException) {
-            Logger.t(this::class.simpleName).e(e, "IllegalAccessException | IllegalArgumentException")
-        } catch (e: IllegalArgumentException) {
-            Logger.t(this::class.simpleName).e(e, "IllegalAccessException | IllegalArgumentException")
+        } catch (cause: Throwable) {
+            Logger.t(this::class.simpleName).e(cause, "Throwable")
         }
         return resourceIDs
-    }
-
-    fun isTablet(context: Context): Boolean {
-        val manager = context.getSystemService(Context.TELEPHONY_SERVICE)
-        if (manager is TelephonyManager) {
-            return manager.phoneType == TelephonyManager.PHONE_TYPE_NONE
-        }
-        return false
     }
 
     fun getApplicationName(context: Context): String {
@@ -82,16 +71,5 @@ object Helper {
             Logger.t(this::class.simpleName).wtf("R.$defType.$name 不存在")
         }
         return id
-    }
-
-    // 其他
-    fun getColorFromIdentifier(context: Context, id: Int): Int {
-        val resId = getResId(context, context.resources.getResourceEntryName(id), "color")
-        return if (resId != 0) ContextCompat.getColor(context, resId) else 0
-    }
-
-    fun getDrawableFromIdentifier(context: Context, id: Int): Drawable? {
-        val resId = getResId(context, context.resources.getResourceEntryName(id), "drawable")
-        return if (resId != 0) context.getDrawable(resId) else null
     }
 }

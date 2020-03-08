@@ -17,9 +17,19 @@
 package com.example.genos.model
 
 import com.google.gson.annotations.SerializedName
+import genos.Global.APP_SCHEME
 
 data class User(
         val id: Long,
         @SerializedName("login") val username: String,
         @SerializedName("avatar_url") val avatarUrl: String
-)
+) {
+    companion object {
+        val listLink = "$APP_SCHEME://users"
+    }
+
+    val link: String
+        get() {
+            return "$listLink/$username"
+        }
+}

@@ -26,13 +26,11 @@ abstract class ObjectFragment<D : Any>(contentLayoutId: Int) : LoaderFragment<D>
         this.data = data
     }
 
-    override fun onPerform(action: Int): Boolean {
-        return when (action) {
-            R.id.action_view_refresh -> {
-                refresh()
-                true
-            }
-            else -> false
+    override fun onPerform(action: Int) = when (action) {
+        R.id.action_view_refresh -> {
+            refresh()
+            true
         }
+        else -> false
     }
 }

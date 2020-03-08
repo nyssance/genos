@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.example.genos
+package com.example.genos.ui
 
-import com.example.genos.model.User
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import android.os.Bundle
+import androidx.preference.PreferenceFragmentCompat
+import com.example.genos.R
+import genos.ui.activity.AppBarActivity
 
-interface APIService {
-    @GET("repos/square/retrofit/contributors")
-    fun userList(@Query("page") page: Int): Call<List<User>>
+class SettingsActivity : AppBarActivity() {
+    override fun onCreateFragment() = Settings()
 
-    @GET("users/{username}")
-    fun userDetail(@Path("username") username: String): Call<User>
+    class Settings : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        }
+    }
 }

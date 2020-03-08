@@ -18,28 +18,22 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
-        }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.0-alpha01")
-        classpath(kotlin("gradle-plugin", "1.3.60-eap-25"))
+        classpath("com.android.tools.build:gradle:4.1.0-alpha01")
+        classpath(kotlin("gradle-plugin", "1.3.70"))
 //        classpath("com.novoda:bintray-release:0.9.1")
     }
 }
 
 plugins {
-    id("com.diffplug.gradle.spotless") version "3.25.0"
+    id("com.diffplug.gradle.spotless") version "3.27.1"
 }
 
 allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
-        }
     }
 }
 
