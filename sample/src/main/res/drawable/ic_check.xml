@@ -16,8 +16,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">Genos サンプル</string>
-    <string name="user">ユーザー</string>
-    <string name="users">ユーザー</string>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:fillColor="#fff"
+        android:pathData="M22.8583,13.0711L24.1014,14.4044L16.0214,23.0711L15.9904,23.0381L15.986,23.0435L12.1014,18.8768L13.3445,17.5435L16.0154,20.4091L22.8583,13.0711Z" />
+</vector>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,12 +42,11 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
 
     override fun onUpdateLayoutManager() {
         // SO https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
-        val context = requireContext()
-        val attrs = context.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
-        val divider = attrs.getDrawable(0)
+        val attrs = context?.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
+        val divider = attrs?.getDrawable(0)
         val inset = resources.getDimensionPixelSize(R.dimen.start_keyline)
         val insetDivider = InsetDrawable(divider, 0, 0, 0, 0)
-        attrs.recycle()
+        attrs?.recycle()
         val layoutManager = LinearLayoutManager(context)
         val decor = DividerItemDecoration(context, layoutManager.orientation)
         decor.setDrawable(insetDivider)
@@ -56,8 +55,8 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
         listView.setHasFixedSize(true)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupUI()
     }
 
@@ -89,7 +88,7 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
     @ExperimentalStdlibApi
     override fun onOpenItem(item: T) {
         item.destination?.let {
-            navigateTo(Intent(requireContext(), it).apply {
+            navigateTo(Intent(context, it).apply {
                 if (item.title.isNotBlank()) {
                     putExtra("title", item.title)
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ abstract class GridViewList<T : Any, VH : RecyclerView.ViewHolder>(
         spanCount: Int = 3
 ) : ListFragment<kotlin.collections.List<T>, T, VH>(spanCount) {
     override fun onUpdateLayoutManager() {
-        listView.layoutManager = GridLayoutManager(requireContext(), spanCount)
+        listView.layoutManager = GridLayoutManager(context, spanCount)
     }
 
     final override fun transformListFromData(data: kotlin.collections.List<T>) = data

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,9 +26,9 @@ import genos.ui.viewholder.Holder
 class Me : TableViewDetail<User, Item, Holder>() {
     override fun onCreate(intent: Intent) {
         items.addAll(listOf(
-                Item(requireContext(), R.string.home, link = "https://www.baidu.com"),
-                Item(requireContext(), R.string.help, link = "http://docs.wechatpy.org/zh_CN/master/"),
-                Item(requireContext(), R.string.settings, link = "settings"),
-                Item(requireContext(), R.string.web)))
+                Item(context, R.string.home, link = "https://www.baidu.com"),
+                Item(context, R.string.help, link = "http://docs.wechatpy.org/zh_CN/master/"),
+                Item(context, R.string.settings, link = "settings"),
+                Item(context, R.string.web)))
     }
 }

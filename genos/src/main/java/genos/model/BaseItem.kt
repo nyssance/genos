@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 
 abstract class BaseItem constructor(
-        context: Context,
+        context: Context?,
         @StringRes val id: Int,
         name: String? = null,
         val icon: Any? = null,
@@ -28,6 +28,6 @@ abstract class BaseItem constructor(
         val subtitle: String? = null,
         var enabled: Boolean = false
 ) {
-    val name: String = name ?: context.resources.getResourceEntryName(id)
-    val title = title ?: context.getString(id)
+    val name: String = name ?: context?.resources?.getResourceEntryName(id) ?: ""
+    val title = title ?: context?.getString(id) ?: ""
 }

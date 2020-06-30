@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import androidx.annotation.StringRes
 import androidx.collection.SimpleArrayMap
 
 open class Item constructor(
-        context: Context,
+        context: Context?,
         @StringRes id: Int,
         name: String? = null,
         icon: Any? = null,

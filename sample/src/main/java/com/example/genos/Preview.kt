@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters")
+
 package com.example.genos
 
 import androidx.compose.Composable
@@ -10,7 +12,7 @@ import com.example.genos.ui.UserDetail
 @Composable
 private fun 发现() {
     MaterialTheme {
-        Discover("Android")
+        Discover("discover")
     }
 }
 
@@ -18,6 +20,6 @@ private fun 发现() {
 @Composable
 private fun 用户详情() {
     MaterialTheme {
-        UserDetail("detail")
+        UserDetail("user")
     }
 }

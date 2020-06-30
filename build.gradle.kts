@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0-alpha01")
-        classpath(kotlin("gradle-plugin", "1.3.70"))
+        classpath("com.android.tools.build:gradle:4.2.0-alpha02")
+        classpath(kotlin("gradle-plugin", "1.3.72"))
 //        classpath("com.novoda:bintray-release:0.9.1")
     }
-}
-
-plugins {
-    id("com.diffplug.gradle.spotless") version "3.27.1"
 }
 
 allprojects {
@@ -35,6 +31,10 @@ allprojects {
         google()
         jcenter()
     }
+}
+
+plugins {
+    id("com.diffplug.gradle.spotless") version "4.2.1"
 }
 
 spotless {

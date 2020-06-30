@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,20 @@
 
 package genos
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](https://developer.android.com/studio/test).
  */
-@RunWith(AndroidJUnit4::class)
+@MediumTest
+@RunWith(JUnit4::class)
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {

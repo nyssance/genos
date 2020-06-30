@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,25 @@
 
 package genos.ui.fragment.base
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.nyssance.genos.R
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 
-abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId) {
+abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), LifecycleObserver {
     // 💖 Lifecycle
     // Android https://developer.android.com/guide/components/fragments#Lifecycle
 
-    /**
-     * onAttach() - 绑定Activity的callback
-     */
+    // SO https://stackoverflow.com/questions/61306719/onactivitycreated-is-deprecated-how-to-properly-use-lifecycleobserver
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.lifecycle?.addObserver(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +46,13 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
      */
     protected abstract fun onCreate(intent: Intent)
 
-    /**
-     * onCreateView() - 布局, Fragment会被混淆, 所以都需要手动设置
-     */
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
-            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_SHORT).show()
-        }
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    protected fun onCreated() {
+        activity?.lifecycle?.removeObserver(this)
     }
 
     /**
-     * onActivityCreated() - 设置Adapter，List选中样式等在这里添加，加载数据前的最终初始化
+     * onCreateView() - 布局, Fragment会被混淆, 所以都需要手动设置
      */
 
     /**

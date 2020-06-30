@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,17 +24,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion("android-R")
+    buildToolsVersion = "30.0.0"
+    compileSdkVersion(30)
     defaultConfig {
         applicationId = "com.example.genos"
         minSdkVersion(21)
         targetSdkVersion(29)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         versionCode = 200
         versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildToolsVersion = "30.0.0-rc1"
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -42,22 +42,23 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    buildFeatures {
-        compose = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    useLibrary("android.test.runner")
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "0.1.0-dev14"
+    }
 }
 
 dependencies {
     //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
-    testImplementation("junit:junit:4.13")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation("androidx.test:rules:1.2.0")
+    androidTestImplementation("androidx.test:runner:1.2.0")
 }
 
 tasks.withType<KotlinCompile> {

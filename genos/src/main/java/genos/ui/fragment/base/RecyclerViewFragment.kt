@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,7 @@ import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType
 
 abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>(0) {
-    enum class ListViewStyle {
-        Plain, Grouped
-    }
+    enum class ListViewStyle { Plain, Grouped }
 
     protected lateinit var listView: RecyclerView
     protected lateinit var adapter: BaseAdapter<T, VH>
@@ -69,8 +67,8 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         // SelectionTracker
         // Android https://developer.android.com/guide/topics/ui/layout/recyclerview
         val tracker = SelectionTracker.Builder("selection-id",
-                        listView, adapter.keyProvider, adapter.detailsLookup,
-                        StorageStrategy.createLongStorage())
+                listView, adapter.keyProvider, adapter.detailsLookup,
+                StorageStrategy.createLongStorage())
                 .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
                     override fun canSetStateForKey(key: Long, nextState: Boolean) = canSelectMultiple
 
@@ -98,7 +96,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 var actionMode: ActionMode? = null
                 when {
                     tracker.hasSelection() && actionMode == null -> {
-                        actionMode = requireActivity().startActionMode(object : ActionMode.Callback {
+                        actionMode = activity?.startActionMode(object : ActionMode.Callback {
                             override fun onCreateActionMode(mode: ActionMode, menu: Menu) = false
 
                             override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
@@ -150,7 +148,7 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 Logger.t(this::class.simpleName).e(cause, "Throwable")
             }
         }
-        val v = View(requireContext())
+        val v = View(context)
         return BaseHolder(v) as VH
     }
 

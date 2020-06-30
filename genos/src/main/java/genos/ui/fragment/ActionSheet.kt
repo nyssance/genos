@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,6 @@ class ActionSheet(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_action_sheet, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val adapter = object : BaseAdapter<Item, Holder>() {
             override fun getItemViewType(position: Int) = R.layout.list_item_default
 
@@ -65,8 +64,8 @@ class ActionSheet(
         }
         list.adapter = adapter
         SelectionTracker.Builder("selection-id",
-                        list, adapter.keyProvider, adapter.detailsLookup,
-                        StorageStrategy.createLongStorage())
+                list, adapter.keyProvider, adapter.detailsLookup,
+                StorageStrategy.createLongStorage())
                 .withOnItemActivatedListener { item, _ ->
                     action(adapter.getItem(item.position))
                     true

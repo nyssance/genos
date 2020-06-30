@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,9 @@ import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 
 object Global {
-    enum class AuthPrefix {
-        Bearer, JWT
-    }
-
     var APP_SCHEME = "genos"
     var AUTH_HEADER = "Authorization"
-    var AUTH_PREFIX = AuthPrefix.Bearer.name
+    var AUTH_PREFIX = "Bearer"
     var AUTH_TOKEN = ""
     var LIST_START_PAGE = 1
 

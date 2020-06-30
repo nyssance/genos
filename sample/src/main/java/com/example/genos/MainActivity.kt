@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,8 +27,8 @@ import genos.Global
 import genos.ui.activity.TabBarActivity
 
 class MainActivity : TabBarActivity(mapOf(
-        R.id.navigation_1 to Home(),
         R.id.navigation_2 to Discover(),
+        R.id.navigation_1 to Home(),
         R.id.navigation_3 to Message(),
         R.id.navigation_4 to Me()
 )) {

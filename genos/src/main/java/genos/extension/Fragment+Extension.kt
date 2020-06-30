@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,8 +56,7 @@ fun Fragment.navigateTo(link: String, title: String = "") {
                     else -> "${host.singularize()}${if (uri.path.orEmpty().isBlank()) "List" else "Detail"}"
                 }.capitalize(Locale.ENGLISH)
                 try {
-                    val context = requireContext()
-                    navigateTo(Intent(context, Class.forName("${context.packageName}.ui.${name}Activity")).apply {
+                    navigateTo(Intent(context, Class.forName("${context?.packageName}.ui.${name}Activity")).apply {
                         data = uri
                     })
                 } catch (cause: Throwable) {
@@ -65,7 +64,7 @@ fun Fragment.navigateTo(link: String, title: String = "") {
                 }
             }
         }
-        "https" -> navigateTo(Intent(requireContext(), WebActivity::class.java).apply {
+        "https" -> navigateTo(Intent(context, WebActivity::class.java).apply {
             data = uri
             putExtra("title", title)
         })
@@ -81,14 +80,14 @@ fun Fragment.navigateTo(intent: Intent, isNewTask: Boolean = false) { // 默认�
         Logger.wtf(intent.data.toString())
         startActivity(intent)
     } catch (cause: Throwable) {
-        Toast.makeText(requireContext(), cause.localizedMessage, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, cause.localizedMessage, Toast.LENGTH_LONG).show()
     }
 }
 
 fun Fragment.showActionSheet(title: String, items: List<Item>, action: (Item) -> Unit) {
-    ActionSheet.instance(title, items, action).show(requireActivity().supportFragmentManager, null)
+    ActionSheet.instance(title, items, action).show(parentFragmentManager, null)
 }
 
 fun Fragment.showAlert(title: String, message: String? = null, action: ((DialogInterface, Int) -> Unit)? = null) {
-    Dialog(title, message, action).show(requireActivity().supportFragmentManager, null)
+    Dialog(title, message, action).show(parentFragmentManager, null)
 }

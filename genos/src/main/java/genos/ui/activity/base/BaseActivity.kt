@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
@@ -36,8 +37,6 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
     var collapsingToolbar: CollapsingToolbarLayout? = null
     var navigationBar: Toolbar? = null
         protected set
-    var toolbar: Toolbar? = null
-        protected set
     private var menuRes = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,34 +51,26 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         // 顶部导航栏
         navigationBar = findViewById<Toolbar>(R.id.navigation_bar)?.apply(this::setSupportActionBar)
-        // 底部工具栏
-        toolbar = findViewById<Toolbar>(R.id.toolbar)?.apply {
-            val id = Helper.getResId(this@BaseActivity, "${name}_toolbar", "menu")
-            if (id > 0) {
-                inflateMenu(id)
-            }
-        }
-        // 默认显示 Up button
         supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true) // 默认显示 Up button
             if (title == Helper.getApplicationName(this)) { // Activity android:label not set
-                val title = when {
+                val stringName = when {
                     name.endsWith("_list") -> name.removeSuffix("_list").pluralize()
                     name.endsWith("_detail") -> name.removeSuffix("_detail")
                     else -> name
                 }
-                val id = Helper.getResId(this, title, "string")
-                if (id > 0) it.setTitle(id) else it.title = title
+                @StringRes val resId = Helper.getResId(this, stringName, "string")
+                if (resId > 0) it.setTitle(resId) else it.title = title
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (menuRes > 0) {
+    override fun onCreateOptionsMenu(menu: Menu) = when (menuRes) {
+        in 1..Int.MAX_VALUE -> {
             menuInflater.inflate(menuRes, menu)
-            return true
+            true
         }
-        return super.onCreateOptionsMenu(menu)
+        else -> super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -90,7 +81,7 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
                     TaskStackBuilder.create(this)
                             .addNextIntentWithParentStack(it)
                             .startActivities()
-                } else { // NY: NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
+                } else { // NY - NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
                     it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     NavUtils.navigateUpTo(this, it)
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ abstract class NavigationActivity(
             // transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             transaction.commit()
             currentFragment = it
+            supportActionBar?.title = item.title
         } ?: run {
             Toast.makeText(this, "Fragment R.id.${resources.getResourceEntryName(item.itemId)} not exists!", Toast.LENGTH_LONG).show()
         }

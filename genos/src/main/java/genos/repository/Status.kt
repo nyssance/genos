@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,4 @@
 
 package genos.repository
 
-enum class Status {
-    RUNNING, SUCCESS, FAILED
-}
+enum class Status { RUNNING, SUCCESS, FAILED }
