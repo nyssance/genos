@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package genos.ui.fragment
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -24,23 +23,23 @@ import androidx.fragment.app.DialogFragment
 
 // Android https://developer.android.com/guide/topics/ui/dialogs
 
-class Dialog(private val title: String,
-             private val message: String?,
-             private val action: ((DialogInterface, Int) -> Unit)?) : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok) { dialog, which ->
-                        action?.let {
-                            it(dialog, which)
-                        }
+class Dialog(
+        private val title: String,
+        private val message: String?,
+        private val action: ((DialogInterface, Int) -> Unit)?
+) : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?) = requireActivity().let {
+        val builder = AlertDialog.Builder(it)
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok) { dialog, which ->
+                    action?.let {
+                        it(dialog, which)
                     }
-            action?.let {
-                builder.setNegativeButton(android.R.string.cancel, null)
-            }
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+                }
+        action?.let {
+            builder.setNegativeButton(android.R.string.cancel, null)
+        }
+        builder.create()
     }
 }

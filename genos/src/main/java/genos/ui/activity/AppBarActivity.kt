@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,6 @@
 package genos.ui.activity
 
 import com.nyssance.genos.R
-import genos.ui.activity.base.SingleActivity
+import genos.ui.activity.base.ContainerActivity
 
-abstract class AppBarActivity : SingleActivity() {
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_app_bar)
-    }
-}
+abstract class AppBarActivity : ContainerActivity(R.layout.activity_app_bar)

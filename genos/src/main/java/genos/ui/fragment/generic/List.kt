@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,17 @@
 
 package genos.ui.fragment.generic
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
 abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<kotlin.collections.List<T>, T, VH>(1) {
-    // https://kotlinlang.org/docs/reference/classes.html
-    override fun onUpdateLayoutManager() {
-        listView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState).apply {
+        listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
-    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
-        return data
-    }
+    final override fun transformListFromData(data: kotlin.collections.List<T>) = data
 }

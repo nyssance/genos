@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,16 @@ package genos.ui.activity
 
 import android.os.Bundle
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_tab_bar.*
 
-abstract class TabBarActivity(index: Int = 0) : NavigationActivity(index) {
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_tab_bar)
-    }
-
+abstract class TabBarActivity(
+        fragments: Map<Int, Fragment>,
+        index: Int = 0
+) : NavigationActivity(fragments, index, R.layout.activity_tab_bar) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED

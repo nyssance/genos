@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,5 @@ import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 
 interface IRepository<D : Any> {
-    fun getData(
-            call: Call<D>,
-            data: MutableLiveData<D>,
-            success: (Int) -> Unit,
-            failure: (Int, String) -> Unit
-    ): MutableLiveData<D>
+    fun getData(call: Call<D>, data: MutableLiveData<D>, success: (Int) -> Unit, failure: (Int, String) -> Unit): MutableLiveData<D>
 }

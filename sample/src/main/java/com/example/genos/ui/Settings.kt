@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package genos
+package com.example.genos.ui
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import android.os.Bundle
+import androidx.preference.PreferenceFragmentCompat
+import com.example.genos.R
+import genos.ui.activity.AppBarActivity
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](https://developer.android.com/studio/test).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+class SettingsActivity : AppBarActivity() {
+    override fun onCreateFragment() = Settings()
+
+    class Settings : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        }
     }
 }

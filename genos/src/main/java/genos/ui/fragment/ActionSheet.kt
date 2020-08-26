@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,31 +32,22 @@ import kotlinx.android.synthetic.main.fragment_action_sheet.*
 
 // https://material.io/develop/android/components/bottom-sheet-dialog-fragment/
 
-class ActionSheet(private val title: String,
-                  private val items: List<Item>,
-                  private val action: (Item) -> Unit) : BottomSheetDialogFragment() {
+class ActionSheet(
+        private val title: String,
+        private val items: List<Item>,
+        private val action: (Item) -> Unit
+) : BottomSheetDialogFragment() {
     companion object {
-        @JvmStatic
-        fun instance(title: String, items: List<Item>, action: (Item) -> Unit): ActionSheet {
-            return ActionSheet(title, items, action)
-        }
+        fun instance(title: String, items: List<Item>, action: (Item) -> Unit) = ActionSheet(title, items, action)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_action_sheet, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_action_sheet, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val adapter = object : BaseAdapter<Item, Holder>() {
-            override fun getItemViewType(position: Int): Int {
-                return R.layout.list_item_default
-            }
+            override fun getItemViewType(position: Int) = R.layout.list_item_default
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-                val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-                return Holder(view)
-            }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
 
             override fun onBindViewHolder(holder: Holder, position: Int) {
                 val item = getItem(position)
@@ -80,6 +71,6 @@ class ActionSheet(private val title: String,
                     true
                 }
                 .build()
-        adapter.addAll(items)
+        adapter.addList(items)
     }
 }

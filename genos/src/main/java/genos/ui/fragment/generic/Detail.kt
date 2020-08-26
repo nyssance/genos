@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package genos.ui.fragment.generic
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.content.Intent
 import com.nyssance.genos.R
 import genos.ui.fragment.base.ObjectFragment
 
-abstract class Detail<D : Any> : ObjectFragment<D>() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+abstract class Detail<D : Any>(contentLayoutId: Int = R.layout.fragment_detail) : ObjectFragment<D>(contentLayoutId) {
+    final override fun onCreate(intent: Intent) {
+        onCreate(intent, intent.data?.path?.removePrefix("/").orEmpty())
     }
+
+    abstract fun onCreate(intent: Intent, id: String)
 }

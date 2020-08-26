@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,8 @@ import android.widget.TextView
 import com.nyssance.genos.R
 
 open class Holder(itemView: View) : BaseHolder(itemView) {
-    @JvmField
     val icon: ImageView? = getView(android.R.id.icon)
-    @JvmField
     val title: TextView? = getView(android.R.id.title)
-    @JvmField
     val subtitle: TextView? = getView(R.id.subtitle)
-    @JvmField
     val accessory: ImageView? = getView(R.id.accessory)
 }

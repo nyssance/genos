@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,14 @@
 package genos.repository
 
 import androidx.lifecycle.MutableLiveData
-import genos.repository.HttpUtils.request
+import genos.repository.HttpUtil.request
 import retrofit2.Call
 
 class HttpRepository<D : Any> : IRepository<D> {
-    override fun getData(
-            call: Call<D>, data: MutableLiveData<D>,
-            success: (Int) -> Unit, failure: (Int, String) -> Unit): MutableLiveData<D> {
-        request(call, { code, response ->
+    override fun getData(call: Call<D>, data: MutableLiveData<D>, success: (Int) -> Unit, failure: (Int, String) -> Unit): MutableLiveData<D> {
+        request(call, { status, response ->
             data.postValue(response.body())
-            success(code)
+            success(status)
         }, failure)
         return data
     }

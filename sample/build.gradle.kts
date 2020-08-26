@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,47 +23,52 @@ plugins {
     kotlin("kapt")
 }
 
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}
+
 android {
-    compileSdkVersion(29)
-    buildToolsVersion = "29.0.2"
+    buildToolsVersion = "30.0.2"
+    compileSdkVersion(30)
     defaultConfig {
         applicationId = "com.example.genos"
         minSdkVersion(21)
-        targetSdkVersion(29)
-        versionCode = 121
-        versionName = "1.2.1"
+        targetSdkVersion(30)
+        versionCode = 200
+        versionName = "2.0.0"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    useLibrary("android.test.runner")
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "0.1.0-dev17"
+    }
 }
 
-//androidExtensions { isExperimental = true }
-
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":genos"))
-    // Anko Commons
-    implementation("org.jetbrains.anko:anko-commons:0.10.8")
-    // Anko Layouts
-    implementation("org.jetbrains.anko:anko-sdk21:0.10.8")
-    implementation("org.jetbrains.anko:anko-appcompat-v7:0.10.8")
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation("androidx.test:rules:1.2.0")
+    androidTestImplementation("androidx.test:runner:1.2.0")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }

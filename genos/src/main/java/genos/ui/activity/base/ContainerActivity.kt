@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.nyssance.genos.R
 
-abstract class SingleActivity : BaseActivity() {
+abstract class ContainerActivity(contentLayoutId: Int) : BaseActivity(contentLayoutId) {
     protected var fragment: Fragment? = null
 
     protected abstract fun onCreateFragment(): Fragment

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package genos.ui.fragment.base
 
 import com.nyssance.genos.R
 
-abstract class ObjectFragment<D : Any> : LoaderFragment<D>() {
+abstract class ObjectFragment<D : Any>(contentLayoutId: Int) : LoaderFragment<D>(contentLayoutId) {
     protected var data: D? = null
 
     override fun onDataChanged(data: D) {
@@ -26,13 +26,11 @@ abstract class ObjectFragment<D : Any> : LoaderFragment<D>() {
         this.data = data
     }
 
-    override fun onPerform(action: Int): Boolean {
-        return when (action) {
-            R.id.action_view_refresh -> {
-                refresh()
-                true
-            }
-            else -> false
+    override fun onPerform(action: Int) = when (action) {
+        R.id.action_view_refresh -> {
+            refresh()
+            true
         }
+        else -> false
     }
 }

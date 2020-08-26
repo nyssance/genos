@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package genos.ui.viewholder
 
-import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,16 +25,16 @@ import com.orhanobut.logger.Logger
 import genos.extension.setImage
 
 open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val views = SparseArray<View>()
+    private val views = LinkedHashMap<@IdRes Int, View>()
 
     fun <T : View> getView(@IdRes id: Int): T? {
-        var view = views.get(id)
+        var view = views[id]
         return if (view != null) {
             view as T
         } else {
             view = itemView.findViewById<T>(id)
             view?.let {
-                views.put(id, it)
+                views[id] = it
             } ?: run {
                 Logger.t(this::class.simpleName).d("itemView.findViewById(${itemView.context.resources.getResourceName(id)}) return null")
             }
@@ -44,7 +43,7 @@ open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun setText(@IdRes id: Int, text: CharSequence?) {
-        getView<TextView>(id)?.text = null
+        getView<TextView>(id)?.text = text
     }
 
     fun setImage(@IdRes id: Int, string: String) {

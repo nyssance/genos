@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,19 @@
 
 package genos.ui.fragment.generic
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import genos.ui.fragment.base.ListFragment
 
-abstract class StaggeredGridViewList<T : Any, VH : RecyclerView.ViewHolder>(spanCount: Int = 2) : ListFragment<kotlin.collections.List<T>, T, VH>(spanCount) {
-    override fun onUpdateLayoutManager() {
+abstract class StaggeredGridViewList<T : Any, VH : RecyclerView.ViewHolder>(
+        spanCount: Int = 2
+) : ListFragment<kotlin.collections.List<T>, T, VH>(spanCount) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState).apply {
         listView.layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
     }
 
-    final override fun transformListFromData(data: kotlin.collections.List<T>): kotlin.collections.List<T> {
-        return data
-    }
+    final override fun transformListFromData(data: kotlin.collections.List<T>) = data
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,33 +21,30 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 import genos.ui.activity.base.NavigationActivity
 import kotlinx.android.synthetic.main.activity_drawer.*
 
-abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
-    protected lateinit var drawerLayout: DrawerLayout
+abstract class DrawerActivity(
+        fragments: Map<Int, Fragment>,
+        index: Int = 0
+) : NavigationActivity(fragments, index, R.layout.activity_drawer) {
     protected lateinit var currentItem: MenuItem
-
-    override fun onCreateView(name: String) {
-        setContentView(R.layout.activity_drawer)
-        drawerLayout = drawer_layout
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val toggle = ActionBarDrawerToggle(
                 this,
-                drawerLayout,
+                drawer_layout,
                 navigationBar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
-        ) // 不能onCreateView中调用, navigationBar还未获取为null
-        drawerLayout.addDrawerListener(toggle)
+        )
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         navigation.setNavigationItemSelectedListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
+            drawer_layout.closeDrawer(GravityCompat.START)
             currentItem.isChecked = false
             currentItem = it
             currentItem.isChecked = true
@@ -63,7 +60,6 @@ abstract class DrawerActivity(index: Int = 0) : NavigationActivity(index) {
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START)
-        else super.onBackPressed()
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) drawer_layout.closeDrawer(GravityCompat.START) else super.onBackPressed()
     }
 }

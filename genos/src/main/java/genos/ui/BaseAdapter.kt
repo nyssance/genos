@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,48 +16,57 @@
 
 package genos.ui
 
-import android.util.SparseArray
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.ItemKeyProvider
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
+interface Idable {
+    val id: Long
+}
+
+class DiffCallback<T : Any> : DiffUtil.ItemCallback<T>() {
+    override fun areItemsTheSame(oldItem: T, newItem: T) =
+            if (this.javaClass is Idable) (oldItem as Idable).id == (newItem as Idable).id
+            else oldItem.toString() == newItem.toString()
+
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
+}
+
+//abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder>(
+//    diffCallback: DiffUtil.ItemCallback<T> = DiffCallback()
+//) : ListAdapter<T, VH>(diffCallback) {
 abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
-    private val data = ArrayList<T>()
+    private val currentList = ArrayList<T>()
     lateinit var keyProvider: ItemKeyProvider<Long>
         private set
     lateinit var detailsLookup: ItemDetailsLookup<Long>
         private set
-    val sections = SparseArray<String?>()
+    val sections = LinkedHashMap<Int, String?>()
 
     init {
-        sections.put(0, null)
+        sections[0] = null
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         // KeyProvider & DetailsLookup
         // https://medium.com/@Dalvin/android-recycler-view-with-multiple-item-selections-b2af90eb5825
         keyProvider = object : ItemKeyProvider<Long>(SCOPE_MAPPED) {
-            override fun getKey(position: Int): Long? {
-                return position.toLong()
-            }
+            override fun getKey(position: Int) = position.toLong()
 
-            override fun getPosition(key: Long): Int {
-                return key.toInt()
-            }
+            override fun getPosition(key: Long) = key.toInt()
         }
         detailsLookup = object : ItemDetailsLookup<Long>() {
             override fun getItemDetails(e: MotionEvent): ItemDetails<Long>? {
                 recyclerView.findChildViewUnder(e.x, e.y)?.let {
                     val position = recyclerView.getChildViewHolder(it).adapterPosition
                     return object : ItemDetails<Long>() {
-                        override fun getPosition(): Int {
-                            return position
-                        }
+                        override fun getPosition() = position
 
-                        override fun getSelectionKey(): Long? {
-                            return position.toLong()
-                        }
+                        override fun getSelectionKey() = position.toLong()
                     }
                 }
                 return null
@@ -65,33 +74,31 @@ abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView
         }
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount() = currentList.size
 
-    fun getItem(position: Int): T {
-        return data[position]
-    }
+//    public override fun getItem(position: Int): T = super.getItem(position)
 
-    fun addAll(items: Collection<T>) {
-        data.addAll(items)
+    fun getItem(position: Int) = currentList[position]
+
+    fun submitList(items: List<T>) {
+        currentList.clear()
+        currentList.addAll(items)
         notifyDataSetChanged()
     }
 
-    fun removeAll(items: Collection<T>? = null, notify: Boolean = false) {
-        items?.let(data::removeAll) ?: run(data::clear)
-        if (notify) {
-            notifyDataSetChanged()
-        }
+    fun addList(items: List<T>) {
+        val start = itemCount
+        currentList.addAll(items)
+        notifyItemRangeChanged(start, itemCount)
     }
 
     fun insert(index: Int, item: T) {
-        data.add(index, item)
+        currentList.add(index, item)
         notifyItemInserted(index)
     }
 
     fun remove(index: Int) {
-        data.removeAt(index)
+        currentList.removeAt(index)
         notifyItemRemoved(index)
     }
 }

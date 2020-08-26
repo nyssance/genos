@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,37 +16,42 @@
 
 package com.example.genos.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.compose.foundation.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Recomposer
+import androidx.compose.ui.platform.setContent
 import com.example.genos.API
+import com.example.genos.R
 import com.example.genos.model.User
 import genos.ui.activity.CollapsingActivity
 import genos.ui.fragment.generic.Detail
 
 class UserDetail : Detail<User>() {
-    private var textView: TextView? = null
-
-    override fun onCreate() {
-        call = API.userDetail(requireActivity().intent.getStringExtra("username") ?: "")
+    override fun onCreate(intent: Intent, id: String) {
+        call = API.userDetail(id)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        textView = view.findViewById(android.R.id.text1)
-        textView?.text = ""
-//        text1.text = ""
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+            super.onCreateView(inflater, container, savedInstanceState).apply {
+                (this as ViewGroup).setContent(Recomposer.current()) {
+                    UserDetail(getString(R.string.large_text))
+                }
+            }
 
     override fun onDisplay(data: User) {
         (activity as UserDetailActivity).collapsingToolbar?.title = data.username
-        textView?.text = data.id.toString()
     }
 }
 
 class UserDetailActivity : CollapsingActivity() {
-    override fun onCreateFragment(): Fragment {
-        return UserDetail()
-    }
+    override fun onCreateFragment() = UserDetail()
+}
+
+@Composable
+fun UserDetail(name: String) {
+    Text(name)
 }

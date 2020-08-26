@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,19 +20,20 @@ import android.content.Intent
 import com.example.genos.API
 import com.example.genos.R
 import com.example.genos.model.User
-import genos.extension.navigate
+import genos.extension.navigateTo
 import genos.extension.setImage
+import genos.ui.activity.AppBarActivity
 import genos.ui.fragment.generic.List
 import genos.ui.viewholder.Holder
 
 class UserList : List<User, Holder>() {
-    override fun onCreate() {
-        call = API.userList(page)  // A retrofit call of this fragment.
-        tileId = R.layout.list_item_subtitle  // The layout res id of list item.
+    override fun onCreate(intent: Intent) {
+        call = API.userList(page) // A retrofit call of this fragment.
+        tileId = R.layout.list_item_subtitle // The layout res id of list item.
     }
 
-    override fun onDisplayItem(item: User, view: Holder, viewType: Int) {
-        with(view) {
+    override fun onDisplayItem(item: User, viewHolder: Holder, viewType: Int) {
+        with(viewHolder) {
             icon?.setImage(item.avatarUrl)
             title?.text = item.username
             subtitle?.text = item.id.toString()
@@ -40,9 +41,10 @@ class UserList : List<User, Holder>() {
     }
 
     override fun onOpenItem(item: User) {
-        val intent = Intent(requireContext(), UserDetailActivity::class.java).apply {
-            putExtra("username", item.username)
-        }
-        navigate(intent)
+        navigateTo(item.link)
     }
+}
+
+class UserListActivity : AppBarActivity() {
+    override fun onCreateFragment() = UserList()
 }

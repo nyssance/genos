@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.core.util.contains
-import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -32,42 +30,29 @@ import genos.ui.BaseAdapter
 import genos.ui.viewholder.BaseHolder
 import java.lang.reflect.ParameterizedType
 
-enum class ListViewStyle {
-    Plain, Grouped
-}
+abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>(0) {
+    enum class ListViewStyle { Plain, Grouped }
 
-abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder> : LoaderFragment<D>() {
     protected lateinit var listView: RecyclerView
     protected lateinit var adapter: BaseAdapter<T, VH>
-    @JvmField
     protected var listViewStyle = ListViewStyle.Plain
-    @JvmField
     protected var canSelectMultiple = false
 
-    @JvmField
     @LayoutRes
     protected var tileId = R.layout.list_item_default
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recylcer_view, container, false)
         listView = view.findViewById(android.R.id.list)
-        view.findViewById<NestedScrollView>(R.id.nested)?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            onScrollChange(v, scrollX, scrollY, oldScrollX, oldScrollY)
-        })
-        onUpdateLayoutManager()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = object : BaseAdapter<T, VH>() {
-            override fun getItemViewType(position: Int): Int {
-                return onGetItemViewType(position)
-            }
+            override fun getItemViewType(position: Int) = onGetItemViewType(position)
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-                return this@RecyclerViewFragment.onCreateViewHolder(parent, viewType)
-            }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = this@RecyclerViewFragment.onCreateViewHolder(parent, viewType)
 
             override fun onBindViewHolder(holder: VH, position: Int) {
                 if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position) && holder is BaseHolder) {
@@ -84,18 +69,11 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                 listView, adapter.keyProvider, adapter.detailsLookup,
                 StorageStrategy.createLongStorage())
                 .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
-                    override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
-                        return canSelectMultiple
-                    }
+                    override fun canSetStateForKey(key: Long, nextState: Boolean) = canSelectMultiple
 
-                    override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
-                        return canSelectMultiple
-                    }
+                    override fun canSetStateAtPosition(position: Int, nextState: Boolean) = canSelectMultiple
 
-                    override fun canSelectMultiple(): Boolean {
-                        return canSelectMultiple
-                    }
-
+                    override fun canSelectMultiple() = canSelectMultiple
                 })
                 .withOnItemActivatedListener { item, _ ->
                     onOpenItem(adapter.getItem(item.position))
@@ -107,37 +85,35 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                     true
                 }
                 .build()
-        tracker.addObserver(object : SelectionTracker.SelectionObserver<T>() {
-            override fun onItemStateChanged(key: T, selected: Boolean) {
+        tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
+            override fun onItemStateChanged(key: Long, selected: Boolean) {
                 Logger.w("onItemStateChanged: ")
             }
 
             override fun onSelectionChanged() {
                 Logger.w("多选 onSelectionChanged: ")
                 var actionMode: ActionMode? = null
-                if (tracker.hasSelection() && actionMode == null) {
-                    actionMode = requireActivity().startActionMode(object : ActionMode.Callback {
-                        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                            return false
-                        }
+                when {
+                    tracker.hasSelection() && actionMode == null -> {
+                        actionMode = activity?.startActionMode(object : ActionMode.Callback {
+                            override fun onCreateActionMode(mode: ActionMode, menu: Menu) = false
 
-                        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                            return false
-                        }
+                            override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
 
-                        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                            return false
-                        }
+                            override fun onActionItemClicked(mode: ActionMode, item: MenuItem) = false
 
-                        override fun onDestroyActionMode(mode: ActionMode) {
-                            tracker.clearSelection()
-                        }
-                    })
-                    //                    setMenuItemTitle(tracker.selection.size())
-                } else if (!tracker.hasSelection() && actionMode != null) {
-                    actionMode.finish()
-                } else {
-                    //                    setMenuItemTitle(tracker.selection.size())
+                            override fun onDestroyActionMode(mode: ActionMode) {
+                                tracker.clearSelection()
+                            }
+                        })
+                        //                    setMenuItemTitle(tracker.selection.size())
+                    }
+                    !tracker.hasSelection() && actionMode != null -> {
+                        actionMode.finish()
+                    }
+                    else -> {
+                        //                    setMenuItemTitle(tracker.selection.size())
+                    }
                 }
                 //                tracker.selection.forEach {
                 //                    Logger.w(it.toString())
@@ -145,10 +121,6 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
         })
     }
-
-    protected abstract fun onScrollChange(v: NestedScrollView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int)
-
-    protected abstract fun onUpdateLayoutManager()
 
     /**
      * 获取子类的 ViewHolder
@@ -164,45 +136,38 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             it as Class<VH>
             try {
                 val constructor = it.getDeclaredConstructor(View::class.java)
-                val resource = viewType
-                val view = LayoutInflater.from(parent.context).inflate(resource, parent, false)
-                if (resource == R.layout.list_section) {
+                val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+                if (viewType == R.layout.list_section) {
                     setViewStub(view, R.id.stub, tileId)
                 }
                 return constructor.newInstance(view)
-            } catch (e: Exception) {
-                Logger.t(this::class.simpleName).e(e, "Exception")
+            } catch (cause: Throwable) {
+                Logger.t(this::class.simpleName).e(cause, "Throwable")
             }
         }
-        val v = View(requireContext())
+        val v = View(context)
         return BaseHolder(v) as VH
     }
 
-    final override fun onPerform(action: Int): Boolean {
-        return onPerform(action, null)
-    }
+    final override fun onPerform(action: Int) = onPerform(action, null)
 
-    protected open fun onPerform(action: Int, item: T?): Boolean {
-        return when (action) {
-            R.id.action_item_open -> {
-                item?.let(this::onOpenItem) ?: run {
-                    Logger.t(this::class.simpleName).w("item is null.")
-                }
-                true
+    protected open fun onPerform(action: Int, item: T?) = when (action) {
+        R.id.action_item_open -> {
+            item?.let(this::onOpenItem) ?: run {
+                Logger.t(this::class.simpleName).w("item is null.")
             }
-            R.id.action_view_refresh -> {
-                refresh()
-                true
-            }
-            else -> false
+            true
         }
+        R.id.action_view_refresh -> {
+            refresh()
+            true
+        }
+        else -> false
     }
 
-    protected open fun onGetItemViewType(position: Int): Int {
-        return if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position)) R.layout.list_section else tileId
-    }
+    protected open fun onGetItemViewType(position: Int) = if (listViewStyle == ListViewStyle.Grouped && adapter.sections.contains(position)) R.layout.list_section else tileId
 
-    protected abstract fun onDisplayItem(item: T, view: VH, viewType: Int)
+    protected abstract fun onDisplayItem(item: T, viewHolder: VH, viewType: Int)
 
     /**
      * Call on click list item
@@ -216,18 +181,12 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         listView.layoutManager?.scrollToPosition(position)
     }
 
-    protected fun setHeader(view: View, @LayoutRes layout: Int): View? {
-        return setViewStub(view, R.id.header, layout)
-    }
+    protected fun setHeader(view: View, @LayoutRes layout: Int) = setViewStub(view, R.id.header, layout)
 
-    protected fun setFooter(view: View, @LayoutRes layout: Int): View? {
-        return setViewStub(view, R.id.footer, layout)
-    }
+    protected fun setFooter(view: View, @LayoutRes layout: Int) = setViewStub(view, R.id.footer, layout)
 
-    private fun setViewStub(view: View, @IdRes id: Int, @LayoutRes layout: Int): View? {
-        return view.findViewById<ViewStub>(id)?.run {
-            layoutResource = layout
-            inflate()
-        }
+    private fun setViewStub(view: View, @IdRes id: Int, @LayoutRes layout: Int) = view.findViewById<ViewStub>(id)?.run {
+        layoutResource = layout
+        inflate()
     }
 }

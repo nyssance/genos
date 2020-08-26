@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,43 +23,39 @@ import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
-object HttpUtils {
-    @JvmStatic
+object HttpUtil {
     fun <D : Any> request(call: Call<D>, success: (Int, Response<D>) -> Unit, failure: (Int, String) -> Unit) {
-        //SO https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
+        // SO https://stackoverflow.com/questions/35093884/retrofit-illegalstateexception-already-executed#35094488
         (if (call.isExecuted) call.clone() else call).enqueue(object : Callback<D> {
             override fun onResponse(call: Call<D>, response: Response<D>) {
                 val request = call.request()
                 val scheme = request.url().scheme()
-                val code = response.code()
-                var log = "${request.method()} ${getUrlString(request)} $code ${response.message()}"
+                val status = response.code()
+                val log = "${request.method()} ${getUrlString(request)} $status ${response.message()}\n\n"
                 if (BuildConfig.DEBUG) {
-                    log = "$log\n\n▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}"
+                    log.plus("▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
                 }
                 if (response.isSuccessful) {
                     Logger.t(scheme).d("✅ $log")
-                    success(code, response)
+                    success(status, response)
                 } else {
-                    failure(code, response.errorBody()?.string() ?: "")
+                    failure(status, response.errorBody()?.string().orEmpty())
                     try {
                         Logger.t(scheme).d("❎ $log\n${response.errorBody()?.string()}")
-                    } catch (e: IOException) {
-                        Logger.t(scheme).e(scheme + e.localizedMessage)
+                    } catch (cause: Throwable) {
+                        Logger.t(scheme).e(cause, "Throwable")
                     }
                 }
             }
 
-            override fun onFailure(call: Call<D>, t: Throwable) {
-                failure(666, t.localizedMessage ?: "")
+            override fun onFailure(call: Call<D>, throwable: Throwable) {
+                failure(666, throwable.localizedMessage.orEmpty())
                 val request = call.request()
-                Logger.t(request.url().scheme()).e(t, "❌ ${getUrlString(request)}\n")
+                Logger.t(request.url().scheme()).e(throwable, "❌ ${getUrlString(request)}\n")
             }
 
-            private fun getUrlString(request: Request): String {
-                return Uri.decode(request.url().toString())
-            }
+            private fun getUrlString(request: Request) = Uri.decode(request.url().toString())
         })
     }
 }

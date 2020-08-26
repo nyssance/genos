@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2018 NY <nyssance@icloud.com>
+  ~ Copyright 2020 NY <nyssance@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -49,8 +49,7 @@
         android:id="@id/subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginHorizontal="@dimen/default_margin"
         android:ellipsize="end"
         android:gravity="end"
         android:lines="1"

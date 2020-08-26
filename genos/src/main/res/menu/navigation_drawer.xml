@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2018 NY <nyssance@icloud.com>
+  ~ Copyright 2020 NY <nyssance@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -22,15 +22,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@id/navigation_home"
+            android:id="@id/navigation_1"
             android:icon="@android:drawable/ic_menu_camera"
             android:title="@string/home" />
         <item
-            android:id="@id/navigation_discover"
+            android:id="@id/navigation_2"
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="@string/discover" />
         <item
-            android:id="@id/navigation_me"
+            android:id="@id/navigation_3"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="@string/message" />
+        <item
+            android:id="@id/navigation_4"
             android:icon="@android:drawable/ic_menu_slideshow"
             android:title="@string/me" />
     </group>

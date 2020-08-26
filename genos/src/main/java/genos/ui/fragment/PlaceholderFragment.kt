@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 NY <nyssance@icloud.com>
+ * Copyright 2020 NY <nyssance@icloud.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,20 @@
 package genos.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 import kotlinx.android.synthetic.main.fragment_placeholder.*
 
-class PlaceholderFragment : Fragment() {
+class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
     companion object {
         const val ARG_SECTION_TEXT = "section_text"
 
-        @JvmStatic
-        fun instance(text: String = ""): PlaceholderFragment {
-            val fragment = PlaceholderFragment()
+        fun instance(text: String = "") = PlaceholderFragment().apply {
             val args = Bundle()
             args.putString(ARG_SECTION_TEXT, text)
-            fragment.arguments = args
-            return fragment
+            arguments = args
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_placeholder, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
