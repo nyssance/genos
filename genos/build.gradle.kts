@@ -23,7 +23,7 @@ plugins {
 }
 
 group = "com.nyssance.genos"
-version = "2.0.0-alpha04"
+version = "2.0.0-alpha05"
 
 kapt {
     javacOptions {
@@ -107,16 +107,15 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 
-//afterEvaluate {
-//    publishing {
-//        publications {
-//            // Creates a Maven publication called "release".
-//            release(MavenPublication) {
-//                from components.release
-//                groupId = "com.nyssance.genos"
-//                artifactId = "genos"
-//                version = "2.0.0-alpha04"
-//            }
-//        }
-//    }
-//}
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.nyssance.genos"
+                artifactId = "genos"
+                version = "2.0.0-alpha05"
+            }
+        }
+    }
+}
