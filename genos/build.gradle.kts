@@ -18,7 +18,12 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+//    `maven-publish`
+    id("maven-publish")
 }
+
+group = "com.nyssance.genos"
+version = "2.0.0-alpha04"
 
 kapt {
     javacOptions {
@@ -101,3 +106,17 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
+
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            // Creates a Maven publication called "release".
+//            release(MavenPublication) {
+//                from components.release
+//                groupId = "com.nyssance.genos"
+//                artifactId = "genos"
+//                version = "2.0.0-alpha04"
+//            }
+//        }
+//    }
+//}
