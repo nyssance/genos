@@ -17,13 +17,6 @@
   -->
 
 <resources>
-    <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
     <style name="BaseTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -34,6 +27,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Genos theme. -->
+    <!-- 使用Toolbar替代ActionBar的话必须用NoActionBar -->
     <style name="Theme.Genos" parent="BaseTheme.NoActionBar" />
 
     <style name="Theme.Genos.Drawer" parent="BaseTheme.NoActionBar">
@@ -44,5 +38,4 @@
         <!-- SO https://stackoverflow.com/a/32880716 直接在 TabLayout 设置 android:singleLine="true" 无效 -->
         <item name="android:singleLine">true</item>
     </style>
-
 </resources>

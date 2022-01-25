@@ -18,12 +18,14 @@ package genos.ui.activity.base
 
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
 
 abstract class NavigationActivity(
-        private val fragments: Map<Int, Fragment>,
-        val index: Int, contentLayoutId: Int
+    private val fragments: Map<Int, Fragment>,
+    val default: Int,
+    @LayoutRes contentLayoutId: Int
 ) : BaseActivity(contentLayoutId) {
     private var currentFragment: Fragment? = null
     private var currentTag = ""

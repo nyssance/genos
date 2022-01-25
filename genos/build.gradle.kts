@@ -14,25 +14,13 @@
  * limitations under the License.
  */
 
-//import com.novoda.gradle.release.PublishExtension
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("com.android.library")
+    id("kotlin-parcelize")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
-//    id("com.novoda.bintray-release")
 }
 
-//configure<PublishExtension> {
-//    userOrg = "nyssance"
-//    groupId = "com.nyssance.genos"
-//    artifactId = "genos"
-//    publishVersion = "2.0.0"
-//    desc = "The BEST high-level framework for Android by NY."
-//    website = "https://github.com/nyssance/genos"
-//}
 kapt {
     useBuildCache = true
     javacOptions {
@@ -41,22 +29,20 @@ kapt {
 }
 
 android {
-    buildToolsVersion = "30.0.2"
-    compileSdkVersion(30)
+    compileSdk = 32
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 200
-        versionName = "2.0.0"
+        minSdk = 27
+        targetSdk = 32
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures.viewBinding = true
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -64,54 +50,36 @@ android {
 }
 
 dependencies {
-    val coreKTXVersion = "1.5.0-alpha02"
-    val activityKTXVersion = "1.1.0"
-    val fragmentKTXVersion = "1.2.5"
-    val lifecycleKTXVersion = "2.2.0"
-    val composeVersion = "0.1.0-dev17"
-
-    val preferenceVersion = "1.1.1"
-    val materialVersion = "1.3.0-alpha02"
-    val recyclerviewSelectionVersion = "1.1.0-rc01"
+    // https://developer.android.com/jetpack/androidx/versions
+    val activityKTXVersion = "1.4.0"
+    val fragmentKTXVersion = "1.4.0"
+    val recyclerviewSelectionVersion = "1.1.0"
     val swipeRefreshVersion = "1.1.0"
-    val constraintVersion = "2.0.1"
-    // https://developer.android.com/topic/libraries/architecture/adding-components
-    val pagingVersion = "2.1.2"
-    val workVersion = "1.0.1"
     // Vendor
-    val glideVersion = "4.11.0" // https://github.com/bumptech/glide
+    val glideVersion = "4.12.0" // https://github.com/bumptech/glide
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
     val retrofitVersion = "2.9.0" // https://square.github.io/retrofit/
-    val agentWebVersion = "4.1.3" // https://github.com/Justson/AgentWeb
+    val agentWebVersion = "v5.0.0-alpha.1-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api(kotlin("stdlib-jdk8"))
-    api(kotlin("reflect"))
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
     // Android KTX https://developer.android.com/kotlin/ktx
-    api("androidx.core:core-ktx:$coreKTXVersion")
+    api("androidx.core:core-ktx:1.7.0")
+    api("androidx.appcompat:appcompat:1.4.1")
     api("androidx.activity:activity-ktx:$activityKTXVersion")
     api("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleKTXVersion")
-    // Jetpack Compose https://developer.android.com/jetpack/compose/
-    api("androidx.compose.runtime:runtime:$composeVersion")
-    api("androidx.compose.runtime:runtime-livedata:$composeVersion")
-    api("androidx.compose.animation:animation:$composeVersion")
-    api("androidx.compose.foundation:foundation:$composeVersion")
-    api("androidx.compose.material:material:$composeVersion")
-    api("androidx.compose.material:material-icons-extended:$composeVersion")
-    api("androidx.compose.ui:ui:$composeVersion")
-    api("androidx.ui:ui-tooling:$composeVersion")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     //
-    api("androidx.preference:preference:$preferenceVersion")
+    api("androidx.preference:preference:1.1.1")
     // Material Components for Android https://material.io/develop/android/
-    api("com.google.android.material:material:$materialVersion")
-    // https://developer.android.com/jetpack/androidx/versions
+    api("com.google.android.material:material:1.5.0")
     api("androidx.recyclerview:recyclerview-selection:$recyclerviewSelectionVersion")
     api("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
-    api("androidx.constraintlayout:constraintlayout:$constraintVersion")
-    // Paging, Work
-    api("androidx.paging:paging-runtime:$pagingVersion")
-    api("android.arch.work:work-runtime-ktx:$workVersion")
+    api("androidx.constraintlayout:constraintlayout:2.1.3")
+    // Paging, Work <https://developer.android.com/topic/libraries/architecture/adding-components>
+    api("androidx.paging:paging-runtime:3.1.0")
+    api("androidx.work:work-runtime-ktx:2.7.1")
     // Vendor
     api("com.github.bumptech.glide:glide:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
@@ -122,15 +90,14 @@ dependencies {
     api("com.orhanobut:logger:$loggerVersion")
     api("com.squareup.retrofit2:retrofit:$retrofitVersion")
     api("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-    api("com.just.agentweb:agentweb:$agentWebVersion")
-    api("com.just.agentweb:filechooser:$agentWebVersion")
-    api("com.download.library:Downloader:$agentWebVersion")
+    api("com.github.Justson.AgentWeb:agentweb-core:$agentWebVersion")
+    api("com.github.Justson.AgentWeb:agentweb-filechooser:$agentWebVersion")
+    api("com.github.Justson:Downloader:v5.0.0-androidx")
     // Test https://developer.android.com/training/testing/set-up-project#gradle-dependencies
-    androidTestImplementation("androidx.test:rules:1.2.0")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.ui:ui-test:$composeVersion")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }

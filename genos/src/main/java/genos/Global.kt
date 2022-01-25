@@ -29,10 +29,10 @@ object Global {
 
     init {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)
-                .methodCount(2)
-                .tag("Genos")
-                .build()
+            .showThreadInfo(false)
+            .methodCount(2)
+            .tag("Genos")
+            .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
 //        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
 //            override fun isLoggable(priority: Int, tag: String?) = BuildConfig.DEBUG

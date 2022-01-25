@@ -22,17 +22,17 @@ import genos.extension.routes
 fun router() { // singleTop的情况下标签切换无法起作用
     val home = "intent://home#Intent;scheme=genos-sample;package=com.example.genos;end"
     routes = setOf(
-            "home" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            },
-            "discover" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            },
-            "message" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            },
-            "me" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+        "home" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        },
+        "discover" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        },
+        "message" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        },
+        "me" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
     )
 }

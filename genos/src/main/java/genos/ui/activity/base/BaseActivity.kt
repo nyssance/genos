@@ -43,8 +43,8 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         val className = this::class.simpleName ?: "BaseActivity"
         Logger.i("$className :: onCreate()")
         val name = className.removeSuffix("Activity")
-                .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
-                .toLowerCase(Locale.ENGLISH)
+            .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
+            .lowercase(Locale.ENGLISH)
         menuRes = Helper.getResId(this, name, "menu", false)
         // 可折叠顶栏
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
@@ -78,8 +78,8 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
             NavUtils.getParentActivityIntent(this)?.let {
                 if (NavUtils.shouldUpRecreateTask(this, it) || isTaskRoot) {
                     TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(it)
-                            .startActivities()
+                        .addNextIntentWithParentStack(it)
+                        .startActivities()
                 } else { // NY - NavUtils依然会重载入父页面, 所以增加FLAG_ACTIVITY_CLEAR_TOP
                     it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     NavUtils.navigateUpTo(this, it)

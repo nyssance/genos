@@ -1,16 +1,32 @@
+/*
+ * Copyright 2020 NY <nyssance@icloud.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @file:Suppress("NonAsciiCharacters")
 
 package com.example.genos
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.genos.ui.Discover
 import com.example.genos.ui.UserDetail
 
 @Preview
 @Composable
-private fun 发现() {
+private fun Discover_发现() {
     MaterialTheme {
         Discover("discover")
     }
@@ -18,7 +34,7 @@ private fun 发现() {
 
 @Preview
 @Composable
-private fun 用户详情() {
+private fun UserDetail_用户详情() {
     MaterialTheme {
         UserDetail("user")
     }

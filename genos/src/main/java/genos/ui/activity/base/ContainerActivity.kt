@@ -17,11 +17,12 @@
 package genos.ui.activity.base
 
 import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.nyssance.genos.R
 
-abstract class ContainerActivity(contentLayoutId: Int) : BaseActivity(contentLayoutId) {
+abstract class ContainerActivity(@LayoutRes contentLayoutId: Int) : BaseActivity(contentLayoutId) {
     protected var fragment: Fragment? = null
 
     protected abstract fun onCreateFragment(): Fragment

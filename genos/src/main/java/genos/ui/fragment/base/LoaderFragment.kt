@@ -18,25 +18,26 @@ package genos.ui.fragment.base
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.ui.BaseViewModel
 import retrofit2.Call
 
-abstract class LoaderFragment<D : Any>(contentLayoutId: Int) : BaseFragment(contentLayoutId) {
+abstract class LoaderFragment<D : Any>(@LayoutRes contentLayoutId: Int) : BaseFragment(contentLayoutId) {
     enum class RefreshMode { DidLoad, WillAppear, DidAppear, Never }
     enum class RefreshControlMode { Always, Never }
 
     protected lateinit var viewModel: ViewModel
-    protected var call: Call<out D>? = null // out防止java中出现List<? extends T>
+    protected var call: Call<out D>? = null // <out D>防止java中出现List<? extends T>
     protected var refreshMode = RefreshMode.DidLoad
     protected var refreshControlMode = RefreshControlMode.Always
     protected var isLoading = false
 
-    protected var refreshControl: SwipeRefreshLayout? = null
+    private var refreshControl: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         refreshControl = view.findViewById(R.id.swipe_refresh)
@@ -59,12 +60,12 @@ abstract class LoaderFragment<D : Any>(contentLayoutId: Int) : BaseFragment(cont
         // 以前的 onActivityCreated 部分
         viewModel = onCreateViewModel()
         onViewModelCreated()
-        (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner, {
+        (viewModel as BaseViewModel<D>).data.observe(viewLifecycleOwner) {
             isLoading = false
             activity?.runOnUiThread {
                 onDataChanged(it)
             }
-        })
+        }
         if (refreshMode == RefreshMode.DidLoad) {
             refresh()
         }
@@ -73,7 +74,7 @@ abstract class LoaderFragment<D : Any>(contentLayoutId: Int) : BaseFragment(cont
     // SO https://stackoverflow.com/questions/39679180/kotlin-call-java-method-with-classt-argument
     // ViewModelProviders.of(this).get<BaseViewModel<D>>(BaseViewModel<D>().javaClass)
     // BaseViewModel<D>::class.java 不行
-    protected open fun onCreateViewModel() = ViewModelProviders.of(this).get(BaseViewModel::class.java)
+    protected open fun onCreateViewModel() = ViewModelProvider(this)[BaseViewModel::class.java]
 
     protected open fun onViewModelCreated() {}
 
@@ -97,12 +98,9 @@ abstract class LoaderFragment<D : Any>(contentLayoutId: Int) : BaseFragment(cont
     // 💛 Action
 
     protected open fun refresh() {
-        if (call != null) {
+        call?.let {
             isLoading = true
-            (viewModel as? BaseViewModel<D>)?.let {
-                val c = call as Call<D>
-                it.loadData(c, this::onDataLoadSuccess, this::onDataLoadFailure)
-            }
+            (viewModel as? BaseViewModel<D>)?.loadData(it, this::onDataLoadSuccess, this::onDataLoadFailure)
         }
     }
 }

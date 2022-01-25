@@ -22,26 +22,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nyssance.genos.R
 import genos.extension.setImage
 import genos.model.Item
 import genos.ui.BaseAdapter
 import genos.ui.viewholder.Holder
-import kotlinx.android.synthetic.main.fragment_action_sheet.*
 
 // https://material.io/develop/android/components/bottom-sheet-dialog-fragment/
 
 class ActionSheet(
-        private val title: String,
-        private val items: List<Item>,
-        private val action: (Item) -> Unit
+    private val title: String,
+    private val items: List<Item>,
+    private val action: (Item) -> Unit
 ) : BottomSheetDialogFragment() {
     companion object {
         fun instance(title: String, items: List<Item>, action: (Item) -> Unit) = ActionSheet(title, items, action)
     }
+//    private lateinit var binding: FragmentActionSheetBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_action_sheet, container, false)
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+//        binding = FragmentActionSheetBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val adapter = object : BaseAdapter<Item, Holder>() {
@@ -62,6 +66,7 @@ class ActionSheet(
                 }
             }
         }
+        val list = view.findViewById<RecyclerView>(android.R.id.list)
         list.adapter = adapter
         SelectionTracker.Builder("selection-id",
                 list, adapter.keyProvider, adapter.detailsLookup,

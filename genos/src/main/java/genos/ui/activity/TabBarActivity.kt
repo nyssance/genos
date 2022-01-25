@@ -19,24 +19,30 @@ package genos.ui.activity
 import android.os.Bundle
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+import com.google.android.material.navigation.NavigationBarView.LABEL_VISIBILITY_LABELED
+import com.google.android.material.navigation.NavigationBarView.LabelVisibility
 import com.nyssance.genos.R
+import com.nyssance.genos.databinding.ActivityTabBarBinding
 import genos.ui.activity.base.NavigationActivity
-import kotlinx.android.synthetic.main.activity_tab_bar.*
 
 abstract class TabBarActivity(
-        fragments: Map<Int, Fragment>,
-        index: Int = 0
-) : NavigationActivity(fragments, index, R.layout.activity_tab_bar) {
+    fragments: Map<Int, Fragment>,
+    default: Int = 0,
+    @LabelVisibility private val mode: Int = LABEL_VISIBILITY_LABELED
+) : NavigationActivity(fragments, default, R.layout.activity_tab_bar) {
+    private lateinit var binding: ActivityTabBarBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navigation.labelVisibilityMode = LABEL_VISIBILITY_LABELED
-        navigation.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
+        binding = ActivityTabBarBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.navigation.labelVisibilityMode = mode
+        binding.navigation.setOnItemSelectedListener(this::onNavigationItemSelected)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        navigation.selectedItemId = navigation.menu[index].itemId
+        binding.navigation.selectedItemId = binding.navigation.menu[default].itemId
     }
 }

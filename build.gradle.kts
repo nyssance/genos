@@ -19,20 +19,19 @@ buildscript {
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         google()
-        jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-alpha07")
-        classpath(kotlin("gradle-plugin", "1.4.0"))
-//        classpath("com.novoda:bintray-release:0.9.1")
+        classpath("com.android.tools.build:gradle:7.1.0")
+        classpath(kotlin("gradle-plugin", "1.6.10"))
     }
 }
 
 allprojects {
     repositories {
-        maven { url = uri("https://maven.aliyun.com/repository/google") }
-        maven { url = uri("https://maven.aliyun.com/repository/public") }
+//        maven { url = uri("https://maven.aliyun.com/repository/google") }
+//        maven { url = uri("https://maven.aliyun.com/repository/public") }
         google()
-        jcenter()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }

@@ -25,7 +25,7 @@ import com.orhanobut.logger.Logger
 import genos.extension.setImage
 
 open class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val views = LinkedHashMap<@IdRes Int, View>()
+    private val views = LinkedHashMap<Int, View>()
 
     fun <T : View> getView(@IdRes id: Int): T? {
         var view = views[id]

@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 # https://stackoverflow.com/questions/52818404/android-java-transition-migration-from-proguard-to-r8
--printconfiguration <your-path>/full-r8-config.txt
+-printconfiguration genos/full-r8-config.txt
 
 # [Glide](https://bumptech.github.io/glide/doc/download-setup.html#proguard)
 -keep public class * implements com.bumptech.glide.module.GlideModule

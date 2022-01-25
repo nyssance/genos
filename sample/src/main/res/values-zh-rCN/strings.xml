@@ -18,6 +18,4 @@
 
 <resources>
     <string name="app_name">Genos 示例</string>
-    <string name="user">用户</string>
-    <string name="users">用户</string>
 </resources>

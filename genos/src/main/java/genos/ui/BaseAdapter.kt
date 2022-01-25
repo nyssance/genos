@@ -29,8 +29,8 @@ interface Idable {
 
 class DiffCallback<T : Any> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T) =
-            if (this.javaClass is Idable) (oldItem as Idable).id == (newItem as Idable).id
-            else oldItem.toString() == newItem.toString()
+        if (this.javaClass is Idable) (oldItem as Idable).id == (newItem as Idable).id
+        else oldItem.toString() == newItem.toString()
 
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
@@ -62,7 +62,7 @@ abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder> : RecyclerView
         detailsLookup = object : ItemDetailsLookup<Long>() {
             override fun getItemDetails(e: MotionEvent): ItemDetails<Long>? {
                 recyclerView.findChildViewUnder(e.x, e.y)?.let {
-                    val position = recyclerView.getChildViewHolder(it).adapterPosition
+                    val position = recyclerView.getChildViewHolder(it).bindingAdapterPosition
                     return object : ItemDetails<Long>() {
                         override fun getPosition() = position
 

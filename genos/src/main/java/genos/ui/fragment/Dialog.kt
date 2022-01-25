@@ -24,19 +24,19 @@ import androidx.fragment.app.DialogFragment
 // Android https://developer.android.com/guide/topics/ui/dialogs
 
 class Dialog(
-        private val title: String,
-        private val message: String?,
-        private val action: ((DialogInterface, Int) -> Unit)?
+    private val title: String,
+    private val message: String?,
+    private val action: ((DialogInterface, Int) -> Unit)?
 ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?) = requireActivity().let {
         val builder = AlertDialog.Builder(it)
         builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok) { dialog, which ->
-                    action?.let {
-                        it(dialog, which)
-                    }
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                action?.let {
+                    it(dialog, which)
                 }
+            }
         action?.let {
             builder.setNegativeButton(android.R.string.cancel, null)
         }

@@ -23,43 +23,46 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
+import com.nyssance.genos.databinding.ActivityDrawerBinding
 import genos.ui.activity.base.NavigationActivity
-import kotlinx.android.synthetic.main.activity_drawer.*
 
 abstract class DrawerActivity(
-        fragments: Map<Int, Fragment>,
-        index: Int = 0
-) : NavigationActivity(fragments, index, R.layout.activity_drawer) {
-    protected lateinit var currentItem: MenuItem
+    fragments: Map<Int, Fragment>,
+    default: Int = 0
+) : NavigationActivity(fragments, default, R.layout.activity_drawer) {
+    private lateinit var binding: ActivityDrawerBinding
+    private lateinit var selectedItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityDrawerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val toggle = ActionBarDrawerToggle(
-                this,
-                drawer_layout,
-                navigationBar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
+            this,
+            binding.drawerLayout,
+            navigationBar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        navigation.setNavigationItemSelectedListener {
-            drawer_layout.closeDrawer(GravityCompat.START)
-            currentItem.isChecked = false
-            currentItem = it
-            currentItem.isChecked = true
+        binding.navigation.setNavigationItemSelectedListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            selectedItem.isChecked = false
+            selectedItem = it
+            it.isChecked = true
             onNavigationItemSelected(it)
         }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        currentItem = navigation.menu[index]
-        currentItem.isChecked = true
-        onNavigationItemSelected(currentItem)
+        selectedItem = binding.navigation.menu[default]
+        selectedItem.isChecked = true
+        onNavigationItemSelected(selectedItem)
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) drawer_layout.closeDrawer(GravityCompat.START) else super.onBackPressed()
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) binding.drawerLayout.closeDrawer(GravityCompat.START) else super.onBackPressed()
     }
 }

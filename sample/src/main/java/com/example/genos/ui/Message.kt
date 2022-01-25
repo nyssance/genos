@@ -16,11 +16,11 @@
 
 package com.example.genos.ui
 
-import genos.ui.fragment.PlaceholderFragment
-import genos.ui.fragment.ViewPagerFragment
+import genos.ui.fragment.Placeholder
+import genos.ui.fragment.ViewPager
 
-class Message : ViewPagerFragment(arrayListOf(
-        "tab 1" to PlaceholderFragment.instance("1"),
-        "tab 2" to PlaceholderFragment.instance("2"),
-        "tab 3" to PlaceholderFragment.instance("3")
+class Message : ViewPager(arrayListOf(
+        "tab 1" to Placeholder.instance("1"),
+        "tab 2" to Placeholder.instance("2"),
+        "tab 3" to Placeholder.instance("3")
 ))

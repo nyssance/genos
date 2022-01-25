@@ -43,19 +43,19 @@ class WebActivity : BaseActivity(R.layout.activity_app_bar) {
     }
     private val agentWeb by lazy {
         AgentWeb.with(this)
-                .setAgentWebParent(findViewById(R.id.container_for_add), ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
-                .useDefaultIndicator(ContextCompat.getColor(this, R.color.colorAccent))
-//                .setWebView(getWebView())
-                .setWebChromeClient(webChromeClient)
-                .setWebViewClient(webViewClient)
-                .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
-                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK) // 打开其他应用时，弹窗咨询用户是否前往其他应用
-//                .setPermissionInterceptor(getPermissionInterceptor())
-                .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
-                .interceptUnkownUrl() // 拦截找不到相关页面的Scheme
-                .createAgentWeb()
-                .ready()
-                .go(url)
+            .setAgentWebParent(findViewById(R.id.container_for_add), ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+            .useDefaultIndicator(ContextCompat.getColor(this, R.color.colorPrimaryVariant))
+//            .setWebView(getWebView())
+            .setWebChromeClient(webChromeClient)
+            .setWebViewClient(webViewClient)
+            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
+            .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK) // 打开其他应用时，弹窗咨询用户是否前往其他应
+//            .setPermissionInterceptor(getPermissionInterceptor())
+            .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
+            .interceptUnkownUrl() // 拦截找不到相关页面的Scheme
+            .createAgentWeb()
+            .ready()
+            .go(url)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

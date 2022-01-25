@@ -35,23 +35,23 @@ import java.io.IOException
 import java.util.*
 
 fun retrofit(
-        baseUrl: String,
-        converter: Converter.Factory = GsonConverterFactory.create(
-                GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()
-        ),
-        interceptor: Interceptor = object : Interceptor {
-            @Throws(IOException::class)
-            override fun intercept(chain: Interceptor.Chain): Response {
-                // OkHttp自动增加了Content-Length和Content-Type
-                val builder = chain.request().newBuilder()
-                        .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
-                        .header("App-Scheme", APP_SCHEME)
-                if (AUTH_TOKEN.isNotBlank()) {
-                    builder.header(AUTH_HEADER, "$AUTH_PREFIX $AUTH_TOKEN")
-                }
-                val request = builder.build()
-                // 发送数据的时候GZip压缩 https://square.github.io/okhttp/interceptors
-                if (request.body() == null || !request.header("Content-Encoding").isNullOrBlank()) {
+    baseUrl: String,
+    converter: Converter.Factory = GsonConverterFactory.create(
+        GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create()
+    ),
+    interceptor: Interceptor = object : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            // OkHttp自动增加了Content-Length和Content-Type
+            val builder = chain.request().newBuilder()
+                .header("Accept-Language", Locale.getDefault().toString().replace("_", "-"))
+                .header("App-Scheme", APP_SCHEME)
+            if (AUTH_TOKEN.isNotBlank()) {
+                builder.header(AUTH_HEADER, "$AUTH_PREFIX $AUTH_TOKEN")
+            }
+            val request = builder.build()
+            // 发送数据的时候GZip压缩 https://square.github.io/okhttp/interceptors
+            if (request.body() == null || !request.header("Content-Encoding").isNullOrBlank()) {
 //                                        val response = chain.proceed(request)
 //                                        val cacheControl = request.cacheControl().toString()
 //                                        cacheControl.ifBlank {
@@ -61,28 +61,28 @@ fun retrofit(
 //                                                .header("Cache-Control", cacheControl)
 //                                                .removeHeader("Pragma")
 //                                                .build()
-                    return chain.proceed(request)
-                }
-                val compressedRequest = request.newBuilder()
-                        .header("Content-Encoding", "gzip")
-                        .method(request.method(), gzip(request.body()!!))
-                        .build()
-                return chain.proceed(compressedRequest)
+                return chain.proceed(request)
             }
+            val compressedRequest = request.newBuilder()
+                .header("Content-Encoding", "gzip")
+                .method(request.method(), gzip(request.body()!!))
+                .build()
+            return chain.proceed(compressedRequest)
+        }
 
-            private fun gzip(body: RequestBody) = object : RequestBody() {
-                override fun contentType() = body.contentType()
+        private fun gzip(body: RequestBody) = object : RequestBody() {
+            override fun contentType() = body.contentType()
 
-                override fun contentLength() = -1L
+            override fun contentLength() = -1L
 
-                @Throws(IOException::class)
-                override fun writeTo(sink: BufferedSink) {
-                    val gzipSink = Okio.buffer(GzipSink(sink))
-                    body.writeTo(gzipSink)
-                    gzipSink.close()
-                }
+            @Throws(IOException::class)
+            override fun writeTo(sink: BufferedSink) {
+                val gzipSink = Okio.buffer(GzipSink(sink))
+                body.writeTo(gzipSink)
+                gzipSink.close()
             }
         }
+    }
 ): Retrofit {
 //    Environment.getExternalStorageState()
 //     val SIZE_OF_CACHE = 10L * 1024 * 1024 // 10 MiB
@@ -91,8 +91,8 @@ fun retrofit(
     val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
     //      .cache(cache)
     return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .callFactory(client) // 官方建议使用callFactory而不使用client方法
-            .addConverterFactory(converter)
-            .build()
+        .baseUrl(baseUrl)
+        .callFactory(client) // 官方建议使用callFactory而不使用client方法
+        .addConverterFactory(converter)
+        .build()
 }

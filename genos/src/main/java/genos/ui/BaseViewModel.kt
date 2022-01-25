@@ -26,7 +26,7 @@ open class BaseViewModel<D : Any> : ViewModel() {
     var data: MutableLiveData<D> = MutableLiveData()
     var repo: IRepository<D> = HttpRepository()
 
-    fun loadData(call: Call<D>, success: (Int) -> Unit, failure: (Int, String) -> Unit) {
+    fun loadData(call: Call<out D>, success: (Int) -> Unit, failure: (Int, String) -> Unit) {
         data = repo.getData(call, data, success, failure)
     }
 }

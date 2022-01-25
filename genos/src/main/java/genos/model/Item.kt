@@ -22,17 +22,17 @@ import androidx.annotation.StringRes
 import androidx.collection.SimpleArrayMap
 
 open class Item constructor(
-        context: Context?,
-        @StringRes id: Int,
-        name: String? = null,
-        icon: Any? = null,
-        title: String? = null,
-        subtitle: String? = null,
-        val destination: Class<out Activity>? = null,
-        link: String? = null,
-        enabled: Boolean = false,
-        val choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
-        val isSection: Boolean = false
+    context: Context?,
+    @StringRes id: Int,
+    name: String? = null,
+    icon: Any? = null,
+    title: String? = null,
+    subtitle: String? = null,
+    val destination: Class<out Activity>? = null,
+    link: String? = null,
+    enabled: Boolean = false,
+    val choices: SimpleArrayMap<String, String> = SimpleArrayMap(),
+    val isSection: Boolean = false
 ) : BaseItem(context, id, name, icon, title, subtitle, enabled) {
     var link: String? = null
         set(value) {

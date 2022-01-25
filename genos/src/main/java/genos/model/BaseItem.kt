@@ -20,13 +20,13 @@ import android.content.Context
 import androidx.annotation.StringRes
 
 abstract class BaseItem constructor(
-        context: Context?,
-        @StringRes val id: Int,
-        name: String? = null,
-        val icon: Any? = null,
-        title: String? = null,
-        val subtitle: String? = null,
-        var enabled: Boolean = false
+    context: Context?,
+    @StringRes val id: Int,
+    name: String? = null,
+    val icon: Any? = null,
+    title: String? = null,
+    val subtitle: String? = null,
+    var enabled: Boolean = false
 ) {
     val name: String = name ?: context?.resources?.getResourceEntryName(id) ?: ""
     val title = title ?: context?.getString(id) ?: ""

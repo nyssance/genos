@@ -25,7 +25,7 @@ import com.nyssance.genos.R
 import genos.Global.LIST_START_PAGE
 
 abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(
-        val spanCount: Int
+    val spanCount: Int
 ) : RecyclerViewFragment<D, T, VH>() {
     protected var page = LIST_START_PAGE
 
@@ -35,14 +35,15 @@ abstract class ListFragment<D : Any, T : Any, VH : RecyclerView.ViewHolder>(
 
     protected open fun hasPrevious() = page > LIST_START_PAGE
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState)?.apply {
-        // SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
-        findViewById<NestedScrollView>(R.id.nested)?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
-            if (scrollY == listView.measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
-                loadMore()
-            }
-        })
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        super.onCreateView(inflater, container, savedInstanceState).apply {
+            // SO https://stackoverflow.com/questions/39894792/recyclerview-scrolllistener-inside-nestedscrollview#41262612
+            findViewById<NestedScrollView>(R.id.nested)?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+                if (scrollY == listView.measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
+                    loadMore()
+                }
+            })
+        }
 
     override fun onDataLoadFailure(status: Int, message: String) {
         super.onDataLoadFailure(status, message)

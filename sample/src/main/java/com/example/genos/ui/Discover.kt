@@ -16,31 +16,34 @@
 
 package com.example.genos.ui
 
-//import androidx.ui.core.Alignment.Companion.CenterVertically
-//import androidx.ui.core.Modifier
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Recomposer
-import androidx.compose.ui.graphics.ImageAsset
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.platform.ComposeView
 import com.example.genos.R
 import com.example.genos.model.User
 import genos.extension.showActionSheet
 import genos.model.Item
 import genos.ui.fragment.generic.Detail
 
-class Discover : Detail<User>() {
+class Discover : Detail<User>(0) {
+
     override fun onCreate(intent: Intent, id: String) {}
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-            super.onCreateView(inflater, container, savedInstanceState).apply {
-                (this as ViewGroup).setContent(Recomposer.current()) {
-                    Discover("Android")
-                }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+//                setViewCompositionStrategy(DisposeOnLifecycleDestroyed(viewLifecycleOwner))
+                Discover("Android")
             }
+        }
+    }
 
     override fun onDisplay(data: User) {
         showActionSheet("aaa", arrayListOf(Item(context, R.string.home, "1", "2"))) {}
@@ -49,44 +52,22 @@ class Discover : Detail<User>() {
 
 @Composable
 fun Discover(name: String) {
-    TableView(items)
+    Card {
+//        var expanded by remember { mutableStateOf(false) }
+//        Column(Modifier.clickable { expanded = !expanded }) {
+//            Image(painterResource(R.drawable.ic_check))
+//            AnimatedVisibility(expanded) {
+                Text(
+                    text=name,
+                    style = MaterialTheme.typography.h2
+                )
+//            }
+//        }
+    }
 }
 
 val items = mapOf(
-        "Android" to listOf("Jetpack Compose", "Kotlin", "Jetpack"),
-        "Programming" to listOf("Kotlin", "Declarative UIs", "Java"),
-        "Technology" to listOf("Pixel", "Google")
+    "Android" to listOf("Jetpack Compose", "Kotlin", "Jetpack"),
+    "Programming" to listOf("Kotlin", "Declarative UIs", "Java"),
+    "Technology" to listOf("Pixel", "Google")
 )
-
-@Composable
-private fun TableView(items: Map<String, List<String>>) {
-//    VerticalScroller {
-//        Column {
-//            items.forEach { (section, topics) ->
-//                Text(section, Modifier.padding(16.dp), style = MaterialTheme.typography.subtitle1)
-//                topics.forEach {
-//                    ListItem(imageResource(R.drawable.placeholder_1_1), it)
-//                    Divider(Modifier.padding(72.dp, 8.dp, 0.dp, 8.dp), MaterialTheme.colors.surface.copy(0.08f))
-//                }
-//            }
-//        }
-//    }
-}
-
-@Composable
-private fun ListItem(icon: ImageAsset?, title: String, subtitle: String = "") {
-    val onSelected = { it: Boolean ->
-    }
-//    Toggleable(true, onSelected, modifier = Modifier.ripple()) {
-//        Row(Modifier.padding(start = 16.dp, end = 16.dp)) {
-//            icon?.let {
-//                Image(it, Modifier.gravity(CenterVertically).preferredSize(56.dp, 56.dp).clip(RoundedCornerShape(4.dp)))
-//            }
-//            Text(title, Modifier.weight(1f).gravity(CenterVertically).padding(16.dp), style = MaterialTheme.typography.subtitle1)
-////            SelectTopicButton(
-////                    modifier = Modifier.gravity(CenterVertically),
-////                    selected = selected
-////            )
-//        }
-//    }
-}

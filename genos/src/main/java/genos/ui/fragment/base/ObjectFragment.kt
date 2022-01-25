@@ -16,9 +16,10 @@
 
 package genos.ui.fragment.base
 
+import androidx.annotation.LayoutRes
 import com.nyssance.genos.R
 
-abstract class ObjectFragment<D : Any>(contentLayoutId: Int) : LoaderFragment<D>(contentLayoutId) {
+abstract class ObjectFragment<D : Any>(@LayoutRes contentLayoutId: Int) : LoaderFragment<D>(contentLayoutId) {
     protected var data: D? = null
 
     override fun onDataChanged(data: D) {

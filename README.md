@@ -1,7 +1,6 @@
 # Genos
 
 [![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg)](https://bintray.com/nyssance/maven/genos/_latestVersion)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://opensource.org/licenses/Apache-2.0)
 
 👊 Genos makes it very easy to build better mobile apps more quickly and with less code.
 For more information please see [the website][genos].
@@ -95,53 +94,53 @@ genos
 ├── Global.kt                               Global config.
 ├── Helper.kt
 ├── extension
-│   ├── Fragment+Extension.kt
-│   ├── ImageView+Extension.kt
-│   └── String+Extension.kt
+│         ├── Fragment+Extension.kt
+│         ├── ImageView+Extension.kt
+│         └── String+Extension.kt
 ├── model
-│   ├── BaseItem.kt
-│   └── Item.kt
+│         ├── BaseItem.kt
+│         └── Item.kt
 ├── repository
-│   ├── HttpRepository.kt                   Default http repository.
-│   ├── HttpUtil.kt
-│   ├── IRepository.kt
-│   ├── NetworkState.kt
-│   └── Status.kt
+│         ├── HttpRepository.kt                   Default http repository.
+│         ├── HttpUtil.kt
+│         ├── IRepository.kt
+│         ├── NetworkState.kt
+│         └── Status.kt
 ├── ui
-│   ├── BaseAdapter.kt                      Default Adapter for list fragment.
-│   ├── BaseViewModel.kt                    Default ViewModel for list and detail fragment.
-│   ├── activity
-│   │   ├── AppBarActivity.kt               Activity with an app bar.
-│   │   ├── CollapsingActivity.kt           Activity with a collapsing app bar.
-│   │   ├── DrawerActivity.kt               Activity with drawer.
-│   │   ├── TabBarActivity.kt               Activity with bottom navigation.
-│   │   ├── WebActivity.kt
-│   │   ├── base                            Design your activity by extends activity in base.
-│   │   │   ├── BaseActivity.kt
-│   │   │   ├── ContainerActivity.kt
-│   │   │   └── NavigationActivity.kt
-│   ├── fragment
-│   │   ├── ActionSheet.kt
-│   │   ├── Dialog.kt
-│   │   ├── PlaceholderFragment.kt
-│   │   ├── ViewPagerFragment.kt            Fragment with a view pager.
-│   │   ├── base                            Design your fragment by extends fragment in base.
-│   │   │   ├── BaseFragment.kt
-│   │   │   ├── ListFragment.kt
-│   │   │   ├── LoaderFragment.kt
-│   │   │   ├── ObjectFragment.kt
-│   │   │   └── RecyclerViewFragment.kt
-│   │   └── generic
-│   │       ├── Detail.kt                   Fragment for detail.
-│   │       ├── GridViewList.kt             Fragment with a grid layout, user for grid list.
-│   │       ├── List.kt                     Fragment with a linear layout, use for stand list, one item per line.
-│   │       ├── StaggeredGridViewList.kt    Fragment with a staggered grid layout, use for waterfall list.
-│   │       └── TableViewDetail.kt
-│   └── viewholder
-│       ├── BaseHolder.kt                   Base holder.
-│       └── Holder.kt                       A holder with icon, title, subtitle, accessory.
+│         ├── BaseAdapter.kt                      Default Adapter for list fragment.
+│         ├── BaseViewModel.kt                    Default ViewModel for list and detail fragment.
+│         ├── activity
+│         │         ├── AppBarActivity.kt               Activity with an app bar.
+│         │         ├── CollapsingActivity.kt           Activity with a collapsing app bar.
+│         │         ├── DrawerActivity.kt               Activity with drawer.
+│         │         ├── TabBarActivity.kt               Activity with bottom navigation.
+│         │         ├── WebActivity.kt
+│         │         ├── base                            Design your activity by extends activity in base.
+│         │         │      ├── BaseActivity.kt
+│         │         │      ├── ContainerActivity.kt
+│         │         │      └── NavigationActivity.kt
+│         ├── fragment
+│         │         ├── ActionSheet.kt
+│         │         ├── Dialog.kt
+│         │         ├── PlaceholderFragment.kt
+│         │         ├── ViewPagerFragment.kt            Fragment with a view pager.
+│         │         ├── base                            Design your fragment by extends fragment in base.
+│         │         │         ├── BaseFragment.kt
+│         │         │         ├── ListFragment.kt
+│         │         │         ├── LoaderFragment.kt
+│         │         │         ├── ObjectFragment.kt
+│         │         │         └── RecyclerViewFragment.kt
+│         │         └── generic
+│         │             ├── Detail.kt                   Fragment for detail.
+│         │             ├── GridViewList.kt             Fragment with a grid layout, user for grid list.
+│         │             ├── List.kt                     Fragment with a linear layout, use for stand list, one item per line.
+│         │             ├── StaggeredGridViewList.kt    Fragment with a staggered grid layout, use for waterfall list.
+│         │             └── TableViewDetail.kt
+│         └── viewholder
+│             ├── BaseHolder.kt                   Base holder.
+│             └── Holder.kt                       A holder with icon, title, subtitle, accessory.
 └── vendor
-    └── Retrofit.kt
+          └── Retrofit.kt
 ```
 
 ## Syntactic sugar
@@ -156,11 +155,9 @@ genos
 - [Retrofit][retrofit]
 - [AgentWeb](https://github.com/Justson/AgentWeb)
 
-Special thanks [bintray-release](https://github.com/novoda/bintray-release), who save my life.
-
 ## License
 
-Genos is released under the Apache license. [See LICENSE](https://github.com/nyssance/genos/blob/master/LICENSE) for details.
+Genos is released under the GPLv3 license. [See LICENSE](https://github.com/nyssance/genos/blob/main/LICENSE) for details.
 
 [genos]: https://nyssance.github.io/genos/
 [retrofit]: https://square.github.io/retrofit/

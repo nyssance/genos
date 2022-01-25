@@ -1,4 +1,4 @@
-# https://github.com/github/gitignore/blob/master/Android.gitignore
+# https://github.com/github/gitignore/blob/main/Android.gitignore
 # Built application files
 *.apk
 *.ap_
@@ -81,7 +81,7 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-# https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
+# https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General
 .DS_Store
 .AppleDouble

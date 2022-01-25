@@ -53,7 +53,7 @@ fun Fragment.navigateTo(link: String, title: String = "") {
                     "about", "credits", "discards", "help",
                     "settings", "system", "profile", "version" -> host
                     else -> "${host.singularize()}${if (uri.path.orEmpty().isBlank()) "List" else "Detail"}"
-                }.capitalize(Locale.ENGLISH)
+                }.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() }
                 try {
                     navigateTo(Intent(context, Class.forName("${context?.packageName}.ui.${name}Activity")).apply {
                         data = uri

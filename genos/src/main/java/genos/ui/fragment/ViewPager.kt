@@ -24,21 +24,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nyssance.genos.R
-import kotlinx.android.synthetic.main.fragment_view_pager.*
 
-abstract class ViewPagerFragment(
-        private val fragments: ArrayList<Pair<String, Fragment>>,
-        private val orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL
+abstract class ViewPager(
+    private val fragments: ArrayList<Pair<String, Fragment>>,
+    private val orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL
 ) : Fragment(R.layout.fragment_view_pager) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view_pager.orientation = orientation
-        view_pager.adapter = object : FragmentStateAdapter(requireActivity()) {
+        val viewPager = view.findViewById<ViewPager2>(R.id.view_pager)
+        viewPager.orientation = orientation
+        viewPager.adapter = object : FragmentStateAdapter(requireActivity()) {
             override fun getItemCount() = fragments.size
 
             override fun createFragment(position: Int) = fragments[position].component2()
         }
         view.findViewById<TabLayout>(android.R.id.tabs)?.let {
-            TabLayoutMediator(it, view_pager) { tab, position ->
+            TabLayoutMediator(it, viewPager) { tab, position ->
                 tab.text = fragments[position].component1()
             }.attach()
         }

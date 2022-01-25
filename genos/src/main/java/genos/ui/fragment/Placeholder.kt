@@ -18,15 +18,15 @@ package genos.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.nyssance.genos.R
-import kotlinx.android.synthetic.main.fragment_placeholder.*
 
-class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
+class Placeholder : Fragment(R.layout.fragment_placeholder) {
     companion object {
         const val ARG_SECTION_TEXT = "section_text"
 
-        fun instance(text: String = "") = PlaceholderFragment().apply {
+        fun instance(text: String = "") = Placeholder().apply {
             val args = Bundle()
             args.putString(ARG_SECTION_TEXT, text)
             arguments = args
@@ -35,7 +35,7 @@ class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.apply {
-            text1.text = getString(ARG_SECTION_TEXT)
+            view.findViewById<TextView>(android.R.id.text1).text = getString(ARG_SECTION_TEXT)
         }
     }
 }

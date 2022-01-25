@@ -20,10 +20,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.foundation.Text
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Recomposer
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.platform.ComposeView
 import com.example.genos.API
 import com.example.genos.R
 import com.example.genos.model.User
@@ -36,11 +36,11 @@ class UserDetail : Detail<User>() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-            super.onCreateView(inflater, container, savedInstanceState).apply {
-                (this as ViewGroup).setContent(Recomposer.current()) {
-                    UserDetail(getString(R.string.large_text))
-                }
+        ComposeView(requireContext()).apply {
+            setContent {
+                UserDetail(getString(R.string.large_text))
             }
+        }
 
     override fun onDisplay(data: User) {
         (activity as UserDetailActivity).collapsingToolbar?.title = data.username
@@ -53,5 +53,7 @@ class UserDetailActivity : CollapsingActivity() {
 
 @Composable
 fun UserDetail(name: String) {
-    Text(name)
+    MaterialTheme {
+        Text(name)
+    }
 }
