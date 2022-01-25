@@ -42,20 +42,21 @@ abstract class TableViewDetail<D : Any, T : Item, VH : RecyclerView.ViewHolder> 
         listViewStyle = ListViewStyle.Grouped
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState).apply {
-        // SO https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
-        val attrs = context?.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
-        val divider = attrs?.getDrawable(0)
-        val inset = resources.getDimensionPixelSize(R.dimen.start_keyline)
-        val insetDivider = InsetDrawable(divider, 0, 0, 0, 0)
-        attrs?.recycle()
-        val layoutManager = LinearLayoutManager(context)
-        val decor = DividerItemDecoration(context, layoutManager.orientation)
-        decor.setDrawable(insetDivider)
-        listView.addItemDecoration(decor)
-        listView.layoutManager = layoutManager
-        listView.setHasFixedSize(true)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        super.onCreateView(inflater, container, savedInstanceState).apply {
+            // SO https://stackoverflow.com/questions/41546983/add-margins-to-divider-in-recyclerview#47988965
+            val attrs = context?.obtainStyledAttributes(intArrayOf(android.R.attr.listDivider))
+            val divider = attrs?.getDrawable(0)
+            val inset = resources.getDimensionPixelSize(R.dimen.start_keyline)
+            val insetDivider = InsetDrawable(divider, 0, 0, 0, 0)
+            attrs?.recycle()
+            val layoutManager = LinearLayoutManager(context)
+            val decor = DividerItemDecoration(context, layoutManager.orientation)
+            decor.setDrawable(insetDivider)
+            listView.addItemDecoration(decor)
+            listView.layoutManager = layoutManager
+            listView.setHasFixedSize(true)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -16,13 +16,11 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-parcelize")
     kotlin("android")
     kotlin("kapt")
 }
 
 kapt {
-    useBuildCache = true
     javacOptions {
         option("-Xmaxerrs", 500)
     }
@@ -33,6 +31,8 @@ android {
     defaultConfig {
         minSdk = 27
         targetSdk = 32
+//        versionCode = 200
+//        versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

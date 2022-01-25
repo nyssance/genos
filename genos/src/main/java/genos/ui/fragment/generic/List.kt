@@ -24,9 +24,10 @@ import androidx.recyclerview.widget.RecyclerView
 import genos.ui.fragment.base.ListFragment
 
 abstract class List<T : Any, VH : RecyclerView.ViewHolder> : ListFragment<kotlin.collections.List<T>, T, VH>(1) {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = super.onCreateView(inflater, container, savedInstanceState).apply {
-        listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        super.onCreateView(inflater, container, savedInstanceState).apply {
+            listView.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        }
 
     final override fun transformListFromData(data: kotlin.collections.List<T>) = data
 }
