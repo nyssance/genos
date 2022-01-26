@@ -19,6 +19,7 @@ buildscript {
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         google()
+        mavenCentral()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.1.0")
@@ -28,10 +29,12 @@ buildscript {
 
 allprojects {
     repositories {
-//        maven { url = uri("https://maven.aliyun.com/repository/google") }
-//        maven { url = uri("https://maven.aliyun.com/repository/public") }
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
     }
+}
+
+tasks.register("clean",Delete::class){
+    delete(rootProject.buildDir)
 }
