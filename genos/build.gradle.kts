@@ -18,16 +18,19 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
-//    `maven-publish`
     id("maven-publish")
 }
 
-group = "com.nyssance.genos"
-version = "2.0.0-alpha05"
-
-kapt {
-    javacOptions {
-        option("-Xmaxerrs", 500)
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.nyssance.genos"
+                artifactId = "genos"
+                version = "2.0.0-alpha06"
+            }
+        }
     }
 }
 
@@ -36,8 +39,6 @@ android {
     defaultConfig {
         minSdk = 27
         targetSdk = 32
-//        versionCode = 200
-//        versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -105,17 +106,4 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
-                groupId = "com.nyssance.genos"
-                artifactId = "genos"
-                version = "2.0.0-alpha05"
-            }
-        }
-    }
 }
