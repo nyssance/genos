@@ -28,7 +28,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.nyssance.genos"
                 artifactId = "genos"
-                version = "2.0.0-alpha07"
+                version = "2.0.0-alpha08"
             }
         }
     }
@@ -50,8 +50,8 @@ android {
     }
     buildFeatures.viewBinding = true
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -105,5 +105,5 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
 }
