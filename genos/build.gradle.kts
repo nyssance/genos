@@ -28,7 +28,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.nyssance.genos"
                 artifactId = "genos"
-                version = "2.0.0-alpha08"
+                version = "2.0.0-alpha09"
             }
         }
     }
