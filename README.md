@@ -1,11 +1,11 @@
 # Genos
 
-[![Download](https://api.bintray.com/packages/nyssance/maven/genos/images/download.svg)](https://bintray.com/nyssance/maven/genos/_latestVersion)
+[![Release](https://jitpack.io/v/nyssance/genos.svg)](https://jitpack.io/#nyssance/genos)
 
 👊 Genos makes it very easy to build better mobile apps more quickly and with less code.
 For more information please see [the website][genos].
 
-[Genos for iOS](https://github.com/nyssance/GenosSwift)
+- [Genos for iOS](https://github.com/nyssance/GenosSwift)
 
 - [Genos Samples](https://github.com/nyssance/genos-samples)
 
@@ -13,16 +13,38 @@ For more information please see [the website][genos].
 
 ## Installation
 
-### build.gradle
+### root build.gradle
+
+```groovy
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
 
 ```groovy
 implementation 'com.nyssance.genos:genos:2.0.0'
 ```
 
-### build.gradle.kts
+### root build.gradle.kts
 
 ```kotlin
-implementation("com.nyssance.genos:genos:2.0.0")
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+```kotlin
+dependencies {
+    implementation("com.nyssance.genos:genos:2.0.0")
+}
 ```
 
 ## Features
@@ -34,8 +56,8 @@ Genos integrate google architecture. just use. if your need learn more info abou
 - Activity just as an container, include app bar and drawer/bottom navigation, and one fragment or more.
 - Fragment have two type: list and detail.
   - list for REST list api, like <https://www.yourdomain.com/api/v1/users/,> list include default `listView`, `adapter`
-  - detail for REST detail api, like <https://www.yourdomain,com/api/v1/users/{:user_id}/>
-  - call in fragment is a call of it, it's a [Retrofit][retrofit] call
+  - detail for REST detail api, like <https://www.yourdomain,com/api/v1/users/{:id}/>
+  - call in fragment is a call of it, it's a [Retrofit] call
 - Repository is for load data.
 - ViewModel is for bind data and view.
 
@@ -53,17 +75,23 @@ class UserList : List<User, Holder>() {
     }
 
     override fun onDisplayItem(item: User, viewHolder: Holder, viewType: Int) {
-        view.icon?.setImage(item.avatarUrl)
-        view.title?.text = item.username
+        with(viewHoloder) {
+            icon?.setImage(item.avatarUrl)
+            title?.text = item.username
+        }
     }
 
     override fun onOpenItem(item: User) {
         // StartActivity or do anything when click item.
     }
 }
+
+class UserListActivity : AppBarActivity() {
+    override fun onCreateFragment() = UserList()
+}
 ```
 
-Create a bottom navigation with three buttons, 10 lines.
+Create a bottom navigation with four buttons, 10 lines.
 
 ```kotlin
 // If you need a drawer navigation, use `MainActivity : DrawerActivity`
@@ -152,7 +180,7 @@ genos
 - [Android Jetpack](https://developer.android.com/jetpack)
 - [Glide](https://github.com/bumptech/glide)
 - [Logger](https://github.com/orhanobut/logger)
-- [Retrofit][retrofit]
+- [Retrofit]
 - [AgentWeb](https://github.com/Justson/AgentWeb)
 
 ## License
@@ -160,7 +188,6 @@ genos
 Genos is released under the GPLv3 license. [See LICENSE](https://github.com/nyssance/genos/blob/main/LICENSE) for details.
 
 [genos]: https://nyssance.github.io/genos/
-[retrofit]: https://square.github.io/retrofit/
+[Retrofit]: https://square.github.io/retrofit/
 [2]: https://search.maven.org/remote_content?g=com.nyssance.genos&a=genos&v=LATEST
 [10]: https://developer.android.com/studio/projects/create-project
-[synthetic exported]: https://youtrack.jetbrains.com/issue/KT-22430
