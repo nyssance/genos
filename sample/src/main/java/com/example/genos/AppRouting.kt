@@ -21,18 +21,19 @@ import genos.extension.routes
 
 fun router() { // singleTop的情况下标签切换无法起作用
     val home = "intent://home#Intent;scheme=genos-sample;package=com.example.genos;end"
+    val flag = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
     routes = setOf(
         "home" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = flag
         },
         "discover" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = flag
         },
         "message" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = flag
         },
         "me" to Intent.parseUri(home, Intent.URI_INTENT_SCHEME).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = flag
         }
     )
 }

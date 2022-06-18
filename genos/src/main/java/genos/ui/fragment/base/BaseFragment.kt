@@ -22,13 +22,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 
-abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), LifecycleObserver {
+abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), DefaultLifecycleObserver {
     // 💖 Lifecycle
-    // Android https://developer.android.com/guide/components/fragments#Lifecycle
+    // Android https://developer.android.com/guide/fragments/lifecycle
 
     // https://kotlinlang.org/docs/reference/classes.html
     // SO https://stackoverflow.com/questions/61306719/onactivitycreated-is-deprecated-how-to-properly-use-lifecycleobserver
@@ -38,17 +37,21 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super<Fragment>.onCreate(savedInstanceState)
         onCreate(requireActivity().intent)
     }
+
+//    override fun onDetach() {
+//        activity?.lifecycle?.removeObserver(this)
+//        super.onDetach()
+//    }
 
     /**
      * 初始化 call, tileId, setHasOptionsMenu
      */
     protected abstract fun onCreate(intent: Intent)
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    protected fun onCreated() {
+    override fun onCreate(owner: LifecycleOwner) {
         activity?.lifecycle?.removeObserver(this)
     }
 

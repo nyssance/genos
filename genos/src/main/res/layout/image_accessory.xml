@@ -17,7 +17,6 @@
   -->
 
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/accessory"
     android:layout_width="24dp"
     android:layout_height="24dp"

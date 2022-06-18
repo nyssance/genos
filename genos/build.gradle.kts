@@ -35,10 +35,10 @@ afterEvaluate {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
-        minSdk = 27
-        targetSdk = 32
+        minSdk = 28
+        targetSdk = 33
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -57,34 +57,32 @@ android {
 
 dependencies {
     // https://developer.android.com/jetpack/androidx/versions
-    val activityKTXVersion = "1.4.0"
-    val fragmentKTXVersion = "1.4.0"
     val recyclerviewSelectionVersion = "1.1.0"
     val swipeRefreshVersion = "1.1.0"
     // Vendor
-    val glideVersion = "4.12.0" // https://github.com/bumptech/glide
+    val glideVersion = "4.13.2" // https://github.com/bumptech/glide
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
     val retrofitVersion = "2.9.0" // https://square.github.io/retrofit/
     val agentWebVersion = "v5.0.0-alpha.1-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
-    api("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.7.0")
     // Android KTX https://developer.android.com/kotlin/ktx
-    api("androidx.core:core-ktx:1.7.0")
-    api("androidx.appcompat:appcompat:1.4.1")
-    api("androidx.activity:activity-ktx:$activityKTXVersion")
-    api("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    api("androidx.core:core-ktx:1.8.0")
+    api("androidx.appcompat:appcompat:1.4.2")
+    api("androidx.activity:activity-ktx:1.4.0")
+    api("androidx.fragment:fragment-ktx:1.4.1")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     //
-    api("androidx.preference:preference:1.1.1")
+    api("androidx.preference:preference:1.2.0")
     // Material Components for Android https://material.io/develop/android/
-    api("com.google.android.material:material:1.5.0")
+    api("com.google.android.material:material:1.6.1")
     api("androidx.recyclerview:recyclerview-selection:$recyclerviewSelectionVersion")
     api("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
-    api("androidx.constraintlayout:constraintlayout:2.1.3")
+    api("androidx.constraintlayout:constraintlayout:2.1.4")
     // Paging, Work <https://developer.android.com/topic/libraries/architecture/adding-components>
-    api("androidx.paging:paging-runtime:3.1.0")
+    api("androidx.paging:paging-runtime:3.1.1")
     api("androidx.work:work-runtime-ktx:2.7.1")
     // Vendor
     api("com.github.bumptech.glide:glide:$glideVersion")

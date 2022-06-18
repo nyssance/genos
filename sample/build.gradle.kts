@@ -28,11 +28,11 @@ kapt {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.example.genos"
-        minSdk = 27
-        targetSdk = 32
+        minSdk = 28
+        targetSdk = 33
         versionCode = 200
         versionName = "2.0.0"
         vectorDrawables.useSupportLibrary = true
@@ -53,7 +53,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    composeOptions.kotlinCompilerExtensionVersion = "1.2.0-alpha01"
+    composeOptions.kotlinCompilerExtensionVersion = "1.2.0-beta02"
 //    kotlinOptions.useFir = true
     packagingOptions {
         resources {
@@ -64,7 +64,7 @@ android {
 
 dependencies {
     implementation(project(":genos"))
-    val composeVersion = "1.2.0-alpha01"
+    val composeVersion = "1.2.0-beta03"
     // Jetpack Compose https://developer.android.com/jetpack/compose/
     implementation("androidx.compose.animation:animation:$composeVersion")
     implementation("androidx.compose.foundation:foundation:$composeVersion")
