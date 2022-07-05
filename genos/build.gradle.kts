@@ -28,7 +28,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.nyssance.genos"
                 artifactId = "genos"
-                version = "2.0.0-alpha10"
+                version = "2.0.1"
             }
         }
     }
@@ -66,14 +66,14 @@ dependencies {
     val agentWebVersion = "v5.0.0-alpha.1-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0")
-    api("org.jetbrains.kotlin:kotlin-reflect:1.7.0")
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
     // Android KTX https://developer.android.com/kotlin/ktx
     api("androidx.core:core-ktx:1.8.0")
     api("androidx.appcompat:appcompat:1.4.2")
-    api("androidx.activity:activity-ktx:1.4.0")
-    api("androidx.fragment:fragment-ktx:1.4.1")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    api("androidx.activity:activity-ktx:1.5.0")
+    api("androidx.fragment:fragment-ktx:1.5.0")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0")
     //
     api("androidx.preference:preference:1.2.0")
     // Material Components for Android https://material.io/develop/android/

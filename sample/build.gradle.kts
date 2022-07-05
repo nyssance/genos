@@ -34,7 +34,7 @@ android {
         minSdk = 28
         targetSdk = 33
         versionCode = 200
-        versionName = "2.0.0"
+        versionName = "2.0.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,7 +53,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    composeOptions.kotlinCompilerExtensionVersion = "1.2.0-beta02"
+    composeOptions.kotlinCompilerExtensionVersion = "1.2.0-rc01"
 //    kotlinOptions.useFir = true
     packagingOptions {
         resources {
@@ -64,7 +64,7 @@ android {
 
 dependencies {
     implementation(project(":genos"))
-    val composeVersion = "1.2.0-beta03"
+    val composeVersion = "1.3.0-alpha01"
     // Jetpack Compose https://developer.android.com/jetpack/compose/
     implementation("androidx.compose.animation:animation:$composeVersion")
     implementation("androidx.compose.foundation:foundation:$composeVersion")
@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.activity:activity-compose:1.5.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
