@@ -21,9 +21,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import com.example.genos.R
@@ -52,18 +52,18 @@ class Discover : Detail<User>(0) {
 
 @Composable
 fun Discover(name: String) {
-    Card {
+//    Card {
 //        var expanded by remember { mutableStateOf(false) }
 //        Column(Modifier.clickable { expanded = !expanded }) {
 //            Image(painterResource(R.drawable.ic_check))
 //            AnimatedVisibility(expanded) {
                 Text(
                     text=name,
-                    style = MaterialTheme.typography.h2
+                    style = MaterialTheme.typography.headlineMedium
                 )
 //            }
 //        }
-    }
+//    }
 }
 
 val items = mapOf(

@@ -26,7 +26,7 @@ allprojects {
 ```
 
 ```groovy
-implementation 'com.nyssance.genos:genos:2.0.1'
+implementation 'com.nyssance.genos:genos:2.0.2'
 ```
 
 ### root build.gradle.kts
@@ -43,7 +43,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.nyssance.genos:genos:2.0.1")
+    implementation("com.nyssance.genos:genos:2.0.2")
 }
 ```
 

@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="BaseTheme" parent="Theme.Material3.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

@@ -22,7 +22,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.4.0-alpha07")
+        classpath("com.android.tools.build:gradle:7.4.0-alpha08")
         classpath(kotlin("gradle-plugin", "1.6.21"))
     }
 }
