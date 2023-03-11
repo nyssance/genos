@@ -27,7 +27,7 @@ import genos.model.Item
 import genos.ui.activity.WebActivity
 import genos.ui.fragment.ActionSheet
 import genos.ui.fragment.Dialog
-import java.util.*
+import java.util.Locale
 import java.util.regex.Pattern.CASE_INSENSITIVE
 import java.util.regex.Pattern.compile
 
@@ -52,6 +52,7 @@ fun Fragment.navigateTo(link: String, title: String = "") {
                     "" -> "version" // 仿Chrome, chrome://跳转到chrome://version
                     "about", "credits", "discards", "help",
                     "settings", "system", "profile", "version" -> host
+
                     else -> "${host.singularize()}${if (uri.path.orEmpty().isBlank()) "List" else "Detail"}"
                 }.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() }
                 try {
@@ -63,10 +64,12 @@ fun Fragment.navigateTo(link: String, title: String = "") {
                 }
             }
         }
+
         "https" -> navigateTo(Intent(context, WebActivity::class.java).apply {
             data = uri
             putExtra("title", title)
         })
+
         else -> showAlert("ERR_UNKNOWN_URL_SCHEME", link)
     }
 }

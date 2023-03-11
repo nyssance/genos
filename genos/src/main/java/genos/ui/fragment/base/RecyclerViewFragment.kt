@@ -17,7 +17,13 @@
 package genos.ui.fragment.base
 
 import android.os.Bundle
-import android.view.*
+import android.view.ActionMode
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewStub
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.selection.SelectionTracker
@@ -108,9 +114,11 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
                         })
                         //                    setMenuItemTitle(tracker.selection.size())
                     }
+
                     !tracker.hasSelection() && actionMode != null -> {
                         actionMode.finish()
                     }
+
                     else -> {
                         //                    setMenuItemTitle(tracker.selection.size())
                     }
@@ -158,10 +166,12 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
             }
             true
         }
+
         R.id.action_view_refresh -> {
             refresh()
             true
         }
+
         else -> false
     }
 

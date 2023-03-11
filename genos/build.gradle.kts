@@ -44,14 +44,17 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     buildFeatures.viewBinding = true
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_11
-//        targetCompatibility = JavaVersion.VERSION_11
-//    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     namespace = "com.nyssance.genos"
 }
 
@@ -103,5 +106,5 @@ dependencies {
 }
 
 //tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+//    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
 //}

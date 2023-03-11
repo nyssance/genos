@@ -26,12 +26,14 @@ import com.example.genos.ui.Message
 import genos.Global
 import genos.ui.activity.TabBarActivity
 
-class MainActivity : TabBarActivity(mapOf(
-    R.id.navigation_1 to Home(),
-    R.id.navigation_2 to Discover(),
-    R.id.navigation_3 to Message(),
-    R.id.navigation_4 to Me()
-)) {
+class MainActivity : TabBarActivity(
+    mapOf(
+        R.id.navigation_1 to Home(),
+        R.id.navigation_2 to Discover(),
+        R.id.navigation_3 to Message(),
+        R.id.navigation_4 to Me()
+    )
+) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(Global) {

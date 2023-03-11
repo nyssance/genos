@@ -93,6 +93,7 @@ class WebActivity : BaseActivity(R.layout.activity_app_bar) {
             startActivity(Intent.parseUri("intent://${href.last()}#Intent;scheme=${href.first()};action=android.intent.action.VIEW;end;", Intent.URI_INTENT_SCHEME))
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 }

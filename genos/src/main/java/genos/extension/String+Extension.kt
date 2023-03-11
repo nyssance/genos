@@ -16,7 +16,7 @@
 
 package genos.extension
 
-import java.util.*
+import java.util.Locale
 import java.util.regex.Pattern.CASE_INSENSITIVE
 import java.util.regex.Pattern.compile
 

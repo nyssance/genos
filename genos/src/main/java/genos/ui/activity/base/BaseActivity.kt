@@ -30,7 +30,7 @@ import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
 import genos.Helper
 import genos.extension.pluralize
-import java.util.*
+import java.util.Locale
 
 abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
     var collapsingToolbar: CollapsingToolbarLayout? = null
@@ -69,6 +69,7 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
             menuInflater.inflate(menuRes, menu)
             true
         }
+
         else -> super.onCreateOptionsMenu(menu)
     }
 
@@ -89,6 +90,7 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
             }
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 }

@@ -36,25 +36,28 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     buildFeatures {
         viewBinding = true
         compose = true
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
-//    kotlin {
-//        jvmToolchain(11)
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_17
+//        targetCompatibility = JavaVersion.VERSION_17
 //    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-//        useFir = true
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
+    kotlin {
+        jvmToolchain(17)
     }
+//    kotlinOptions {
+//        jvmTarget = "17"
+////        useFir = true
+//    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -86,7 +89,7 @@ dependencies {
 
 //tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 //    kotlinOptions {
-//        jvmTarget = JavaVersion.VERSION_11.toString()
+//        jvmTarget = JavaVersion.VERSION_17.toString()
 //        freeCompilerArgs = freeCompilerArgs + "-Xskip-prerelease-check"
 //    }
 //}

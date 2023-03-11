@@ -32,6 +32,7 @@ abstract class ObjectFragment<D : Any>(@LayoutRes contentLayoutId: Int) : Loader
             refresh()
             true
         }
+
         else -> false
     }
 }

@@ -19,8 +19,10 @@ package com.example.genos.ui
 import genos.ui.fragment.Placeholder
 import genos.ui.fragment.ViewPager
 
-class Message : ViewPager(arrayListOf(
+class Message : ViewPager(
+    arrayListOf(
         "tab 1" to Placeholder.instance("1"),
         "tab 2" to Placeholder.instance("2"),
         "tab 3" to Placeholder.instance("3")
-))
+    )
+)

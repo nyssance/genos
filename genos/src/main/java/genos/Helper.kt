@@ -17,7 +17,9 @@
 package genos
 
 import android.content.Context
-import android.os.Environment.*
+import android.os.Environment.MEDIA_MOUNTED
+import android.os.Environment.MEDIA_MOUNTED_READ_ONLY
+import android.os.Environment.getExternalStorageState
 import com.orhanobut.logger.Logger
 
 // NY - ContextCompat, ViewCompat里有很多版本兼容方法, 不用自己写

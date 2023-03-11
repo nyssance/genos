@@ -25,10 +25,13 @@ import genos.ui.viewholder.Holder
 
 class Me : TableViewDetail<User, Item, Holder>() {
     override fun onCreate(intent: Intent) {
-        items.addAll(listOf(
+        items.addAll(
+            listOf(
                 Item(context, R.string.home, link = "https://www.baidu.com"),
                 Item(context, R.string.help, link = "https://docs.wechatpy.org/zh_CN/stable/"),
                 Item(context, R.string.settings, link = "settings"),
-                Item(context, R.string.web)))
+                Item(context, R.string.web)
+            )
+        )
     }
 }
