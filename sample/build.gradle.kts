@@ -46,24 +46,16 @@ android {
         viewBinding = true
         compose = true
     }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_17
-//        targetCompatibility = JavaVersion.VERSION_17
-//    }
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
-    kotlin {
-        jvmToolchain(17)
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-//    kotlinOptions {
-//        jvmTarget = "17"
-////        useFir = true
-//    }
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    namespace = "com.example.genos"
 }
 
 dependencies {
@@ -86,10 +78,3 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
 }
-
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//    kotlinOptions {
-//        jvmTarget = JavaVersion.VERSION_17.toString()
-//        freeCompilerArgs = freeCompilerArgs + "-Xskip-prerelease-check"
-//    }
-//}

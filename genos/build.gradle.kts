@@ -34,6 +34,7 @@ afterEvaluate {
 }
 
 android {
+    namespace = "com.nyssance.genos"
     compileSdk = 33
     defaultConfig {
         minSdk = 28
@@ -51,11 +52,10 @@ android {
         }
     }
     buildFeatures.viewBinding = true
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    namespace = "com.nyssance.genos"
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_17
+//        targetCompatibility = JavaVersion.VERSION_17
+//    }
 }
 
 dependencies {
@@ -104,7 +104,3 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
 }
-
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
-//}
