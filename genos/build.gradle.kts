@@ -16,9 +16,8 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
     id("maven-publish")
+    kotlin("android")
 }
 
 afterEvaluate {
@@ -61,33 +60,33 @@ dependencies {
     val recyclerviewSelectionVersion = "1.1.0"
     val swipeRefreshVersion = "1.1.0"
     // Vendor
-    val glideVersion = "4.14.2" // https://github.com/bumptech/glide
+    val glideVersion = "4.15.0" // https://github.com/bumptech/glide
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
     val retrofitVersion = "2.9.0" // https://square.github.io/retrofit/
     val agentWebVersion = "v5.0.0-alpha.1-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21")
-    api("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
     // Android KTX https://developer.android.com/kotlin/ktx
     api("androidx.core:core-ktx:1.9.0")
-    api("androidx.appcompat:appcompat:1.5.1")
+    api("androidx.appcompat:appcompat:1.6.1")
     api("androidx.activity:activity-ktx:1.6.1")
-    api("androidx.fragment:fragment-ktx:1.5.4")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    api("androidx.fragment:fragment-ktx:1.5.5")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
     //
     api("androidx.preference:preference:1.2.0")
     // Material Components for Android https://m3.material.io
-    api("com.google.android.material:material:1.7.0")
+    api("com.google.android.material:material:1.8.0")
     api("androidx.recyclerview:recyclerview-selection:$recyclerviewSelectionVersion")
     api("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
     // Paging, Work <https://developer.android.com/topic/libraries/architecture/adding-components>
     api("androidx.paging:paging-runtime:3.1.1")
-    api("androidx.work:work-runtime-ktx:2.7.1")
+    api("androidx.work:work-runtime-ktx:2.8.0")
     // Vendor
     api("com.github.bumptech.glide:glide:$glideVersion")
-    kapt("com.github.bumptech.glide:compiler:$glideVersion")
+    annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
     api("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
     api("com.github.bumptech.glide:recyclerview-integration:$glideVersion") {
         isTransitive = false
@@ -100,9 +99,9 @@ dependencies {
     api("com.github.Justson:Downloader:v5.0.0-androidx")
     // Test https://developer.android.com/training/testing/set-up-project#gradle-dependencies
     androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.test:runner:1.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_18.toString()
-}
+//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+//    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+//}

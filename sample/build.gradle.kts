@@ -18,18 +18,10 @@ plugins {
     id("com.android.application")
     id("kotlin-parcelize")
     kotlin("android")
-    kotlin("kapt")
 }
-
-kapt {
-    javacOptions {
-        option("-Xmaxerrs", 500)
-    }
-}
-
-val composeVersion = "1.3.1"
 
 android {
+    namespace = "com.example.genos"
     compileSdk = 33
     defaultConfig {
         applicationId = "com.example.genos"
@@ -52,12 +44,18 @@ android {
         compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-    composeOptions.kotlinCompilerExtensionVersion = "1.3.2"
-//    kotlinOptions.useFir = true
-    packagingOptions {
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
+//    kotlin {
+//        jvmToolchain(11)
+//    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+//        useFir = true
+    }
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -67,27 +65,28 @@ android {
 
 dependencies {
     implementation(project(":genos"))
-    // Jetpack Compose https://developer.android.com/jetpack/compose/
-    implementation("androidx.compose.animation:animation:$composeVersion")
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha02")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.0-alpha02")
-    implementation("androidx.compose.runtime:runtime:$composeVersion")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    // Jetpack Compose https://developer.android.com/jetpack/compose/setup
+    val composeBom = platform("androidx.compose:compose-bom:2023.01.00")
+    val composeTestVersion = "1.3.3"
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation("androidx.compose.material3:material3:1.0.1")
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview:$composeTestVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeTestVersion")
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeTestVersion")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeTestVersion")
+    // Optional
     implementation("androidx.activity:activity-compose:1.6.1")
+    // Test
     androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.test:runner:1.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    androidTestImplementation("androidx.test:runner:1.5.2")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-        freeCompilerArgs = freeCompilerArgs + "-Xskip-prerelease-check"
-    }
-}
+//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+//    kotlinOptions {
+//        jvmTarget = JavaVersion.VERSION_11.toString()
+//        freeCompilerArgs = freeCompilerArgs + "-Xskip-prerelease-check"
+//    }
+//}

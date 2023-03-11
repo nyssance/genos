@@ -17,7 +17,6 @@
 package genos.repository
 
 import android.net.Uri
-import com.nyssance.genos.BuildConfig
 import com.orhanobut.logger.Logger
 import okhttp3.Request
 import retrofit2.Call
@@ -33,9 +32,9 @@ object HttpUtil {
                 val scheme = request.url().scheme()
                 val status = response.code()
                 val log = "${request.method()} ${getUrlString(request)} $status ${response.message()}\n\n"
-                if (BuildConfig.DEBUG) {
-                    log.plus("▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
-                }
+//                if (BuildConfig.DEBUG) {
+//                    log.plus("▼ Response Headers\n${response.headers()}\n▼ Request Headers\n${request.headers()}")
+//                }
                 if (response.isSuccessful) {
                     Logger.t(scheme).d("✅ $log")
                     success(status, response)
