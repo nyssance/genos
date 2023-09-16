@@ -68,9 +68,11 @@ class ActionSheet(
         }
         val list = view.findViewById<RecyclerView>(android.R.id.list)
         list.adapter = adapter
-        SelectionTracker.Builder("selection-id",
+        SelectionTracker.Builder(
+            "selection-id",
             list, adapter.keyProvider, adapter.detailsLookup,
-            StorageStrategy.createLongStorage())
+            StorageStrategy.createLongStorage()
+        )
             .withOnItemActivatedListener { item, _ ->
                 action(adapter.getItem(item.position))
                 true

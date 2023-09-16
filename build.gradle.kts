@@ -22,7 +22,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.0-alpha08")
+        classpath("com.android.tools.build:gradle:8.3.0-alpha04")
         classpath(kotlin("gradle-plugin", "1.8.10"))
     }
 }
@@ -36,5 +36,5 @@ allprojects {
 }
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    delete(layout.buildDirectory)
 }

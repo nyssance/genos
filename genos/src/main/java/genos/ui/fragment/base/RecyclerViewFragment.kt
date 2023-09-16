@@ -71,9 +71,11 @@ abstract class RecyclerViewFragment<D : Any, T : Any, VH : RecyclerView.ViewHold
         listView.adapter = adapter
         // SelectionTracker
         // Android https://developer.android.com/guide/topics/ui/layout/recyclerview
-        val tracker = SelectionTracker.Builder("selection-id",
+        val tracker = SelectionTracker.Builder(
+            "selection-id",
             listView, adapter.keyProvider, adapter.detailsLookup,
-            StorageStrategy.createLongStorage())
+            StorageStrategy.createLongStorage()
+        )
             .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Long>() {
                 override fun canSetStateForKey(key: Long, nextState: Boolean) = canSelectMultiple
 

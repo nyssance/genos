@@ -22,11 +22,11 @@ plugins {
 
 android {
     namespace = "com.example.genos"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.example.genos"
-        minSdk = 28
-        targetSdk = 33
+        minSdk = 30
+        targetSdk = 34
         versionCode = 202
         versionName = "2.0.2"
         vectorDrawables.useSupportLibrary = true
@@ -50,7 +50,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
+    composeOptions.kotlinCompilerExtensionVersion = "1.4.3"
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -61,11 +61,11 @@ android {
 dependencies {
     implementation(project(":genos"))
     // Jetpack Compose https://developer.android.com/jetpack/compose/setup
-    val composeBom = platform("androidx.compose:compose-bom:2023.01.00")
-    val composeTestVersion = "1.3.3"
+    val composeBom = platform("androidx.compose:compose-bom:2023.09.00")
+    val composeTestVersion = "1.5.1"
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation("androidx.compose.material3:material3:1.0.1")
+    implementation("androidx.compose.material3:material3:1.1.1")
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview:$composeTestVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeTestVersion")
@@ -73,7 +73,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeTestVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeTestVersion")
     // Optional
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation("androidx.activity:activity-compose:1.7.2")
     // Test
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")

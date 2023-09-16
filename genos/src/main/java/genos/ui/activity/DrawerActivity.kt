@@ -61,9 +61,4 @@ abstract class DrawerActivity(
         selectedItem.isChecked = true
         onNavigationItemSelected(selectedItem)
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) binding.drawerLayout.closeDrawer(GravityCompat.START) else super.onBackPressed()
-    }
 }
