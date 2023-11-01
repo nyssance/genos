@@ -19,12 +19,15 @@ package genos.ui.activity.base
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import androidx.core.app.TaskStackBuilder
+import androidx.core.view.MenuProvider
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.nyssance.genos.R
 import com.orhanobut.logger.Logger
@@ -36,7 +39,6 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
     var collapsingToolbar: CollapsingToolbarLayout? = null
     var navigationBar: Toolbar? = null
         protected set
-    private var menuRes = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,20 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         val name = className.removeSuffix("Activity")
             .replace("(.)(\\p{Upper})".toRegex(), "$1_$2")
             .lowercase(Locale.ENGLISH)
-        menuRes = Helper.getResId(this, name, "menu", false)
+        // 菜单
+        val menuRes = Helper.getResId(this, name, "menu", false)
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                when (menuRes) {
+                    in 1..Int.MAX_VALUE -> {
+                        menuInflater.inflate(menuRes, menu)
+                    }
+                    else -> Logger.e("menuRes out of bound.")
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = onMenuItemSelected(menuItem.itemId)
+        })
         // 可折叠顶栏
         collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         // 顶部导航栏
@@ -64,16 +79,7 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu) = when (menuRes) {
-        in 1..Int.MAX_VALUE -> {
-            menuInflater.inflate(menuRes, menu)
-            true
-        }
-
-        else -> super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    protected open fun onMenuItemSelected(itemId: Int) = when (itemId) {
         // SO https://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity#31350642
         android.R.id.home -> {
             NavUtils.getParentActivityIntent(this)?.let {
@@ -87,10 +93,12 @@ abstract class BaseActivity(@LayoutRes val contentLayoutId: Int) : AppCompatActi
                 }
             } ?: run {
                 onBackPressed() // 未手动添加 android:parentActivityName 的时候默认等同返回键
+//                onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+//                    override fun handleOnBackPressed() = Unit
+//                })
             }
             true
         }
-
-        else -> super.onOptionsItemSelected(item)
+        else -> false
     }
 }

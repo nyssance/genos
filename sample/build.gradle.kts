@@ -50,7 +50,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.3"
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.3"
+//    kotlinOptions.jvmTarget = "19"
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -61,19 +62,25 @@ android {
 dependencies {
     implementation(project(":genos"))
     // Jetpack Compose https://developer.android.com/jetpack/compose/setup
-    val composeBom = platform("androidx.compose:compose-bom:2023.09.00")
-    val composeTestVersion = "1.5.1"
+    val composeBom = platform("androidx.compose:compose-bom:2023.10.01")
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation("androidx.compose.material3:material3:1.1.1")
+    implementation("androidx.compose.material3:material3")
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeTestVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeTestVersion")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeTestVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeTestVersion")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation)
+    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material3:material3-window-size-class")
     // Optional
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // Test
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")

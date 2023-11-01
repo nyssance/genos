@@ -19,10 +19,15 @@ package genos.ui.fragment.base
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 
 abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(contentLayoutId), DefaultLifecycleObserver {
@@ -41,6 +46,17 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
         onCreate(requireActivity().intent)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                this@BaseFragment.onCreateMenu(menu, menuInflater)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = onPerform(menuItem.itemId)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
 //    override fun onDetach() {
 //        activity?.lifecycle?.removeObserver(this)
 //        super.onDetach()
@@ -55,7 +71,7 @@ abstract class BaseFragment(@LayoutRes val contentLayoutId: Int) : Fragment(cont
         activity?.lifecycle?.removeObserver(this)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = onPerform(item.itemId)
+    protected fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) = Unit
 
     protected abstract fun onPerform(action: Int): Boolean
 }

@@ -39,7 +39,7 @@ import genos.ui.fragment.generic.Detail
 
 class Discover : Detail<User>(0) {
 
-    override fun onCreate(intent: Intent, id: String) {}
+    override fun onCreate(intent: Intent, id: String) = Unit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {

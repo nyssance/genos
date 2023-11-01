@@ -76,7 +76,7 @@ abstract class LoaderFragment<D : Any>(@LayoutRes contentLayoutId: Int) : BaseFr
     // BaseViewModel<D>::class.java 不行
     protected open fun onCreateViewModel() = ViewModelProvider(this)[BaseViewModel::class.java]
 
-    protected open fun onViewModelCreated() {}
+    protected open fun onViewModelCreated() = Unit
 
     protected open fun onDataLoadSuccess(status: Int) {
         Logger.t(this::class.simpleName).d("onDataLoadSuccess status $status")

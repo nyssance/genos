@@ -86,14 +86,13 @@ class WebActivity : BaseActivity(R.layout.activity_app_bar) {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?) = if (agentWeb.handleKeyEvent(keyCode, event)) true else super.onKeyDown(keyCode, event)
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    override fun onMenuItemSelected(itemId: Int) = when (itemId) {
         R.id.action_open_in_browser -> {
             // <a href="intent://stackoverflow.com/questions/29250152/what-is-the-intent-to-launch-any-website-link-in-google-chrome#Intent;scheme=http;package=com.android.chrome;end">
             val href = url.split("://")
             startActivity(Intent.parseUri("intent://${href.last()}#Intent;scheme=${href.first()};action=android.intent.action.VIEW;end;", Intent.URI_INTENT_SCHEME))
             true
         }
-
-        else -> super.onOptionsItemSelected(item)
+        else -> super.onMenuItemSelected(itemId)
     }
 }
