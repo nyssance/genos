@@ -68,24 +68,24 @@ dependencies {
     val agentWebVersion = "v5.0.6-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
-    api("org.jetbrains.kotlin:kotlin-reflect:1.9.20")
+    api("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
     // Android KTX https://developer.android.com/kotlin/ktx
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
-    api("androidx.activity:activity-ktx:1.8.0")
-    api("androidx.fragment:fragment-ktx:1.6.1")
-    api("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    api("androidx.activity:activity-ktx:1.8.2")
+    api("androidx.fragment:fragment-ktx:1.6.2")
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     //
     api("androidx.preference:preference:1.2.1")
     // Material Components for Android https://m3.material.io
-    api("com.google.android.material:material:1.10.0")
+    api("com.google.android.material:material:1.11.0")
     api("androidx.recyclerview:recyclerview-selection:$recyclerviewSelectionVersion")
     api("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
     // Paging, Work <https://developer.android.com/topic/libraries/architecture/adding-components>
     api("androidx.paging:paging-runtime:3.2.1")
-    api("androidx.work:work-runtime-ktx:2.8.1")
+    api("androidx.work:work-runtime-ktx:2.9.0")
     // Vendor
     api("com.github.bumptech.glide:glide:$glideVersion")
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
