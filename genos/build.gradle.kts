@@ -64,12 +64,12 @@ dependencies {
     // Vendor
     val glideVersion = "4.16.0" // https://github.com/bumptech/glide
     val loggerVersion = "2.2.0" // https://github.com/orhanobut/logger
-    val retrofitVersion = "2.9.0" // https://square.github.io/retrofit/
+    val retrofitVersion = "2.10.0" // https://square.github.io/retrofit/
     val agentWebVersion = "v5.0.6-androidx" // https://github.com/Justson/AgentWeb
 
     // Kotlin
-    api("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
-    api("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
+    api("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.9.23")
     // Android KTX https://developer.android.com/kotlin/ktx
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
